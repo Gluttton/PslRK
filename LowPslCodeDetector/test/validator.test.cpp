@@ -38,7 +38,8 @@ TEST_F (ValidatorTest, Validate_00_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 2;
-    validator->code.u8 [0] = 0x00;
+    validator->code.u64 [0] = 0x00;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -61,7 +62,8 @@ TEST_F (ValidatorTest, Validate_10_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 2;
-    validator->code.u8 [0] = 0x02;
+    validator->code.u64 [0] = 0x02;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -84,7 +86,8 @@ TEST_F (ValidatorTest, Validate_001_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 3;
-    validator->code.u8 [0] = 0x01;
+    validator->code.u64 [0] = 0x01;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -107,7 +110,8 @@ TEST_F (ValidatorTest, Validate_0001_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 4;
-    validator->code.u8 [0] = 0x01;
+    validator->code.u64 [0] = 0x01;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -130,7 +134,8 @@ TEST_F (ValidatorTest, Validate_0100_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 4;
-    validator->code.u8 [0] = 0x04;
+    validator->code.u64 [0] = 0x04;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -153,7 +158,8 @@ TEST_F (ValidatorTest, Validate_00010_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 5;
-    validator->code.u8 [0] = 0x02;
+    validator->code.u64 [0] = 0x02;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -176,7 +182,8 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 7;
-    validator->code.u8 [0] = 0x0D;
+    validator->code.u64 [0] = 0x0D;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -199,7 +206,8 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 11;
-    validator->code.u8 [0] = 0xED;
+    validator->code.u64 [0] = 0xED;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -222,7 +230,8 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 13;
-    validator->code.u8 [0] = 0xCA;
+    validator->code.u64 [0] = 0xCA;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -245,7 +254,8 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 5;
-    validator->code.u8 [0] = 0x16;
+    validator->code.u64 [0] = 0x16;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -268,8 +278,8 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
     // Arange.
     validator = new Validator (NULL);
     validator->length = 13;
-    validator->code.u8 [0] = 0x1F;
-    validator->code.u8 [1] = 0x36;
+    validator->code.u64 [0] = 0x1F36;
+    validator->sideLobeLimit = 1;
     int result = -1;
 
     // Act.
@@ -297,8 +307,8 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
 {
     // Arange.
-    const __u8 begin = 3;
-    const __u8 end   = 5;
+    const __s32 begin = 3;
+    const __s32 end   = 5;
     generator = new Generator (nullptr, begin, end);
     validator = new Validator (generator);
     __u8 etalon [] = {0,   1,   1,   0,   1,   0,   0,   1,   1,   0,   0,   1,   0,   1,   1,   0};
@@ -309,7 +319,7 @@ TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
     // Act.
     while (!validator->SetNextCode () ) {
         if (!validator->Validate () && validator->length == 4) {
-            test [validator->code.u8 [0] & 0x0F] = 1;
+            test [validator->code.u64 [0] & 0x0F] = 1;
         }
     }
 

@@ -4,7 +4,6 @@
 #include "generator.h"
 #include <stdlib.h>
 #include <linux/types.h>
-#include <math.h>
 
 
 
@@ -13,7 +12,8 @@ class Validator
     public:
         Validator (Generator * bindGenerator) : generator (bindGenerator)
         {
-            length = 0;
+            length        = 0;
+            sideLobeLimit = 0;
             memset (&code, 0x00, sizeof (code) );
         };
 
@@ -27,7 +27,7 @@ class Validator
 
         int SetNextCode ()
         {
-            return generator->GetNextCode (length, code);
+            return generator->GetNextCode (length, code, sideLobeLimit);
         };
 
 
@@ -43,15 +43,23 @@ class Validator
             // k - 0 < k < N;
             // N - длина последовательности.
 
-            __s16 sideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
+            for (__s32 shift = 1; shift < length; ++shift) {
+                // Вспомогательные переменные.
+                __s32 x = (length - shift) >> 6;     // Сдвиг подразумевает деление на 64.
+                __s32 y =           shift  >> 6;     // Сдвиг подразумевает Деление на 64.
+                // Лишние поднятые биты, которые попадают в сумму.
+                __s32 extra = __builtin_popcountll (code.u64 [x] >> ( (length - shift) & 63) );
 
-            for (__u16 shift = 1; shift < length; ++shift) {
-                __s16 sideLobe = 0;
-                for (__u16 i = 0; i < length - shift; ++i) {
-                    sideLobe += ( (code.u8 [(i + shift) / 8] >> ( (i + shift) % 8) ) & 0x01 ? 1 : -1) *
-                                ( (code.u8 [ i          / 8] >> (  i          % 8) ) & 0x01 ? 1 : -1);
+                __s32 sideLobeSum = 0;
+                for (__s32 i = 0; i <= x; ++i) {
+                    sideLobeSum += __builtin_popcountll (
+                                          (code.u64 [i     + y] >> (      shift & 63)
+                                        |  code.u64 [i + 1 + y] << (64 - (shift & 63) ) )
+                                        ^  code.u64 [i]
+                        );
                 }
-                if (abs (sideLobe) > sideLobeLimit) {
+
+                if (abs (length - shift - (sideLobeSum - extra) * 2) > sideLobeLimit) {
                     return 1;
                 }
             }
@@ -62,8 +70,9 @@ class Validator
 
 
         Generator * generator;
-        __u8 length;
         CodeContainer code;
+        __s32 length;
+        __s32 sideLobeLimit;
 };
 
 #endif//PHCM_VALIDATOR_H

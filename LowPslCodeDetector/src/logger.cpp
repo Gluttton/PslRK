@@ -48,7 +48,7 @@ void Logger::LogCode (__u8 length, CodeContainer & code)
     codeString  = std::to_string (length);
     codeString += ":\t";
     for (__u8 i = 0; i < length; ++i) {
-        if ( (code.u8 [i / 8] >> (i % 8) ) & 0x01) {
+        if ( (code.u64 [i / 64] >> (i % 64) ) & 0x01) {
             codeString += "+";
         }
         else {

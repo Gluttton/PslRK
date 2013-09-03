@@ -6,20 +6,20 @@
 #include <x86intrin.h>
 #include <linux/types.h>
 #include <string.h>
+#include <math.h>
 
 
 
 class Generator
 {
     public:
-        Generator (Logger * commonLogger, __u8 begin, __u8 end) : 
-                                                            beginLength (begin < 2 ? 1 : begin - 1),
-                                                            endLength   (end   > 8 * codeU8Count ? 8 * codeU8Count : end),
-                                                            length      (begin < 2 ? 1 : begin - 1),
+        Generator (Logger * commonLogger, __s32 begin, __s32 end) :
+                                                            beginLength (begin < 2 ? 2 : begin),
+                                                            endLength   (end   > 64 * codeU64Count ? 64 * codeU64Count : end),
+                                                            length      (begin < 2 ? 2 : begin),
                                                             logger      (commonLogger)
         {
             CalculateMaxCode (beginLength, maxCode);
-            memcpy (&code, &maxCode, sizeof (code) );
         };
 
 
@@ -30,63 +30,62 @@ class Generator
 
 
 
-        int CalculateMaxCode (const __u8 requestedLength, CodeContainer & returnedMaxCode) {
-            memset (&returnedMaxCode, 0x00, sizeof (returnedMaxCode) );
+        int CalculateMaxCode (const __s32 requestedLength, CodeContainer & returnedMaxCode) {
+            // Вспомогательные переменные.
+            __s32 x = 1 + (requestedLength >> 3);   // Сдвиг подразумевает деление на 8.
 
-            __u64 i = 0;
-            while (i < requestedLength / 8) {
-                memset (&returnedMaxCode.u8 [i], 0xFF, 1);
-                ++i;
-            }
-            returnedMaxCode.u8 [i] = (0x01U << (requestedLength % 8) ) - 1;
+            memset (&returnedMaxCode.u8 [x],      0x00U, codeU8Count - 1 - x);
+            memset (&returnedMaxCode.u8 [0],      0xFFU,                   x);
+            memset (&returnedMaxCode.u8 [x - 1], (0x01U << (requestedLength & 7) ) - 1, 1);
 
             return 0;
         };
 
 
 
-        int GetNextCode (__u8 &returnedLength, CodeContainer &returnedCode)
+        int GetNextCode (__s32 & returnedLength, CodeContainer & returnedCode, __s32 & returnedSideLobeLimit)
         {
             static __u64 rdtsc = __rdtsc ();
+            static __u64 codes = 0;
             __u8 i = 0;
 
-
-            if (memcmp (&code, &maxCode, sizeof (code) ) != 0) {
+            if (memcmp (returnedCode.u8, maxCode.u8, codeU8Count) ) {
                 do {
-                    ++code.u8 [i];
-                } while (!code.u8 [i++] && i < codeU8Count);
+                    ++returnedCode.u64 [i];
+                } while (!returnedCode.u64 [i++] && i < codeU64Count);
             }
             else {
                 if (logger) {
                     std::string statisticString;
                     statisticString  = std::to_string (length);
-                    statisticString += ":\t";
-                    statisticString += std::to_string (__rdtsc () - rdtsc);
+                    statisticString += "\trdtsc " + std::to_string (__rdtsc () - rdtsc);
+                    statisticString += "\tcodes " + std::to_string (codes) + " / " + std::to_string (1ULL << length);
                     statisticString += "\n";
                     logger->LogStatistic (statisticString);
                 }
 
                 if (length < endLength) {
                     ++length;
+                    returnedSideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
                     CalculateMaxCode (length, maxCode);
-                    memset (&code, 0x00, sizeof (code) );
+                    memset (returnedCode.u64, 0x00, i + 1);
                     rdtsc = __rdtsc ();
+                    codes = 0;
                 }
                 else {
                     return 1;
                 }
             }
 
-            memcpy (&returnedLength, &length, sizeof (returnedLength) );
-            memcpy (&returnedCode,   &code,   sizeof (returnedCode) );
+            returnedLength = length;
 
+            ++codes;
             return 0;
         };
 
-        const __u8 beginLength;
-        const __u8 endLength;
-        __u8 length;
-        CodeContainer code;
+        const __s32 beginLength;
+        const __s32 endLength;
+        __s32 length;
         CodeContainer maxCode;
 
     private:

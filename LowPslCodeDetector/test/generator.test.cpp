@@ -32,26 +32,27 @@ void GeneratorTest::TearDown ()
 // Проверки:
 // - код возврата - успешный;
 // - длительность кода равна начальной;
-// - возвращается ноль в значащих битах.
+// - возвращается единица в значащих битах.
 TEST_F (GeneratorTest, FirstCallGetNextCodeSuccess)
 {
     // Arange (not significant).
-    const __u8 begin = 2;
-    const __u8 end   = 5;
+    const __s32 begin   = 3;
+    const __s32 end     = 5;
+    __s32 sideLobeLimit = 0;
     // Arange (esential).
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act.
     for (__u64 i = 0; i < 1; ++i) {
-        result = generator->GetNextCode (length, code);
+        result = generator->GetNextCode (length, code, sideLobeLimit);
     }
 
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (length, begin);
-    EXPECT_EQ (code.u8 [0], 0x00);
+    EXPECT_EQ (code.u64 [0], 0x01);
 
     // Cleaning.
     delete generator;
@@ -63,26 +64,27 @@ TEST_F (GeneratorTest, FirstCallGetNextCodeSuccess)
 // Проверки:
 // - код возврата - успешный;
 // - длительность кода равна начальной;
-// - возвращается единица в значащих битах.
+// - возвращается двойка в значащих битах.
 TEST_F (GeneratorTest, SecondCallGetNextCodeSuccess)
 {
     // Arange (not significant).
-    const __u8 begin = 2;
-    const __u8 end   = 5;
+    const __u8 begin    = 3;
+    const __u8 end      = 5;
+    __s32 sideLobeLimit = 0;
     // Arange (esential).
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act.
     for (__u64 i = 0; i < 2; ++i) {
-        result = generator->GetNextCode (length, code);
+        result = generator->GetNextCode (length, code, sideLobeLimit);
     }
 
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (length, begin);
-    EXPECT_EQ (code.u8 [0], 0x01);
+    EXPECT_EQ (code.u64 [0], 0x02);
 
     // Cleaning.
     delete generator;
@@ -99,22 +101,22 @@ TEST_F (GeneratorTest, SecondCallGetNextCodeSuccess)
 TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
 {
     // Arange.
-    const __u8 begin = 11;
-    const __u8 end   = 13;
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    const __u8 begin    = 11;
+    const __u8 end      = 13;
+    __s32 sideLobeLimit = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act.
-    for (__u64 i = 0; i < 257; ++i) {
-        result = generator->GetNextCode (length, code);
+    for (__u64 i = 0; i < 256; ++i) {
+        result = generator->GetNextCode (length, code, sideLobeLimit);
     }
 
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (length, begin);
-    EXPECT_EQ (code.u8 [0], 0x00);
-    EXPECT_EQ (code.u8 [1], 0x01);
+    EXPECT_EQ (code.u64 [0], 0x0100);
 
     // Cleaning.
     delete generator;
@@ -131,22 +133,22 @@ TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
 TEST_F (GeneratorTest, CallAfterOverflowLastByteGetNextCodeSuccess)
 {
     // Arange.
-    const __u8 begin = 11;
-    const __u8 end   = 13;
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    const __u8 begin    = 11;
+    const __u8 end      = 13;
+    __s32 sideLobeLimit = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act.
-    for (__u64 i = 0; i < 258; ++i) {
-        result = generator->GetNextCode (length, code);
+    for (__u64 i = 0; i < 257; ++i) {
+        result = generator->GetNextCode (length, code, sideLobeLimit);
     }
 
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (length, begin);
-    EXPECT_EQ (code.u8 [0], 0x01);
-    EXPECT_EQ (code.u8 [1], 0x01);
+    EXPECT_EQ (code.u64 [0], 0x0101);
 
     // Cleaning.
     delete generator;
@@ -158,22 +160,23 @@ TEST_F (GeneratorTest, CallAfterOverflowLastByteGetNextCodeSuccess)
 // Проверки:
 // - код возврата - успешный;
 // - длина соответствующая;
-// - перебираются все варианты от 0000 до 1111.
+// - перебираются все варианты от 0001 до 1111.
 TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 {
     // Arange.
-    const __u8 begin = 4;
-    const __u8 end   = 4;
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    const __u8 begin    = 4;
+    const __u8 end      = 4;
+    __s32 sideLobeLimit = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act, Assert.
-    for (__u64 i = 0; i < (1 << 4); ++i) {
-        result = generator->GetNextCode (length, code);
+    for (__u64 i = 1; i < (1 << 4); ++i) {
+        result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
         EXPECT_EQ (length, begin);
-        EXPECT_EQ (code.u8 [0], i);
+        EXPECT_EQ (code.u64 [0], i);
     }
 
     // Cleaning.
@@ -186,47 +189,48 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 // Проверки:
 // - код возврата - успешный;
 // - длина соответствующая;
-// - перебираются все варианты от 000 до 11111.
+// - перебираются все варианты от 001 до 11111.
 TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
 {
     // Arange.
-    const __u8 begin = 3;
-    const __u8 end   = 5;
-    generator        = new Generator (nullptr, begin, end);
-    __u8 length      = 0;
-    int result       = 0;
+    const __u8 begin    = 3;
+    const __u8 end      = 5;
+    __s32 sideLobeLimit = 0;
+    generator           = new Generator (nullptr, begin, end);
+    __s32 length        = 0;
+    int result          = 0;
 
     // Act, Assert.
     // Перебираются все коды для длины три.
-    for (__u64 i = 0; i < (1 << 3); ++i) {
-        result = generator->GetNextCode (length, code);
+    for (__u64 i = 1; i < (1 << 3); ++i) {
+        result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
         EXPECT_EQ (length, 3);
-        EXPECT_EQ (code.u8 [0], i);
-        EXPECT_EQ (generator->maxCode.u8 [0], (1 << 3) - 1);
+        EXPECT_EQ (code.u64 [0], i);
+        EXPECT_EQ (generator->maxCode.u64 [0], (1 << 3) - 1);
     }
 
     // Act, Assert.
     // Перебираются все коды для длины четыре.
     for (__u64 i = 0; i < (1 << 4); ++i) {
-        result = generator->GetNextCode (length, code);
+        result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
         EXPECT_EQ (length, 4);
-        EXPECT_EQ (code.u8 [0], i);
-        EXPECT_EQ (generator->maxCode.u8 [0], (1 << 4) - 1);
+        EXPECT_EQ (code.u64 [0], i);
+        EXPECT_EQ (generator->maxCode.u64 [0], (1 << 4) - 1);
     }
 
     // Act, Assert.
     // Перебираются все коды для длины пять.
     for (__u64 i = 0; i < (1 << 5); ++i) {
-        result = generator->GetNextCode (length, code);
+        result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
         EXPECT_EQ (length, 5);
-        EXPECT_EQ (code.u8 [0], i);
-        EXPECT_EQ (generator->maxCode.u8 [0], (1 << 5) - 1);
+        EXPECT_EQ (code.u64 [0], i);
+        EXPECT_EQ (generator->maxCode.u64 [0], (1 << 5) - 1);
     }
     // Коды длины пять кончились и поскольку это максимальная длина, то возвращается код ошибки.
-    result = generator->GetNextCode (length, code);
+    result = generator->GetNextCode (length, code, sideLobeLimit);
     EXPECT_NE (result, 0);
 
     // Cleaning.
@@ -253,9 +257,9 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
 
     // Assert.
     EXPECT_EQ (result, 0);
-    EXPECT_EQ (code.u8 [0], 0x03);
-    for (__u64 i = 1; i < codeU8Count; ++i) {
-        EXPECT_EQ (code.u8 [i], 0x00);
+    EXPECT_EQ (code.u64 [0], 0x03);
+    for (__u64 i = 1; i < codeU64Count; ++i) {
+        EXPECT_EQ (code.u64 [i], 0x00);
     }
 
     // Cleaning.
@@ -282,9 +286,9 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_5_Success)
 
     // Assert.
     EXPECT_EQ (result, 0);
-    EXPECT_EQ (code.u8 [0], 0x1F);
-    for (__u64 i = 1; i < codeU8Count; ++i) {
-        EXPECT_EQ (code.u8 [i], 0x00);
+    EXPECT_EQ (code.u64 [0], 0x1F);
+    for (__u64 i = 1; i < codeU64Count; ++i) {
+        EXPECT_EQ (code.u64 [i], 0x00);
     }
 
     // Cleaning.
@@ -311,9 +315,9 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_8_Success)
 
     // Assert.
     EXPECT_EQ (result, 0);
-    EXPECT_EQ (code.u8 [0], 0xFF);
-    for (__u64 i = 1; i < codeU8Count; ++i) {
-        EXPECT_EQ (code.u8 [i], 0x00);
+    EXPECT_EQ (code.u64 [0], 0xFF);
+    for (__u64 i = 1; i < codeU64Count; ++i) {
+        EXPECT_EQ (code.u64 [i], 0x00);
     }
 
     // Cleaning.
@@ -340,10 +344,9 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_9_Success)
 
     // Assert.
     EXPECT_EQ (result, 0);
-    EXPECT_EQ (code.u8 [0], 0xFF);
-    EXPECT_EQ (code.u8 [1], 0x01);
-    for (__u64 i = 2; i < codeU8Count; ++i) {
-        EXPECT_EQ (code.u8 [i], 0x00);
+    EXPECT_EQ (code.u64 [0], 0x01FF);
+    for (__u64 i = 1; i < codeU64Count; ++i) {
+        EXPECT_EQ (code.u64 [i], 0x00);
     }
 
     // Cleaning.

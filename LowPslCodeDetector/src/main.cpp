@@ -19,7 +19,7 @@ int main ()
     }
     Logger    * logger    = new Logger    (currentDirectoryName);
 
-    Generator * generator = new Generator (logger, 2, 28);
+    Generator * generator = new Generator (logger, 3, 32);
     Validator * validator = new Validator (generator);
 
 
