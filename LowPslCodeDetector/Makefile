@@ -24,22 +24,28 @@ EXE                 = bark
 #===--- Testing specified variables    ---===#
 TEST_CXXFLAGS       = -c \
                       -MD \
-                      -std=c++0x -march=native -m64 -mfpmath=sse,387 -msse4.2 \
+                      -std=c++0x -march=native -m64 \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
                       -pg -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
 TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
-TEST_SRC            = test/logger.test.cpp \
+TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
-TEST_OBJ            = $(TEST_SRC:test.cpp=test.o)
+TEST_OBJ            = $(TEST_SRC:.cpp=.o)
 TEST                = bark.test
 
 
 
 #===--- Merged variables               ---===#
+ifeq ($(filter testing, $(MAKECMDGOALS)),)
+CXXFLAGS            = $(EXE_CXXFLAGS)
+else
+CXXFLAGS            = $(TEST_CXXFLAGS)
+endif
+
 OBJ                 = $(EXE_OBJ) $(TEST_OBJ)
 COV_DATA            = $(shell find . -type f -name '*.d' -o -name '*.gcov' -o -name '*.gcda' -o -name '*.gcno' -o -name 'coverage' -o -name 'coverage.info')
 LST_DATA            = $(shell find . -type f -name '*.lst')
@@ -64,12 +70,8 @@ $(TEST): $(TEST_OBJ)
 	$(CXX) $(TEST_OBJ) $(TEST_LDPATH) $(TEST_LDADD) -o $@
 
 
-.cpp.o:
-	$(CXX) $(EXE_CXXFLAGS) $(INCLUDES) $< -o $@
-
-
-.test.cpp.test.o:
-	$(CXX) $(TEST_CXXFLAGS) $(INCLUDES) $< -o $@
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $< -o $@
 
 
 clean:
