@@ -8,7 +8,7 @@ OPTIMIZATION       ?= O0
 #===--- Executable specified variables ---===#
 EXE_CXXFLAGS        = -c \
                       -MD \
-                      -std=c++0x -march=native -m64 -mfpmath=sse,387 -msse4.2 \
+                      -std=c++0x -march=native -m64 \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
@@ -17,7 +17,7 @@ EXE_LDADD           =
 EXE_SRC             = src/main.cpp \
                       src/logger.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
-EXE                 = bark
+EXE                 = lpslcd
 
 
 
@@ -35,7 +35,7 @@ TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
 TEST_OBJ            = $(TEST_SRC:.cpp=.o)
-TEST                = bark.test
+TEST                = lpslcd.test
 
 
 
@@ -51,7 +51,7 @@ COV_DATA            = $(shell find . -type f -name '*.d' -o -name '*.gcov' -o -n
 LST_DATA            = $(shell find . -type f -name '*.lst')
 PRO_DATA            = $(shell find . -type f -name 'gmon.out')
 TMP_DATA            = $(shell find . -type f -name '*~')
-LOG_DATA            = $(shell find . -type f -name 'bark.log' -o -name 'bark.dat' -o -name 'bark.stat')
+LOG_DATA            = $(shell find . -type f -name 'lpslcd.log' -o -name 'lpslcd.dat' -o -name 'lpslcd.stat')
 
 
 

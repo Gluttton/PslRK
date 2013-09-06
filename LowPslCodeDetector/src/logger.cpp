@@ -3,9 +3,9 @@
 
 
 Logger::Logger (std::string directoryName) : currentDirectoryName (directoryName),
-                                             logFileName  (currentDirectoryName + "/bark.log"),
-                                             datFileName  (currentDirectoryName + "/bark.dat"),
-                                             statFileName (currentDirectoryName + "/bark.stat")
+                                             logFileName  (currentDirectoryName + "/lpslcd.log"),
+                                             datFileName  (currentDirectoryName + "/lpslcd.dat"),
+                                             statFileName (currentDirectoryName + "/lpslcd.stat")
 {
 }
 
