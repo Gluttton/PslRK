@@ -79,7 +79,9 @@ clean:
 
 
 coverage:
-	lcov -q -c -f -b . -d test -o coverage.info && genhtml coverage.info --legend --demangle-cpp -f -q -o coverage
+	lcov -q -c -f -b . -d test -o coverage.info &&\
+	lcov -q -r coverage.info /usr/\* -b . -d test -o coverage.info &&\
+	genhtml coverage.info --legend --demangle-cpp -f -q -o coverage
 
 
 profile:
