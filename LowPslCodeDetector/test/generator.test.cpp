@@ -28,11 +28,11 @@ void GeneratorTest::TearDown ()
 
 
 
-// Случай: генератор вызывается впервые.
-// Проверки:
-// - код возврата - успешный;
-// - длительность кода равна начальной;
-// - возвращается единица в значащих битах.
+// Case: generator calls first time.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be equal to the begin value;
+// - in significant bits one must be returned.
 TEST_F (GeneratorTest, FirstCallGetNextCodeSuccess)
 {
     // Arange (not significant).
@@ -60,11 +60,11 @@ TEST_F (GeneratorTest, FirstCallGetNextCodeSuccess)
 
 
 
-// Случай: генератор вызывается второй раз.
-// Проверки:
-// - код возврата - успешный;
-// - длительность кода равна начальной;
-// - возвращается двойка в значащих битах.
+// Case: generator calls second time.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be equal to the begin value;
+// - in significant bits two must be returned.
 TEST_F (GeneratorTest, SecondCallGetNextCodeSuccess)
 {
     // Arange (not significant).
@@ -92,12 +92,11 @@ TEST_F (GeneratorTest, SecondCallGetNextCodeSuccess)
 
 
 
-// Случай: генератор вызывается более 255 раз, что вызывает выход значащего бита
-// за пределы крайнего байта.
-// Проверки:
-// - код возврата - успешный;
-// - длительность кода соответствующая;
-// - возвращаются единицы в значащих битах.
+// Case: generator calls more then 255 times, whereby significant bit gone out of last byte.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be corresponding;
+// - in significant bits ones must be returned.
 TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
 {
     // Arange.
@@ -124,12 +123,11 @@ TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
 
 
 
-// Случай: генератор вызывается более 255 раз, что вызывает выход значащего бита
-// за пределы крайнего байта.
-// Проверки:
-// - код возврата - успешный;
-// - длительность кода соответствующая;
-// - возвращаются единицы в значащих битах.
+// Case: generator calls more then 255 times, whereby significant bit gone out of last byte.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be corresponding;
+// - in significant bits ones must be returned.
 TEST_F (GeneratorTest, CallAfterOverflowLastByteGetNextCodeSuccess)
 {
     // Arange.
@@ -156,11 +154,11 @@ TEST_F (GeneratorTest, CallAfterOverflowLastByteGetNextCodeSuccess)
 
 
 
-// Случай: генератор генерирует значения для кода длиною четыре.
-// Проверки:
-// - код возврата - успешный;
-// - длина соответствующая;
-// - перебираются все варианты от 0001 до 1111.
+// Case: generator generates values for sequence of length four.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be corresponding;
+// - all cases from 0001 to 1111 must be looked over.
 TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 {
     // Arange.
@@ -185,11 +183,11 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 
 
 
-// Случай: генератор генерирует значения для кодов длиною три, четыре и пять.
-// Проверки:
-// - код возврата - успешный;
-// - длина соответствующая;
-// - перебираются все варианты от 001 до 11111.
+// Case: generator generates values for sequences of length three, four and five.
+// Check:
+// - exit code must be successful;
+// - length of sequence must be corresponding;
+// - all cases from 001 to 11111 must be looked over.
 TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
 {
     // Arange.
@@ -201,7 +199,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
     int result          = 0;
 
     // Act, Assert.
-    // Перебираются все коды для длины три.
+    // Looking over cases for sequence of length three.
     for (__u64 i = 1; i < (1 << 3); ++i) {
         result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
@@ -211,7 +209,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
     }
 
     // Act, Assert.
-    // Перебираются все коды для длины четыре.
+    // Looking over cases for sequence of length four.
     for (__u64 i = 0; i < (1 << 4); ++i) {
         result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
@@ -221,7 +219,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
     }
 
     // Act, Assert.
-    // Перебираются все коды для длины пять.
+    // Looking over cases for sequence of length five.
     for (__u64 i = 0; i < (1 << 5); ++i) {
         result = generator->GetNextCode (length, code, sideLobeLimit);
         EXPECT_EQ (result, 0);
@@ -229,7 +227,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
         EXPECT_EQ (code.u64 [0], i);
         EXPECT_EQ (generator->maxCode.u64 [0], (1 << 5) - 1);
     }
-    // Коды длины пять кончились и поскольку это максимальная длина, то возвращается код ошибки.
+    // Sequences of length five are end. Five is last value of length and error returns.
     result = generator->GetNextCode (length, code, sideLobeLimit);
     EXPECT_NE (result, 0);
 
@@ -239,10 +237,10 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
 
 
 
-// Случай: генератор расчитывает максимальное значение для кода длиною два.
-// Проверки:
-// - код возврата - успешный;
-// - возвращаются поднятые два бита в младшем байте, все остальные - равны нулю.
+// Case: generator calculates max value for sequence of length two.
+// Check:
+// - exit code must be successful;
+// - two last bits in last byte must be raised, and other bits must be dropped.
 TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
 {
     // Arange (not significant).
@@ -268,10 +266,10 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
 
 
 
-// Случай: генератор расчитывает максимальное значение для кода длиною пять.
-// Проверки:
-// - код возврата - успешный;
-// - возвращаются поднятые пять бит в младшем байте, все остальные - равны нулю.
+// Case: generator calculates max value for sequence of length five.
+// Check:
+// - exit code must be successful;
+// - five last bits in last byte must be raised, and other bits must be dropped.
 TEST_F (GeneratorTest, CalculateMaxCodeForLength_5_Success)
 {
     // Arange (not significant).
@@ -297,10 +295,10 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_5_Success)
 
 
 
-// Случай: генератор расчитывает максимальное значение для кода длиною восемь.
-// Проверки:
-// - код возврата - успешный;
-// - возвращаются поднятые восемь бит в младшем байте, все остальные - равны нулю.
+// Case: generator calculates max value for sequence of length eight.
+// Check:
+// - exit code must be successful;
+// - all last bits in last byte must be raised, and other bits must be dropped.
 TEST_F (GeneratorTest, CalculateMaxCodeForLength_8_Success)
 {
     // Arange (not significant).
@@ -326,10 +324,10 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_8_Success)
 
 
 
-// Случай: генератор расчитывает максимальное значение для кода длиною девять.
-// Проверки:
-// - код возврата - успешный;
-// - возвращаются поднятые девять бит в младших байтах, все остальные - равны нулю.
+// Case: generator calculates max value for sequence of length nine.
+// Check:
+// - exit code must be successful;
+// - nine last bits must be raised, and other bits must be dropped.
 TEST_F (GeneratorTest, CalculateMaxCodeForLength_9_Success)
 {
     // Arange (not significant).

@@ -1,5 +1,5 @@
-#ifndef BARK_LOGGER_H
-#define BARK_LOGGER_H
+#ifndef LPSLCD_LOGGER_H
+#define LPSLCD_LOGGER_H
 
 #include "container.h"
 #include <linux/types.h>
@@ -30,4 +30,4 @@ class Logger
         std::fstream statFile;
 };
 
-#endif//BARK_LOGGER_H
+#endif//LPSLCD_LOGGER_H

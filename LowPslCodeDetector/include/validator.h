@@ -1,5 +1,5 @@
-#ifndef PHCM_VALIDATOR_H
-#define PHCM_VALIDATOR_H
+#ifndef LPSLCD_VALIDATOR_H
+#define LPSLCD_VALIDATOR_H
 
 #include "generator.h"
 #include <stdlib.h>
@@ -41,13 +41,13 @@ class Validator
             // | i = 1            |
             //
             // k - 0 < k < N;
-            // N - длина последовательности.
+            // N - length of sequence.
 
             for (__s32 shift = 1; shift < length; ++shift) {
-                // Вспомогательные переменные.
-                __s32 x = (length - shift) >> 6;     // Сдвиг подразумевает деление на 64.
-                __s32 y =           shift  >> 6;     // Сдвиг подразумевает Деление на 64.
-                // Лишние поднятые биты, которые попадают в сумму.
+                // Utility variables.
+                __s32 x = (length - shift) >> 6;     // Shift means dividing by 64.
+                __s32 y =           shift  >> 6;     // Shift means dividing by 64.
+                // Redundant raised bits which included in sum.
                 __s32 extra = __builtin_popcountll (code.u64 [x] >> ( (length - shift) & 63) );
 
                 __s32 sideLobeSum = 0;
@@ -75,4 +75,4 @@ class Validator
         __s32 sideLobeLimit;
 };
 
-#endif//PHCM_VALIDATOR_H
+#endif//LPSLCD_VALIDATOR_H

@@ -30,9 +30,9 @@ void ValidatorTest::TearDown ()
 
 
 
-// Случай: проверяется двузначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length two.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_00_Success)
 {
     // Arange.
@@ -54,9 +54,9 @@ TEST_F (ValidatorTest, Validate_00_Success)
 
 
 
-// Случай: проверяется двузначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length two.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_10_Success)
 {
     // Arange.
@@ -78,9 +78,9 @@ TEST_F (ValidatorTest, Validate_10_Success)
 
 
 
-// Случай: проверяется трехзначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length three.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_001_Success)
 {
     // Arange.
@@ -102,9 +102,9 @@ TEST_F (ValidatorTest, Validate_001_Success)
 
 
 
-// Случай: проверяется четырехзначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length four.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_0001_Success)
 {
     // Arange.
@@ -126,9 +126,9 @@ TEST_F (ValidatorTest, Validate_0001_Success)
 
 
 
-// Случай: проверяется четырехзначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length four.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_0100_Success)
 {
     // Arange.
@@ -150,9 +150,9 @@ TEST_F (ValidatorTest, Validate_0100_Success)
 
 
 
-// Случай: проверяется пятизначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length five.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_00010_Success)
 {
     // Arange.
@@ -174,9 +174,9 @@ TEST_F (ValidatorTest, Validate_00010_Success)
 
 
 
-// Случай: проверяется семизначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length seven.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_0001101_Success)
 {
     // Arange.
@@ -198,9 +198,9 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
 
 
 
-// Случай: проверяется одинадцатизначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length eleven.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_00011101101_Success)
 {
     // Arange.
@@ -222,9 +222,9 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
 
 
 
-// Случай: проверяется тринадцатизначный код Баркера.
-// Проверки:
-// - код возврата - успешный.
+// Case: validating of Barker code of length thirteen.
+// Check:
+// - exit code must be successful.
 TEST_F (ValidatorTest, Validate_0000011001010_Success)
 {
     // Arange.
@@ -246,9 +246,9 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
 
 
 
-// Случай: проверяется пятизначный код не являющийся кодом Баркера.
-// Проверки:
-// - код возврата - отрицательный.
+// Case: validating of code of length five which is not Barker code.
+// Check:
+// - exit code must be unsuccessful.
 TEST_F (ValidatorTest, Validate_10110_Fail)
 {
     // Arange.
@@ -270,9 +270,9 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
 
 
 
-// Случай: проверяется тринадцатизначный код не являющийся кодом Баркера.
-// Проверки:
-// - код возврата - отрицательный.
+// Case: validating of code of length thirteen which is not Barker code.
+// Check:
+// - exit code must be unsuccessful.
 TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 {
     // Arange.
@@ -294,16 +294,16 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 
 
 
-// Случай: проверяются все четырехзначные коды Баркера.
-// Проверки:
-// - обнаружен код: 1101;
-// - обнаружен код: 1011;
-// - обнаружен код: 0010;
-// - обнаружен код: 0100;
-// - обнаружен код: 1110;
-// - обнаружен код: 0111;
-// - обнаружен код: 0001;
-// - обнаружен код: 1000.
+// Case: validating all sequences of length four.
+// Check:
+// - code 1101 must be detected;
+// - code 1011 must be detected;
+// - code 0010 must be detected;
+// - code 0100 must be detected;
+// - code 1110 must be detected;
+// - code 0111 must be detected;
+// - code 0001 must be detected;
+// - code 1000 must be detected.
 TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
 {
     // Arange.

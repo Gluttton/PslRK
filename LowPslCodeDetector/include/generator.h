@@ -1,5 +1,5 @@
-#ifndef PHCM_GENERATOR_H
-#define PHCM_GENERATOR_H
+#ifndef LPSLCD_GENERATOR_H
+#define LPSLCD_GENERATOR_H
 
 #include "container.h"
 #include "logger.h"
@@ -93,4 +93,4 @@ class Generator
         Logger * logger;
 };
 
-#endif//PHCM_GENERATOR_H
+#endif//LPSLCD_GENERATOR_H

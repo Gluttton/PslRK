@@ -1,5 +1,5 @@
-#ifndef BARK_CONTAINER_H
-#define BARK_CONTAINER_H
+#ifndef LPSLCD_CONTAINER_H
+#define LPSLCD_CONTAINER_H
 
 #include <linux/types.h>
 #include <x86intrin.h>
@@ -35,4 +35,4 @@ union CodeContainer
     __m128i  m128i [codeM128Count];
 }   __attribute__ ((aligned (16)));
 
-#endif//BARK_CONTAINER_H
+#endif//LPSLCD_CONTAINER_H
