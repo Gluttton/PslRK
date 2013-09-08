@@ -31,8 +31,8 @@ class Generator
 
 
         int CalculateMaxCode (const __s32 requestedLength, CodeContainer & returnedMaxCode) {
-            // Вспомогательные переменные.
-            __s32 x = 1 + (requestedLength >> 3);   // Сдвиг подразумевает деление на 8.
+            // Utility variables.
+            __s32 x = 1 + (requestedLength >> 3);   // Shift means dividing by 8.
 
             memset (&returnedMaxCode.u8 [x],      0x00U, codeU8Count - 1 - x);
             memset (&returnedMaxCode.u8 [0],      0xFFU,                   x);
