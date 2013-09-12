@@ -2,10 +2,7 @@
 #include "validator.h"
 #include "logger.h"
 #include <iostream>
-#include <iomanip>
-#include <math.h>
 #include <unistd.h>
-#include <linux/types.h>
 #include <linux/limits.h>
 
 
@@ -30,5 +27,5 @@ int main ()
     }
 
 
-    return 0;
+    return EXIT_SUCCESS;
 }

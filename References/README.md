@@ -1,9 +1,12 @@
 References
 ==========
 Set of references related with [PSK](http://en.wikipedia.org/wiki/Phase-shift_keying).
+
 All references must be noted in this file.
+
 To add reference on a document first of all the document must be copied into this directory.
 When the document copied, link on it can be added in paragraph 'Documents'.
+
 Links on the Internet resources must be added directly in this file in paragraph 'Links'.
 
 ##### Documents:

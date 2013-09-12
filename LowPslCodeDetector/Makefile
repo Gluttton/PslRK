@@ -30,7 +30,7 @@ TEST_CXXFLAGS       = -c \
                       -pg -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
-TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
+TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lpthread
 TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
