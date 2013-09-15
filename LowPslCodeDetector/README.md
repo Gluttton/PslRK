@@ -12,7 +12,7 @@ To build program are required:
 - ```make```     - build automation tool;
 - ```g++```      - GNU C++ compiler.
 
-To build program tests are also required:
+To build tests are also required:
 - ```gcov```     - source code coverage analysis tool;
 - ```gprof```    - performance analysis tool;
 - ```lcov```     - tool for summarise code coverage information;
@@ -32,7 +32,7 @@ It is possible to pass optimization level by arguments, for instance:
 ```
 make OPTIMIZATION=OX
 ```
-Where OX is optimization level (O0, O2, O3, etc).
+Where ```OX``` is optimization level (such as: O0, O2, O3, etc).
 
 By default optimization level is O0 (without optimization).
 
@@ -43,7 +43,6 @@ make testing
 To launch tests type:
 ```
 ./lpslcd.test
-
 ```
 To generate test coverage report type:
 ```
@@ -62,6 +61,6 @@ Launch program in terminal:
 ```
 ./lpslcd
 ```
-Programs results are recorded in ```lpslcd.dat``` test file.
+The program writes results in ```lpslcd.dat``` test file.
 
-Programs statistic is recorded in ```lpslcd.stat``` text file.
+The program writes statistic is ```lpslcd.stat``` text file.
