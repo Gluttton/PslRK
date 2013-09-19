@@ -1,7 +1,7 @@
-Binary phase shift keying Research Kit
+PSL Level Sequences Research Kit
 ======================================
-PskRK - set of references and programs related with [PSK](http://en.wikipedia.org/wiki/Phase-shift_keying):
- - [Low PSL code detector](LowPslCodeDetector);
+PslRK - set of references and programs related with Peak Sidelobe Level of binary sequences:
+ - [Low PSL code detector](CodeDetector);
  - [Related with topic references](References);
  - [Projects results (achievements)](Results).
 
