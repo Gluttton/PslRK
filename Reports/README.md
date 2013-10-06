@@ -6,33 +6,32 @@ Collection of binary sequences with low peak sidelobe level.
 
 Requirements
 ============
-Collection must follows the next requirements:
- - file format:     XML;
- - file encoding:   UTF-8;
- - endline format:  not specified;
- - items:
-     - <lowpslcodes>;
-     - <code>;
-     - <value>;
-     - <reference>;
-     - <author>;
-     - <article>;
-     - <link>.
+The collection must follows the next requirements:
+- file format:     XML;
+- file encoding:   UTF-8;
+- items:
+    - ```<codes>```       - root element;
+    - ```<code>```        - each sequences with low PSL level is reported in ```<code>``` element, which has attributes:
+        - ```id```        - hexadecimal view of sequence (maximum of values which start from a one);
+        - ```length```    - length of sequence;
+        - ```maxpsl```    - maximum level of PSL;
+    - ```<sequence>```    - character representation of sequence;
+    - ```<reference>```   - source of information is reported in ```<reference>``` element, which has attributes;
+        - ```article```   - title of a article;
+        - ```author```    - author(s) of a article;
+        - ```link```      - link.
 
 Example:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<lowpslcodes>
-<code id="17" length="5" maxpsl="1" mlslrate="0.200">
-    <value>+-+++</value>
-    <value>+++-+</value>
-    <value>-+---</value>
-    <value>---+-</value>
-    <reference>
-        <author>R.H. Barker</author>
-        <article>Group synchronization of binary digital systems</article>
-        <link>http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems</link>
+<codes>
+<code id="1D" length="5" maxpsl="1">
+    <sequence>+++-+</sequence>
+    <reference
+        article="Group synchronization of binary digital systems"
+        author="R.H. Barker"
+        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
     </reference>
 </code>
-</lowpslcodes>
+</codes>
 ```
