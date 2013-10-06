@@ -1,6 +1,6 @@
 References
 ==========
-Set of references related with [PSK](http://en.wikipedia.org/wiki/Phase-shift_keying).
+Set of references related with binary sequences with low peak sidelobe (PSL) level.
 
 All references must be noted in this file.
 
@@ -10,7 +10,7 @@ When the document copied, link on it can be added in paragraph 'Documents'.
 Links on the Internet resources must be added directly in this file in paragraph 'Links'.
 
 ##### Documents:
- - ...
+ - [not yet].
 
 ##### Links:
  - [Professors Jonathan Jedwab page](http://people.math.sfu.ca/~jed/);

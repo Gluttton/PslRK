@@ -1,9 +1,12 @@
 PSL Level Sequences Research Kit
-======================================
+================================
 PslRK - set of references and programs related with Peak Sidelobe Level of binary sequences:
- - [Low PSL code detector](CodeDetector);
- - [Related with topic references](References);
- - [Projects results (achievements)](Results).
+ - [Related with topic references](References) - set of links and documents which contain
+    proofs, results of research, confirmations of approaches and other related information;
+ - [Low PSL code detector](CodeDetector) - solving the problem of finding binary sequences
+    with low PSL level;
+ - [Projects results (achievements)](Reports) - list of known binary sequences with low PSL
+    level.
 
 
 
