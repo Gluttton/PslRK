@@ -10,113 +10,102 @@
 
 
 
-struct Parameter
-{
-    __s32 length;
-    __u64 beginCode;
-    __u64 endCode;
+#define SIZE 16
+
+
+
+static const __s32 TableBitCount [256] = {
+    0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
+    1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+    1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+    2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+    1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+    2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+    2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+    3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8
 };
 
 
 
-pthread_mutex_t mutexFileData = PTHREAD_MUTEX_INITIALIZER;
-
-
-
-void SaveCode (__s32 length, __u64 code) __attribute__ ((noinline));
-void SaveCode (__s32 length, __u64 code)
+struct Parameter
 {
-    pthread_mutex_lock (&mutexFileData);
-    int fileStat = open ("/tmp/lpslcd.dat", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
-    if (write (fileStat, &length, sizeof (length) ) != sizeof (length) ) {
-        return;
-    }
-    if (write (fileStat,  &code, sizeof (code) ) != sizeof (code) ) {
-        return;
-    }
-    close (fileStat);
-    pthread_mutex_unlock (&mutexFileData);
-}
+    __s32 length;
+    __u8  beginCode [SIZE] __attribute__ ((aligned (16)));
+    __u8  endCode   [SIZE] __attribute__ ((aligned (16)));
+};
+
+
+
+pthread_mutex_t mutexFileStat = PTHREAD_MUTEX_INITIALIZER;
 
 
 
 static void * Validate (void * parameter)
 {
-    const __s32 sideLobeLimit = ( (struct Parameter *) parameter)->length < 14 ? 1 :
-                        floor ( ( (struct Parameter *) parameter)->length / 14.0f);
+    const __s32 length        = ( (struct Parameter *) parameter)->length;
+    const __s32 sideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
 
-    const __u64 mask = (1ULL << ( ( (struct Parameter *) parameter)->length - 1) ) - 1ULL;
+    __s32 isFound = 0;
+
+    __u8 code    [SIZE] __attribute__ ((aligned (16)));
+    __u8 maxCode [SIZE] __attribute__ ((aligned (16)));
+
+    memcpy (   code, ( (struct Parameter *) parameter)->beginCode, SIZE * sizeof (* code) );
+    memcpy (maxCode, ( (struct Parameter *) parameter)->endCode,   SIZE * sizeof (* maxCode) );
 
 
-    __asm__ __volatile__ (
-        "INIT:                                      \n\t"
-        "       xorq       %%r8,       %%r8         \n\t"
-        "       mov        %[length],  %%r8w        \n\t"
-        "       movq       %[code],    %%r9         \n\t"
-        "       movq       %[maxcode], %%r10        \n\t"
-        "       xorq       %%r11,      %%r11        \n\t"
-        "       mov        %[limit],   %%r11w       \n\t"
-        "       movq       %[mask],    %%r12        \n\t"
+    __s32 difference = 1;
+    while (difference) {
+        __s32 i = 0;
+        do {
+            ++code [i];
+        } while (!code [i++] && i < SIZE);
 
-        "NEXT_CODE:                                 \n\t"
-        "       incq       %%r9                     \n\t"
-        "       cmpq       %%r9,       %%r10        \n\t"
-        "       jbe        QUIT                     \n\t"
-        "       mov        $1,         %%cx         \n\t"
-        "       movq       %%r12,      %%r13        \n\t"
-        "NEXT_SHIFT:                                \n\t"
-        "       movq       %%r9,       %%rdi        \n\t"
-        "       shrq       %%cl,       %%rdi        \n\t"
-        "       xorq       %%r9,       %%rdi        \n\t"
-        "       andq       %%r13,      %%rdi        \n\t"
-        #ifdef __POPCNT__
-        "       popcntq    %%rdi,      %%rax        \n\t"
-        #else
-        "       pushq      %%rcx                    \n\t"
-        "       callq      __popcountdi2            \n\t"
-        "       popq       %%rcx                    \n\t"
-        #endif
-        "       shl        $1,         %%ax         \n\t"
-        "       sub        %%r8w,      %%ax         \n\t"
-        "       add        %%cx,       %%ax         \n\t"
-        "       jge        ABS                      \n\t"
-        "       neg        %%ax                     \n\t"
-        "       ABS:                                \n\t"
-        "       cmp        %%r11w,     %%ax         \n\t"
-        "       jg         NEXT_CODE                \n\t"
-        "       inc        %%cx                     \n\t"
-        "       cmp        %%cx,       %%r8w        \n\t"
-        "       jbe        SAVE_CODE                \n\t"
-        "       shrq       $1,         %%r13        \n\t"
-        "       jmp        NEXT_SHIFT               \n\t"
+        i = -1;
+        difference = 0;
+        while (++i < SIZE && !difference) {
+            difference = code [i] - maxCode [i];
+        }
 
-        "SAVE_CODE:                                 \n\t"
-        "       pushq      %%r8                     \n\t"
-        "       pushq      %%r9                     \n\t"
-        "       pushq      %%r10                    \n\t"
-        "       pushq      %%r11                    \n\t"
-        "       pushq      %%r12                    \n\t"
-        "       movl       %%r8d,      %%edi        \n\t"
-        "       movq       %%r9,       %%rsi        \n\t"
-        "       call       SaveCode                 \n\t"
-        "       popq       %%r12                    \n\t"
-        "       popq       %%r11                    \n\t"
-        "       popq       %%r10                    \n\t"
-        "       popq       %%r9                     \n\t"
-        "       popq       %%r8                     \n\t"
-        "       jmp        NEXT_CODE                \n\t"
+        isFound = 1;
+        for (__s32 shift = 1; shift < length; ++shift) {
+            // Utility variables.
+            const __s32 x = (length - shift) >> 3;     // Shift means dividing by 8.
+            const __s32 y =           shift  >> 3;     // Shift means dividing by 8.
+            const __s32 z =           shift   & 7;     // Remainder of the division by 8.
+            // Redundant raised bits which included in sum.
+            const __s32 extra = TableBitCount [code [x] >> ( (length - shift) & 7)];
 
-        "QUIT:                                      \n\t"
-        "       nop                                 \n\t"
-        :
-        : [length ] "m" ( (__s32) ( (struct Parameter *) parameter)->length),
-          [code   ] "m" ( (__u64) ( (struct Parameter *) parameter)->beginCode),
-          [maxcode] "m" ( (__u64) ( (struct Parameter *) parameter)->endCode),
-          [limit  ] "m" (sideLobeLimit),
-          [mask   ] "m" (mask)
-        : "%rax", "%rcx", "%rdi", "%rsi",
-          "%r8",  "%r9",  "%r10", "%r11", "%r12", "%r13"
-    );
+            __s32 sideLobeSum = 0;
+            for (__s32 i = 0; i <= x; ++i) {
+                sideLobeSum += TableBitCount [
+                    (__u8) (
+                                  (code [i     + y] >>      z
+                                |  code [i + 1 + y] << (8 - z) )
+                                ^  code [i]
+                    )
+                ];
+            }
+
+            if (abs (length - shift - (sideLobeSum - extra) * 2) > sideLobeLimit) {
+                isFound = 0;
+                break;
+            }
+        }
+
+        if (isFound) {
+            pthread_mutex_lock (&mutexFileStat);
+            int fileStat = open ("/tmp/lpslcd.dat", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+            if (write (fileStat, &length, sizeof (length) ) != sizeof (length) ) {
+                return (void *) 1;
+            }
+            if (write (fileStat,  code, sizeof (code [0]) * SIZE) != sizeof (code [0]) * SIZE) {
+                return (void *) 1;
+            }
+            close (fileStat);
+            pthread_mutex_unlock (&mutexFileStat);
+        }
+    }
 
 
     return (void *) NULL;
@@ -127,13 +116,13 @@ static void * Validate (void * parameter)
 int main ()
 {
     // Range of lengthes of codes which analyzed.
-    const __s32 beginLength   = 13;
+    const __s32 beginLength   =  8;
     const __s32 endLength     = 28;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
     // Parameters which will be passed to validators.
     struct Parameter parameters [THREADS];
-    // Divisor which used for finding range of data which analyze by one validator.
+    // Divisor which used to finding range of data which analyze by one validator.
     __s32 x = 0;
     while (THREADS >> x) {
         ++x;
@@ -143,22 +132,33 @@ int main ()
 
     for (__s32 i = beginLength; i <= endLength; ++i) {
         __u64 rdtsc = __rdtsc ();
-        // Calculating and setting of range, inital and final codes.
+        // Calculating and setting of range, initial and final codes.
         __s32 chunkLength = i - x - 1;
-        __u64 beginCode =  0x00ULL;
-        __u64 endCode   = (0x01ULL << chunkLength) - 1;
-        __u64 chunkCode = (0x01ULL << chunkLength);
+        __u8 beginCode [SIZE];
+        __u8 endCode   [SIZE];
+        __u8 chunkCode [SIZE];
+        memset (beginCode, 0x00, sizeof (beginCode [0]) * SIZE);
+        memset (endCode,   0x00, sizeof (endCode   [0]) * SIZE);
+        memset (chunkCode, 0x00, sizeof (chunkCode [0]) * SIZE);
+        memset (&endCode   [0],                0xFF,     chunkLength / 8);
+        memset (&endCode   [chunkLength / 8], (0x01U << (chunkLength & 7) ) - 1, 1);
+        memset (&chunkCode [chunkLength / 8],  0x01U << (chunkLength & 7),       1);
         // Creation of validators.
         for (__s32 j = 0; j < THREADS; ++j) {
             parameters [j].length = i;
-            parameters [j].beginCode = beginCode;
-            parameters [j].endCode   = endCode;
+            memcpy (&parameters [j].beginCode, beginCode, sizeof (parameters [j].beginCode [0]) * SIZE);
+            memcpy (&parameters [j].endCode,   endCode,   sizeof (parameters [j].endCode   [0]) * SIZE);
 
             pthread_create (&threads [j], NULL, Validate, &parameters [j]);
 
             // Preparation of initial and final codes for next validator.
-            beginCode = endCode;
-            endCode  += chunkCode;
+            memcpy (beginCode, endCode, sizeof (beginCode [0]) * SIZE);
+
+            __u16 carry = 0x00;
+            for (__s32 k = 0; k <= i / 8; ++k) {
+                carry = endCode [k] + chunkCode [k] + (carry >> 8);
+                endCode [k] = carry;
+            }
         }
         // Waiting for completion of validators tasks.
         for (__s32 j = 0; j < THREADS; ++j) {

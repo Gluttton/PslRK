@@ -5,14 +5,10 @@
 
 
 
-#define SIZE 16
-
-
-
 struct Record
 {
     __s32 length;
-    __u8  code [SIZE];
+    __u64 code;
 }   __attribute__ ((packed));
 
 
@@ -25,7 +21,7 @@ int main (int argc, char * argv [])
     while (read (fileStat, &record,  sizeof (record) ) > 0) {
         printf ("%i:\t", record.length);
         for (i = 0; i < record.length; ++i) {
-            (record.code [i / 8] >> (i & 7) ) & 0x01 ? printf ("+") : printf ("-");
+            (record.code >> i) & 0x01 ? printf ("+") : printf ("-");
         }
         printf ("\n");
     } 
