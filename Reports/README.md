@@ -1,31 +1,25 @@
 Reports
 =======
-Archive or projects achivements.
+Collection of binary sequences with low peak sidelobe level.
 
 
 
 Requirements
 ============
+Collection must follows the next requirements:
+ - file format:     XML;
+ - file encoding:   UTF-8;
+ - endline format:  not specified;
+ - items:
+     - <lowpslcodes>;
+     - <code>;
+     - <value>;
+     - <reference>;
+     - <author>;
+     - <article>;
+     - <link>.
 
-Low PSL level sequences collection
-----------------------------------
-
-##### File format
-XML
-
-##### File encoding
-UTF-8
-
-##### Endline format
-[TBD]
-
-##### File structure
-[TBD]
-
-##### Record format
-[TBD]
-
-#####Example
+Example:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <lowpslcodes>

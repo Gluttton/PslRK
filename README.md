@@ -1,5 +1,5 @@
-PSL Level Sequences Research Kit
-================================
+Peak Sidelobe (PSL) Level of Binary Sequences Research Kit
+==========================================================
 PslRK - set of references and programs related with Peak Sidelobe Level of binary sequences:
  - [Related with topic references](References) - set of links and documents which contain
     proofs, results of research, confirmations of approaches and other related information;
