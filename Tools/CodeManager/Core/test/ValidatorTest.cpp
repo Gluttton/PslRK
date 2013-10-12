@@ -126,7 +126,7 @@ TEST_F (ValidatorTest, ValidateHexViewFail)
 
 
     // Arange.
-    invalidHexView = "0a1";
+    invalidHexView = "0j1";
     etalonResult = 1;
     // Act.
     testResult = v->ValidateHexView (invalidHexView);
