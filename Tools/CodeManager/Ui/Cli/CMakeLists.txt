@@ -7,30 +7,25 @@ set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 set (CMAKE_SHARED_LINKER_FLAGS "-Wall -Wextra")
 
 
-set (CodeManagerCore_SOURCES
-    ${PROJECT_SOURCE_DIR}/Core/src/Validator.cpp
-    ${PROJECT_SOURCE_DIR}/Core/src/Calculator.cpp
-    ${PROJECT_SOURCE_DIR}/Core/src/Representer.cpp
+set (CodeManagerCli_SOURCES
+    ${PROJECT_SOURCE_DIR}/Ui/Cli/src/main.cpp
 )
 
 include_directories (
     ${PROJECT_SOURCE_DIR}/Core/include
+    ${PROJECT_SOURCE_DIR}/Ui/Cli/include
 )
 
 link_directories (
     ${PROJECT_BINARY_DIR}
 )
 
-add_library (
-    mslmcore SHARED
-    ${CodeManagerCore_SOURCES}
+add_executable (
+    pslcm
+    ${CodeManagerCli_SOURCES}
 )
 
 target_link_libraries (
+    pslcm
     mslmcore
-)
-
-
-add_subdirectory (
-    test
 )

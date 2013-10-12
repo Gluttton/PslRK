@@ -10,12 +10,14 @@ set (
     CodeManagerCoreTest_SOURCES
     ../src/Validator.cpp
     ../src/Calculator.cpp
+    ../src/Representer.cpp
     ValidatorTest.cpp
     CalculatorTest.cpp
+    RepresenterTest.cpp
 )
 
 include_directories (
-    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/Core/include
 )
 
 
