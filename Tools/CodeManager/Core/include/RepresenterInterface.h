@@ -8,7 +8,8 @@
 class IRepresenter
 {
     public:
-        virtual std::string HexViewToStringView (const std::string) = 0;
+        virtual std::string HexViewToStringView (const std::string)               = 0;
+        virtual std::string HexViewToStringView (const std::string, const size_t) = 0;
 };
 
 #endif//PSLRK_TOOLS_CODE_MANAGER_CORE_REPRESENTER_INTERFACE_H

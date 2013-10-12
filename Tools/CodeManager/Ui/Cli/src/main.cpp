@@ -23,17 +23,23 @@ int main (int argc, char * argv [])
         std::cout << "valid" << std::endl;
     }
 
-    std::string stringViewOfCode = representer.HexViewToStringView (code);
+    std::string stringViewOfCode;
+    if (argc == 2) {
+        stringViewOfCode = representer.HexViewToStringView (code);
+    }
+    else if (argc == 3) {
+        stringViewOfCode = representer.HexViewToStringView (code, std::stoi (argv [2]) );
+    }
     std::cout << "String view of code: " << stringViewOfCode << std::endl;
 
     std::cout << "Autocorrelation function: ";
-    auto acf = calculator.CalculateAcf (representer.HexViewToStringView (code) );
+    auto acf = calculator.CalculateAcf (stringViewOfCode);
     for (auto e : acf) {
         std::cout << e << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "Maximum Peak Sidelobe: " << calculator.CalculateMsl (representer.HexViewToStringView (code) ) << std::endl;
+    std::cout << "Maximum Peak Sidelobe: " << calculator.CalculateMsl (stringViewOfCode) << std::endl;
 
 
     return EXIT_SUCCESS;

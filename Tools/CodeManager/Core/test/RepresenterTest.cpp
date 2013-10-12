@@ -38,3 +38,21 @@ TEST_F (RepresenterTest, HexViewToStringViewSuccess)
     // Clearing.
     delete r;
 }
+
+
+
+TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewSuccess)
+{
+    // Arange.
+    IRepresenter * r = new Representer ();
+    const std::string hexView {"00ca"};
+    const std::string etalonStringView {"-----++--+-+-"};
+    constexpr size_t codeLength {13};
+    // Act.
+    const std::string testStringView = r->HexViewToStringView (hexView, codeLength);
+    // Assert.
+    EXPECT_EQ (etalonStringView, testStringView);
+
+    // Clearing.
+    delete r;
+}
