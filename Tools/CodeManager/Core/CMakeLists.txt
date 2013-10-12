@@ -13,6 +13,8 @@ set (CMAKE_SHARED_LINKER_FLAGS "-Wall -Wextra")
 
 
 set (CodeManagerCore_SOURCES
+    ${PROJECT_SOURCE_DIR}/src/Validator.cpp
+    ${PROJECT_SOURCE_DIR}/src/Calculator.cpp
 )
 
 include_directories (
@@ -23,14 +25,14 @@ link_directories (
     ${PROJECT_BINARY_DIR}
 )
 
-#add_library (
-#    mslmcore SHARED
-#    ${CodeManagerCore_SOURCES}
-#)
+add_library (
+    mslmcore SHARED
+    ${CodeManagerCore_SOURCES}
+)
 
-#target_link_libraries (
-#    mslmcore
-#)
+target_link_libraries (
+    mslmcore
+)
 
 
 add_subdirectory (

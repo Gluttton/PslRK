@@ -1,6 +1,5 @@
-#include "ValidatorInterface.h"
+#include "Validator.h"
 #include <gtest/gtest.h>
-#include <string>
 
 
 
@@ -28,13 +27,16 @@ void ValidatorTest::TearDown ()
 TEST_F (ValidatorTest, ValidateStringViewSuccess)
 {
     // Arange.
-    IValidator * v;
+    IValidator * v = new Validator ();
     const std::string validStringView {"+-"};
     constexpr int etalonResult {-1};
     // Act.
     const int testResult = v->ValidateStringView (validStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
+
+    // Clearing.
+    delete v;
 }
 
 
@@ -42,7 +44,7 @@ TEST_F (ValidatorTest, ValidateStringViewSuccess)
 TEST_F (ValidatorTest, ValidateStringViewFail)
 {
     // Arange.
-    IValidator * v;
+    IValidator * v = new Validator ();
     std::string invalidStringView {"0+-"};
     int etalonResult {0};
     // Act.
@@ -67,6 +69,9 @@ TEST_F (ValidatorTest, ValidateStringViewFail)
     testResult = v->ValidateStringView (invalidStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
+
+    // Clearing.
+    delete v;
 }
 
 
@@ -74,7 +79,7 @@ TEST_F (ValidatorTest, ValidateStringViewFail)
 TEST_F (ValidatorTest, ValidateHexViewSuccess)
 {
     // Arange.
-    IValidator * v;
+    IValidator * v = new Validator ();
     std::string validHexView {"0"};
     // Act.
     int result = v->ValidateHexView (validHexView);
@@ -101,6 +106,9 @@ TEST_F (ValidatorTest, ValidateHexViewSuccess)
     result = v->ValidateHexView (validHexView);
     // Assert.
     EXPECT_EQ (-1, result);
+
+    // Clearing.
+    delete v;
 }
 
 
@@ -108,7 +116,7 @@ TEST_F (ValidatorTest, ValidateHexViewSuccess)
 TEST_F (ValidatorTest, ValidateHexViewFail)
 {
     // Arange.
-    IValidator * v;
+    IValidator * v = new Validator ();
     std::string invalidHexView {"+0"};
     int etalonResult {0};
     // Act.
@@ -133,4 +141,7 @@ TEST_F (ValidatorTest, ValidateHexViewFail)
     testResult = v->ValidateHexView (invalidHexView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
+
+    // Clearing.
+    delete v;
 }
