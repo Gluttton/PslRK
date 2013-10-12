@@ -6,7 +6,8 @@ PslRK - set of references and programs related with Peak Sidelobe Level of binar
 - [Low PSL code detectors](Solutions) - set of solutions of the problem of finding binary
     sequences with low PSL level;
 - [Projects results (achievements)](Reports) - list of known binary sequences with low PSL
-    level.
+    level;
+- [Tools](Tools) - set of related tools.
 
 
 
