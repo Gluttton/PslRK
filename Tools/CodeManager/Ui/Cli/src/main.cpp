@@ -65,6 +65,13 @@ int main (int argc, char * argv [])
 
     std::cout << "Maximum Peak Sidelobe:    " << calculator.CalculateMsl (code) << std::endl;
 
+    auto family = representer.GenerateCodeFamily (code);
+    std::cout << "Code family:              " << family [0] << std::endl;
+    std::cout << "                          " << family [1] << std::endl;
+    std::cout << "                          " << family [2] << std::endl;
+    std::cout << "                          " << family [3] << std::endl;
+    std::cout << "Code ID:                  " << representer.DetectCodeId (code) << std::endl;
+
 
     return EXIT_SUCCESS;
 }
