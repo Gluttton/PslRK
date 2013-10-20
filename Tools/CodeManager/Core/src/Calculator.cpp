@@ -1,4 +1,5 @@
 #include "Calculator.h"
+#include <algorithm>
 
 
 
@@ -37,15 +38,10 @@ std::vector <int> Calculator::CalculateAcf (const std::string & code) const
 
 int Calculator::CalculateMsl (const std::string & code) const
 {
-    int msl {0};
-
+    const size_t range {code.length () - 1};
     std::vector <int> acf {CalculateAcf (code)};
-    // TODO: Replace loop on algorithm.
-    for (int i = 0; i < code.length () - 1; ++i) {
-        msl = std::max (msl, abs (acf [i]) );
-    }
-
-    return msl;
+    std::transform (acf.begin (), acf.begin () + range, acf.begin (), abs);
+    return * std::max_element (acf.begin (), acf.begin () + range);
 }
 
 }// namespace Core
