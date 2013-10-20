@@ -27,16 +27,13 @@ void ValidatorTest::TearDown ()
 TEST_F (ValidatorTest, ValidateStringViewSuccess)
 {
     // Arange.
-    IValidator * v = new Validator ();
+    Validator validator;
     const std::string validStringView {"+-"};
     constexpr int etalonResult {-1};
     // Act.
-    const int testResult = v->ValidateStringView (validStringView);
+    const int testResult = validator.ValidateStringView (validStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
-
-    // Clearing.
-    delete v;
 }
 
 
@@ -44,11 +41,11 @@ TEST_F (ValidatorTest, ValidateStringViewSuccess)
 TEST_F (ValidatorTest, ValidateStringViewFail)
 {
     // Arange.
-    IValidator * v = new Validator ();
+    Validator validator;
     std::string invalidStringView {"0+-"};
     int etalonResult {0};
     // Act.
-    int testResult = v->ValidateStringView (invalidStringView);
+    int testResult = validator.ValidateStringView (invalidStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 
@@ -57,7 +54,7 @@ TEST_F (ValidatorTest, ValidateStringViewFail)
     invalidStringView = "+a-";
     etalonResult = 1;
     // Act.
-    testResult = v->ValidateStringView (invalidStringView);
+    testResult = validator.ValidateStringView (invalidStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 
@@ -66,12 +63,9 @@ TEST_F (ValidatorTest, ValidateStringViewFail)
     invalidStringView = "+- ";
     etalonResult = 2;
     // Act.
-    testResult = v->ValidateStringView (invalidStringView);
+    testResult = validator.ValidateStringView (invalidStringView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
-
-    // Clearing.
-    delete v;
 }
 
 
@@ -79,36 +73,33 @@ TEST_F (ValidatorTest, ValidateStringViewFail)
 TEST_F (ValidatorTest, ValidateHexViewSuccess)
 {
     // Arange.
-    IValidator * v = new Validator ();
+    Validator validator;
     std::string validHexView {"0"};
     // Act.
-    int result = v->ValidateHexView (validHexView);
+    int result = validator.ValidateHexView (validHexView);
     // Assert.
     EXPECT_EQ (-1, result);
 
     // Arange.
     validHexView = "01";
     // Act.
-    result = v->ValidateHexView (validHexView);
+    result = validator.ValidateHexView (validHexView);
     // Assert.
     EXPECT_EQ (-1, result);
 
     // Arange.
     validHexView = "0f";
     // Act.
-    result = v->ValidateHexView (validHexView);
+    result = validator.ValidateHexView (validHexView);
     // Assert.
     EXPECT_EQ (-1, result);
 
     // Arange.
     validHexView = "0F";
     // Act.
-    result = v->ValidateHexView (validHexView);
+    result = validator.ValidateHexView (validHexView);
     // Assert.
     EXPECT_EQ (-1, result);
-
-    // Clearing.
-    delete v;
 }
 
 
@@ -116,11 +107,11 @@ TEST_F (ValidatorTest, ValidateHexViewSuccess)
 TEST_F (ValidatorTest, ValidateHexViewFail)
 {
     // Arange.
-    IValidator * v = new Validator ();
+    Validator validator;
     std::string invalidHexView {"+0"};
     int etalonResult {0};
     // Act.
-    int testResult = v->ValidateHexView (invalidHexView);
+    int testResult = validator.ValidateHexView (invalidHexView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 
@@ -129,7 +120,7 @@ TEST_F (ValidatorTest, ValidateHexViewFail)
     invalidHexView = "0j1";
     etalonResult = 1;
     // Act.
-    testResult = v->ValidateHexView (invalidHexView);
+    testResult = validator.ValidateHexView (invalidHexView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 
@@ -138,10 +129,7 @@ TEST_F (ValidatorTest, ValidateHexViewFail)
     invalidHexView = "00 ";
     etalonResult = 2;
     // Act.
-    testResult = v->ValidateHexView (invalidHexView);
+    testResult = validator.ValidateHexView (invalidHexView);
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
-
-    // Clearing.
-    delete v;
 }
