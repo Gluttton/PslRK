@@ -114,10 +114,11 @@ std::string Representer::InverseCode (const std::string & code) const
 
 
 
-std::array <std::string, 4> Representer::GenerateCodeFamily (const std::string & code) const
+std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & code) const
 {
-    std::array <std::string, 4> family;
+    std::array <std::string, codeFamilySize> family;
 
+    // TODO: Add invariant checking (codeFamilySize great or equal 4) and declare suitable exception class.
     family [0] = code;
     family [1] = ReverseCode (code);
     family [2] = InverseCode (code);
@@ -130,9 +131,9 @@ std::array <std::string, 4> Representer::GenerateCodeFamily (const std::string &
 
 std::string Representer::DetectCodeId (const std::string & code) const
 {
-    const std::array <std::string, 4> family = GenerateCodeFamily (code);
+    const auto family = GenerateCodeFamily (code);
 
-    return StringViewToHexView (std::min (std::min (family [0], family [1]), std::min (family [2], family [3]) ) );
+    return StringViewToHexView (* std::min_element (family.begin (), family.end () ) );
 }
 
 }// namespace Core

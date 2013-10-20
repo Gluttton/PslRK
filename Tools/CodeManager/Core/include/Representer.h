@@ -12,6 +12,10 @@ namespace Pslrk
 namespace Core
 {
 
+constexpr int codeFamilySize {4};
+
+
+
 class Representer
 {
     public:
@@ -20,8 +24,7 @@ class Representer
         std::string StringViewToHexView (const std::string &) const;
         std::string ReverseCode (const std::string &) const;
         std::string InverseCode (const std::string &) const;
-        // TODO: Replace Magic Digit on constant.
-        std::array <std::string, 4> GenerateCodeFamily (const std::string &) const;
+        std::array <std::string, codeFamilySize> GenerateCodeFamily (const std::string &) const;
         std::string DetectCodeId (const std::string &) const;
 
     private:
