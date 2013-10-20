@@ -8,6 +8,11 @@
 
 int main (int argc, char * argv [])
 {
+    using Pslrk::Core::Validator;
+    using Pslrk::Core::Calculator;
+    using Pslrk::Core::Representer;
+
+
     if (argc < 2) {
         std::cout << "Input parameters were not passed!" << std::endl;
         return EXIT_FAILURE;

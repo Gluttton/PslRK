@@ -3,6 +3,11 @@
 
 
 
+namespace Pslrk
+{
+namespace Core
+{
+
 int Validator::ValidateStringView (const std::string validatingView)
 {
     const std::string allowedSymbols {"-+"};
@@ -32,3 +37,6 @@ int Validator::ValidateHexView (const std::string validatingView)
     constexpr int success {-1};
     return success;
 }
+
+}// namespace Core
+}// namespace Pslrk

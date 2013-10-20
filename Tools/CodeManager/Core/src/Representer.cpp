@@ -3,6 +3,11 @@
 
 
 
+namespace Pslrk
+{
+namespace Core
+{
+
 std::map <char, std::string> Representer::conversionTable {
     {'0', "----"},
     {'1', "---+"},
@@ -129,3 +134,6 @@ std::string Representer::DetectCodeId (const std::string code)
 
     return StringViewToHexView (std::min (std::min (family [0], family [1]), std::min (family [2], family [3]) ) );
 }
+
+}// namespace Core
+}// namespace Pslrk

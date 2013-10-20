@@ -3,6 +3,10 @@
 
 
 
+using Pslrk::Core::Calculator;
+
+
+
 class CalculatorTest : public ::testing::Test
 {
     protected:

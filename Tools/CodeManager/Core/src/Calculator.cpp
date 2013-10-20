@@ -2,6 +2,11 @@
 
 
 
+namespace Pslrk
+{
+namespace Core
+{
+
 std::vector <int> Calculator::CalculateAcf (const std::string code)
 {
     std::vector <int> acf {};
@@ -41,3 +46,6 @@ int Calculator::CalculateMsl (const std::string code)
 
     return msl;
 }
+
+}// namespace Core
+}// namespace Pslrk

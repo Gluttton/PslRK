@@ -3,6 +3,10 @@
 
 
 
+using Pslrk::Core::Validator;
+
+
+
 class ValidatorTest : public ::testing::Test
 {
     protected:

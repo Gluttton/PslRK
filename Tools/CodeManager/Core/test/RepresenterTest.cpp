@@ -3,6 +3,10 @@
 
 
 
+using Pslrk::Core::Representer;
+
+
+
 class RepresenterTest : public ::testing::Test
 {
     protected:

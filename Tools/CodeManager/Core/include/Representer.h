@@ -7,6 +7,11 @@
 
 
 
+namespace Pslrk
+{
+namespace Core
+{
+
 class Representer
 {
     public:
@@ -21,5 +26,8 @@ class Representer
     private:
         static std::map <char, std::string> conversionTable;
 };
+
+}// namespace Core
+}// namespace Pslrk
 
 #endif//PSLRK_TOOLS_CODE_MANAGER_CORE_REPRESENTER_H
