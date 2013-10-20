@@ -8,7 +8,7 @@ namespace Pslrk
 namespace Core
 {
 
-int Validator::ValidateStringView (const std::string validatingView)
+int Validator::ValidateStringView (const std::string & validatingView) const
 {
     const std::string allowedSymbols {"-+"};
 
@@ -24,7 +24,7 @@ int Validator::ValidateStringView (const std::string validatingView)
 
 
 
-int Validator::ValidateHexView (const std::string validatingView)
+int Validator::ValidateHexView (const std::string & validatingView) const
 {
     const std::string allowedSymbols {"01234567890abcdefABCDEF"};
 
@@ -34,6 +34,7 @@ int Validator::ValidateHexView (const std::string validatingView)
         }
     }
 
+    // TODO: Remove 'success' on top level.
     constexpr int success {-1};
     return success;
 }

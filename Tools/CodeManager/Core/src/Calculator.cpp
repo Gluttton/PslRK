@@ -7,7 +7,7 @@ namespace Pslrk
 namespace Core
 {
 
-std::vector <int> Calculator::CalculateAcf (const std::string code)
+std::vector <int> Calculator::CalculateAcf (const std::string & code) const
 {
     std::vector <int> acf {};
 
@@ -18,11 +18,11 @@ std::vector <int> Calculator::CalculateAcf (const std::string code)
     //   | +-|-
     //   |  +|--
     const int range = code.length () - 1;
-    for (int i = range; i >= -range; --i) {
+    for (int i {range}; i >= -range; --i) {
         const int begin {      - i >     0 ?        -i :     0};
         const int end   {range - i < range ? range - i : range};
         int sum {0};
-        for (int j = begin; j <= end; ++j) {
+        for (int j {begin}; j <= end; ++j) {
             const int a {code [    j] == '+' ? 1 : -1};
             const int b {code [i + j] == '+' ? 1 : -1};
             sum += a * b;
@@ -35,11 +35,12 @@ std::vector <int> Calculator::CalculateAcf (const std::string code)
 
 
 
-int Calculator::CalculateMsl (const std::string code)
+int Calculator::CalculateMsl (const std::string & code) const
 {
     int msl {0};
 
     std::vector <int> acf {CalculateAcf (code)};
+    // TODO: Replace loop on algorithm.
     for (int i = 0; i < code.length () - 1; ++i) {
         msl = std::max (msl, abs (acf [i]) );
     }

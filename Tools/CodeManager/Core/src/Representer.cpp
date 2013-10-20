@@ -30,7 +30,7 @@ std::map <char, std::string> Representer::conversionTable {
 
 
 
-std::string Representer::HexViewToStringView (const std::string hexView)
+std::string Representer::HexViewToStringView (const std::string & hexView) const
 {
     std::string stringView;
 
@@ -45,7 +45,7 @@ std::string Representer::HexViewToStringView (const std::string hexView)
 
 
 
-std::string Representer::HexViewToStringView (const std::string hexView, const size_t length)
+std::string Representer::HexViewToStringView (const std::string & hexView, const size_t length) const
 {
     std::string stringView;
 
@@ -60,7 +60,7 @@ std::string Representer::HexViewToStringView (const std::string hexView, const s
 
 
 
-std::string Representer::StringViewToHexView (const std::string stringView)
+std::string Representer::StringViewToHexView (const std::string & stringView) const
 {
     std::string hexView;
     int extendedSize = stringView.length () & 3;
@@ -86,7 +86,7 @@ std::string Representer::StringViewToHexView (const std::string stringView)
 
 
 
-std::string Representer::ReverseCode (const std::string code)
+std::string Representer::ReverseCode (const std::string & code) const
 {
     std::string reversedCode (code);
 
@@ -97,7 +97,7 @@ std::string Representer::ReverseCode (const std::string code)
 
 
 
-std::string Representer::InverseCode (const std::string code)
+std::string Representer::InverseCode (const std::string & code) const
 {
     std::string inversedCode;
 
@@ -114,7 +114,7 @@ std::string Representer::InverseCode (const std::string code)
 
 
 
-std::array <std::string, 4> Representer::GenerateCodeFamily (const std::string code)
+std::array <std::string, 4> Representer::GenerateCodeFamily (const std::string & code) const
 {
     std::array <std::string, 4> family;
 
@@ -128,7 +128,7 @@ std::array <std::string, 4> Representer::GenerateCodeFamily (const std::string c
 
 
 
-std::string Representer::DetectCodeId (const std::string code)
+std::string Representer::DetectCodeId (const std::string & code) const
 {
     const std::array <std::string, 4> family = GenerateCodeFamily (code);
 

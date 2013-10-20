@@ -13,8 +13,8 @@ namespace Core
 class Validator
 {
     public:
-        int ValidateStringView (const std::string);
-        int ValidateHexView    (const std::string);
+        int ValidateStringView (const std::string &) const;
+        int ValidateHexView    (const std::string &) const;
 };
 
 }// namespace Core

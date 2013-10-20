@@ -15,13 +15,14 @@ namespace Core
 class Representer
 {
     public:
-        std::string HexViewToStringView (const std::string);
-        std::string HexViewToStringView (const std::string, const size_t);
-        std::string StringViewToHexView (const std::string);
-        std::string ReverseCode (const std::string);
-        std::string InverseCode (const std::string);
-        std::array <std::string, 4> GenerateCodeFamily (const std::string);
-        std::string DetectCodeId (const std::string);
+        std::string HexViewToStringView (const std::string &) const;
+        std::string HexViewToStringView (const std::string &, const size_t) const;
+        std::string StringViewToHexView (const std::string &) const;
+        std::string ReverseCode (const std::string &) const;
+        std::string InverseCode (const std::string &) const;
+        // TODO: Replace Magic Digit on constant.
+        std::array <std::string, 4> GenerateCodeFamily (const std::string &) const;
+        std::string DetectCodeId (const std::string &) const;
 
     private:
         static std::map <char, std::string> conversionTable;
