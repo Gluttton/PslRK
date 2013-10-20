@@ -10,6 +10,10 @@ namespace Pslrk
 namespace Core
 {
 
+constexpr int viewIsValid {-1};
+
+
+
 class Validator
 {
     public:

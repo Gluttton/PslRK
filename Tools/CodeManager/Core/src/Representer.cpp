@@ -1,5 +1,6 @@
 #include "Representer.h"
 #include <algorithm>
+#include <iostream>
 
 
 
@@ -8,7 +9,7 @@ namespace Pslrk
 namespace Core
 {
 
-std::map <char, std::string> Representer::conversionTable {
+std::map <char, std::string> Representer::conversionHexToStringTable {
     {'0', "----"},
     {'1', "---+"},
     {'2', "--+-"},
@@ -19,8 +20,7 @@ std::map <char, std::string> Representer::conversionTable {
     {'7', "-+++"},
     {'8', "+---"},
     {'9', "+--+"},
-    {'a', "+-+-"},
-    {'A', "+-+-"},
+    {'a', "+-+-"}, {'A', "+-+-"},
     {'b', "+-++"}, {'B', "+-++"},
     {'c', "++--"}, {'C', "++--"},
     {'d', "++-+"}, {'D', "++-+"},
@@ -30,12 +30,33 @@ std::map <char, std::string> Representer::conversionTable {
 
 
 
+std::map <std::string, char> Representer::conversionStringToHexTable {
+    {"----", '0'},
+    {"---+", '1'},
+    {"--+-", '2'},
+    {"--++", '3'},
+    {"-+--", '4'},
+    {"-+-+", '5'},
+    {"-++-", '6'},
+    {"-+++", '7'},
+    {"+---", '8'},
+    {"+--+", '9'},
+    {"+-+-", 'a'},
+    {"+-++", 'b'},
+    {"++--", 'c'},
+    {"++-+", 'd'},
+    {"+++-", 'e'},
+    {"++++", 'f'}
+};
+
+
+
 std::string Representer::HexViewToStringView (const std::string & hexView) const
 {
     std::string stringView;
 
     for (size_t i = 0; i < hexView.length (); ++i) {
-        stringView.append (conversionTable [hexView [i] ]);
+        stringView.append (conversionHexToStringTable [hexView [i] ]);
     }
 
     stringView = stringView.substr (stringView.find_first_of ('+') );
@@ -50,7 +71,7 @@ std::string Representer::HexViewToStringView (const std::string & hexView, const
     std::string stringView;
 
     for (size_t i = 0; i < hexView.length (); ++i) {
-        stringView.append (conversionTable [hexView [i] ]);
+        stringView.append (conversionHexToStringTable [hexView [i] ]);
     }
 
     stringView = stringView.substr (stringView.length () - length);
@@ -62,24 +83,16 @@ std::string Representer::HexViewToStringView (const std::string & hexView, const
 
 std::string Representer::StringViewToHexView (const std::string & stringView) const
 {
+    constexpr int tetradSize {4};
     std::string hexView;
-    int extendedSize = stringView.length () & 3;
-    extendedSize = extendedSize ? 4 - extendedSize : 0;
+    const size_t shortageSize {stringView.length () % tetradSize};
+    const size_t extendedSize {shortageSize ? tetradSize - shortageSize : 0};
     std::string extendedStringView (extendedSize, '-');
     extendedStringView.append (stringView);
 
-    for (int i = 0; i < stringView.length (); i += 4) {
-        const std::string tetrad = extendedStringView.substr (i, 4);
-        for (auto x : conversionTable) {
-            if (x.second == tetrad) {
-                const std::string symbol (1, x.first);
-                hexView.append (symbol);
-                break;
-            }
-        }
+    for (int i {0}; i < stringView.length (); i += tetradSize) {
+        hexView.append (1, conversionStringToHexTable [extendedStringView.substr(i, tetradSize)]);
     }
-
-    std::transform (hexView.begin (), hexView.end (), hexView.begin (), ::tolower);
 
     return hexView;
 }
@@ -99,17 +112,15 @@ std::string Representer::ReverseCode (const std::string & code) const
 
 std::string Representer::InverseCode (const std::string & code) const
 {
-    std::string inversedCode;
-
-    for (int i = 0; i < code.length (); ++i) {
-        switch (code [i]) {
-            case '+': inversedCode.append ("-"); break;
-            case '-': inversedCode.append ("+"); break;
-        }
-    }
-
-
-    return inversedCode;
+    return std::accumulate (code.begin (), code.end (), std::string (),
+                [& code](std::string & result, const char & c) {
+                    switch (c) {
+                        case '+': return result.append ("-");
+                        case '-': return result.append ("+");
+                        default : return result;
+                    }
+                }
+    );
 }
 
 
@@ -124,6 +135,7 @@ std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const 
     family [2] = InverseCode (code);
     family [3] = ReverseCode (InverseCode (code) );
 
+    
     return family;
 }
 

@@ -28,7 +28,8 @@ class Representer
         std::string DetectCodeId (const std::string &) const;
 
     private:
-        static std::map <char, std::string> conversionTable;
+        static std::map <char, std::string> conversionHexToStringTable;
+        static std::map <std::string, char> conversionStringToHexTable;
 };
 
 }// namespace Core

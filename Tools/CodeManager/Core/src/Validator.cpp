@@ -18,8 +18,7 @@ int Validator::ValidateStringView (const std::string & validatingView) const
         }
     }
 
-    constexpr int success {-1};
-    return success;
+    return viewIsValid;
 }
 
 
@@ -34,9 +33,7 @@ int Validator::ValidateHexView (const std::string & validatingView) const
         }
     }
 
-    // TODO: Remove 'success' on top level.
-    constexpr int success {-1};
-    return success;
+    return viewIsValid;
 }
 
 }// namespace Core
