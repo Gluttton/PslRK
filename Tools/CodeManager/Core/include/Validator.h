@@ -17,8 +17,8 @@ constexpr int viewIsValid {-1};
 class Validator
 {
     public:
-        int ValidateStringView (const std::string &) const;
-        int ValidateHexView    (const std::string &) const;
+        static int ValidateStringView (const std::string &);
+        static int ValidateHexView    (const std::string &);
 };
 
 }// namespace Core

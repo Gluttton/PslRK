@@ -19,13 +19,13 @@ constexpr int codeFamilySize {4};
 class Representer
 {
     public:
-        std::string HexViewToStringView (const std::string &) const;
-        std::string HexViewToStringView (const std::string &, const size_t) const;
-        std::string StringViewToHexView (const std::string &) const;
-        std::string ReverseCode (const std::string &) const;
-        std::string InverseCode (const std::string &) const;
-        std::array <std::string, codeFamilySize> GenerateCodeFamily (const std::string &) const;
-        std::string DetectCodeId (const std::string &) const;
+        static std::string HexViewToStringView (const std::string &);
+        static std::string HexViewToStringView (const std::string &, const size_t);
+        static std::string StringViewToHexView (const std::string &);
+        static std::string ReverseCode (const std::string &);
+        static std::string InverseCode (const std::string &);
+        static std::array <std::string, codeFamilySize> GenerateCodeFamily (const std::string &);
+        static std::string DetectCodeId (const std::string &);
 
     private:
         static std::map <char, std::string> conversionHexToStringTable;

@@ -19,18 +19,13 @@ int main (int argc, char * argv [])
     }
 
 
-    Validator   validator;
-    Calculator  calculator;
-    Representer representer;
-
-
     std::string code = argv [1];
     std::cout << "Input code:               " << code << std::endl;
     std::cout << "Recognizing format:       ";
 
-    const int validationAsStringResult = validator.ValidateStringView (code);
+    const int validationAsStringResult = Validator::ValidateStringView (code);
     if (-1 != validationAsStringResult) {
-        const int validationAsHexResult = validator.ValidateHexView (code);
+        const int validationAsHexResult = Validator::ValidateHexView (code);
         if (-1 != validationAsHexResult) {
             std::cout << "unsuccessful." << std::endl;
             std::cout << "String wrong symbol:      " << code << std::endl;
@@ -49,9 +44,9 @@ int main (int argc, char * argv [])
             std::cout << "hex." << std::endl;
 
             if (2 == argc) {
-                code = representer.HexViewToStringView (code);
+                code = Representer::HexViewToStringView (code);
             } else if (3 == argc) {
-                code = representer.HexViewToStringView (code, std::stoi (argv [2]) );
+                code = Representer::HexViewToStringView (code, std::stoi (argv [2]) );
             }
         }
     }
@@ -62,20 +57,20 @@ int main (int argc, char * argv [])
 
 
     std::cout << "Autocorrelation function: ";
-    auto acf = calculator.CalculateAcf (code);
+    auto acf = Calculator::CalculateAcf (code);
     for (auto e : acf) {
         std::cout << e << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "Maximum Peak Sidelobe:    " << calculator.CalculateMsl (code) << std::endl;
+    std::cout << "Maximum Peak Sidelobe:    " << Calculator::CalculateMsl (code) << std::endl;
 
-    auto family = representer.GenerateCodeFamily (code);
+    auto family = Representer::GenerateCodeFamily (code);
     std::cout << "Code family:              " << family [0] << std::endl;
     std::cout << "                          " << family [1] << std::endl;
     std::cout << "                          " << family [2] << std::endl;
     std::cout << "                          " << family [3] << std::endl;
-    std::cout << "Code ID:                  " << representer.DetectCodeId (code) << std::endl;
+    std::cout << "Code ID:                  " << Representer::DetectCodeId (code) << std::endl;
 
 
     return EXIT_SUCCESS;

@@ -50,7 +50,7 @@ std::map <std::string, char> Representer::conversionStringToHexTable {
 
 
 
-std::string Representer::HexViewToStringView (const std::string & hexView) const
+std::string Representer::HexViewToStringView (const std::string & hexView)
 {
     std::string stringView;
 
@@ -65,7 +65,7 @@ std::string Representer::HexViewToStringView (const std::string & hexView) const
 
 
 
-std::string Representer::HexViewToStringView (const std::string & hexView, const size_t length) const
+std::string Representer::HexViewToStringView (const std::string & hexView, const size_t length)
 {
     std::string stringView;
 
@@ -80,7 +80,7 @@ std::string Representer::HexViewToStringView (const std::string & hexView, const
 
 
 
-std::string Representer::StringViewToHexView (const std::string & stringView) const
+std::string Representer::StringViewToHexView (const std::string & stringView)
 {
     constexpr int tetradSize {4};
     std::string hexView;
@@ -98,7 +98,7 @@ std::string Representer::StringViewToHexView (const std::string & stringView) co
 
 
 
-std::string Representer::ReverseCode (const std::string & stringView) const
+std::string Representer::ReverseCode (const std::string & stringView)
 {
     std::string reversedStringView (stringView);
 
@@ -109,7 +109,7 @@ std::string Representer::ReverseCode (const std::string & stringView) const
 
 
 
-std::string Representer::InverseCode (const std::string & stringView) const
+std::string Representer::InverseCode (const std::string & stringView)
 {
     return std::accumulate (stringView.begin (), stringView.end (), std::string (),
                 [& stringView](std::string & result, const char & c) {
@@ -124,7 +124,7 @@ std::string Representer::InverseCode (const std::string & stringView) const
 
 
 
-std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & stringView) const
+std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & stringView)
 {
     std::array <std::string, codeFamilySize> family;
 
@@ -139,7 +139,7 @@ std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const 
 
 
 
-std::string Representer::DetectCodeId (const std::string & stringView) const
+std::string Representer::DetectCodeId (const std::string & stringView)
 {
     const auto family = GenerateCodeFamily (stringView);
 

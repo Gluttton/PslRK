@@ -8,7 +8,7 @@ namespace Pslrk
 namespace Core
 {
 
-std::vector <int> Calculator::CalculateAcf (const std::string & code) const
+std::vector <int> Calculator::CalculateAcf (const std::string & code)
 {
     std::vector <int> acf {};
 
@@ -36,7 +36,7 @@ std::vector <int> Calculator::CalculateAcf (const std::string & code) const
 
 
 
-int Calculator::CalculateMsl (const std::string & code) const
+int Calculator::CalculateMsl (const std::string & code)
 {
     const size_t range {code.length () - 1};
     std::vector <int> acf {CalculateAcf (code)};

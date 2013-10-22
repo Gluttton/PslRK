@@ -31,11 +31,10 @@ void RepresenterTest::TearDown ()
 TEST_F (RepresenterTest, HexViewToStringViewSuccess)
 {
     // Arange.
-    Representer representer;
     const std::string hexView {"1f35"};
     const std::string etalonStringView {"+++++--++-+-+"};
     // Act.
-    const std::string testStringView = representer.HexViewToStringView (hexView);
+    const std::string testStringView = Representer::HexViewToStringView (hexView);
     // Assert.
     EXPECT_EQ (etalonStringView, testStringView);
 }
@@ -45,12 +44,11 @@ TEST_F (RepresenterTest, HexViewToStringViewSuccess)
 TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewSuccess)
 {
     // Arange.
-    Representer representer;
     const std::string hexView {"00ca"};
     const std::string etalonStringView {"-----++--+-+-"};
     constexpr size_t codeLength {13};
     // Act.
-    const std::string testStringView = representer.HexViewToStringView (hexView, codeLength);
+    const std::string testStringView = Representer::HexViewToStringView (hexView, codeLength);
     // Assert.
     EXPECT_EQ (etalonStringView, testStringView);
 }
@@ -60,11 +58,10 @@ TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewSuccess)
 TEST_F (RepresenterTest, StringViewToHexViewSuccess)
 {
     // Arange.
-    Representer representer;
     const std::string stringView {"+++++--++-+-+"};
     const std::string etalonHexView {"1f35"};
     // Act.
-    const std::string testHexView = representer.StringViewToHexView (stringView);
+    const std::string testHexView = Representer::StringViewToHexView (stringView);
     // Assert.
     EXPECT_EQ (etalonHexView, testHexView);
 }
@@ -74,11 +71,10 @@ TEST_F (RepresenterTest, StringViewToHexViewSuccess)
 TEST_F (RepresenterTest, ReverseCodeSuccess)
 {
     // Arange.
-    Representer representer;
     const std::string code {"+++++--++-+-+"};
     const std::string etalonReversedCode {"+-+-++--+++++"};
     // Act.
-    const std::string testReversedCode = representer.ReverseCode (code);
+    const std::string testReversedCode = Representer::ReverseCode (code);
     // Assert.
     EXPECT_EQ (etalonReversedCode, testReversedCode);
 }
@@ -88,11 +84,10 @@ TEST_F (RepresenterTest, ReverseCodeSuccess)
 TEST_F (RepresenterTest, InverseCode)
 {
     // Arange.
-    Representer representer;
     const std::string code {"+++++--++-+-+"};
     const std::string etalonInversedCode {"-----++--+-+-"};
     // Act.
-    const std::string testInversedCode = representer.InverseCode (code);
+    const std::string testInversedCode = Representer::InverseCode (code);
     // Assert.
     EXPECT_EQ (etalonInversedCode, testInversedCode);
 }
@@ -102,7 +97,6 @@ TEST_F (RepresenterTest, InverseCode)
 TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
 {
     // Arange.
-    Representer representer;
     const std::string code {"+++++--++-+-+"};
     const std::array <std::string, 4> etalonCodeFamily {
         "+++++--++-+-+",
@@ -111,7 +105,7 @@ TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
         "-+-+--++-----"
     };
     // Act.
-    const std::array <std::string, 4> testCodeFamily = representer.GenerateCodeFamily (code);
+    const std::array <std::string, 4> testCodeFamily = Representer::GenerateCodeFamily (code);
     // Assert.
     EXPECT_EQ (etalonCodeFamily, testCodeFamily);
 }
@@ -121,11 +115,10 @@ TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
 TEST_F (RepresenterTest, DetectCodeId_13_Success)
 {
     // Arange.
-    Representer representer;
     const std::string code {"+++++--++-+-+"};
     const std::string etalonCodeId {"1f35"};
     // Act.
-    const std::string testCodeId = representer.DetectCodeId (code);
+    const std::string testCodeId = Representer::DetectCodeId (code);
     // Assert.
     EXPECT_EQ (etalonCodeId, testCodeId);
 }
@@ -135,12 +128,11 @@ TEST_F (RepresenterTest, DetectCodeId_13_Success)
 TEST_F (RepresenterTest, DetectCodeId_51_Success)
 {
     // Arange.
-    Representer representer;
     const std::string code {"16dab767701c7"};
     const std::string etalonCodeId {"71c077376adb4"};
 
     // Act.
-    const std::string testCodeId = representer.DetectCodeId (representer.HexViewToStringView (code, 51) );
+    const std::string testCodeId = Representer::DetectCodeId (Representer::HexViewToStringView (code, 51) );
     // Assert.
     EXPECT_EQ (etalonCodeId, testCodeId);
 }
