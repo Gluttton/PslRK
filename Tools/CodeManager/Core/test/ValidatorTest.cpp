@@ -34,102 +34,137 @@ TEST_F (ValidatorTest, ValidateStringViewSuccess)
     const std::string validStringView {"+-"};
     constexpr int etalonResult {-1};
     // Act.
-    const int testResult = Validator::ValidateStringView (validStringView);
+    const int testResult {Validator::ValidateStringView (validStringView) };
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 }
 
 
 
-TEST_F (ValidatorTest, ValidateStringViewFail)
+TEST_F (ValidatorTest, ValidateStringViewWrongSymbolInFirstPositionFail)
 {
     // Arange.
-    std::string invalidStringView {"0+-"};
-    int etalonResult {0};
+    const std::string invalidStringView {"0+-"};
+    constexpr int etalonResult {0};
     // Act.
-    int testResult = Validator::ValidateStringView (invalidStringView);
-    // Assert.
-    EXPECT_EQ (etalonResult, testResult);
-
-
-    // Arange.
-    invalidStringView = "+a-";
-    etalonResult = 1;
-    // Act.
-    testResult = Validator::ValidateStringView (invalidStringView);
-    // Assert.
-    EXPECT_EQ (etalonResult, testResult);
-
-
-    // Arange.
-    invalidStringView = "+- ";
-    etalonResult = 2;
-    // Act.
-    testResult = Validator::ValidateStringView (invalidStringView);
+    const int testResult {Validator::ValidateStringView (invalidStringView)};
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 }
 
 
 
-TEST_F (ValidatorTest, ValidateHexViewSuccess)
+TEST_F (ValidatorTest, ValidateStringViewWrongSymbolInMiddlePositionFail)
 {
     // Arange.
-    std::string validHexView {"0"};
+    const std::string invalidStringView {"+a-"};
+    constexpr int etalonResult {1};
     // Act.
-    int result = Validator::ValidateHexView (validHexView);
+    const int testResult {Validator::ValidateStringView (invalidStringView)};
     // Assert.
-    EXPECT_EQ (-1, result);
-
-    // Arange.
-    validHexView = "01";
-    // Act.
-    result = Validator::ValidateHexView (validHexView);
-    // Assert.
-    EXPECT_EQ (-1, result);
-
-    // Arange.
-    validHexView = "0f";
-    // Act.
-    result = Validator::ValidateHexView (validHexView);
-    // Assert.
-    EXPECT_EQ (-1, result);
-
-    // Arange.
-    validHexView = "0F";
-    // Act.
-    result = Validator::ValidateHexView (validHexView);
-    // Assert.
-    EXPECT_EQ (-1, result);
+    EXPECT_EQ (etalonResult, testResult);
 }
 
 
 
-TEST_F (ValidatorTest, ValidateHexViewFail)
+TEST_F (ValidatorTest, ValidateStringViewWrongSymbolInLastPositionFail)
 {
     // Arange.
-    std::string invalidHexView {"+0"};
-    int etalonResult {0};
+    const std::string invalidStringView {"+- "};
+    constexpr int etalonResult {2};
     // Act.
-    int testResult = Validator::ValidateHexView (invalidHexView);
+    const int testResult {Validator::ValidateStringView (invalidStringView)};
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
+}
 
 
+
+TEST_F (ValidatorTest, ValidateHexView_0_Success)
+{
     // Arange.
-    invalidHexView = "0j1";
-    etalonResult = 1;
+    const std::string validHexView {"0"};
+    constexpr int etalonResult {-1};
     // Act.
-    testResult = Validator::ValidateHexView (invalidHexView);
+    const int testResult {Validator::ValidateHexView (validHexView)};
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
+}
 
 
+
+TEST_F (ValidatorTest, ValidateHexView_01_Success)
+{
     // Arange.
-    invalidHexView = "00 ";
-    etalonResult = 2;
+    const std::string validHexView {"01"};
+    constexpr int etalonResult {-1};
     // Act.
-    testResult = Validator::ValidateHexView (invalidHexView);
+    const int testResult {Validator::ValidateHexView (validHexView)};
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateHexView_0f_Success)
+{
+    // Arange.
+    const std::string validHexView {"0f"};
+    constexpr int etalonResult {-1};
+    // Act.
+    const int testResult {Validator::ValidateHexView (validHexView)};
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateHexView_0F_Success)
+{
+    // Arange.
+    const std::string validHexView {"0F"};
+    constexpr int etalonResult {-1};
+    // Act.
+    const int testResult {Validator::ValidateHexView (validHexView)};
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateHexViewWrongSymbolInFirstPositionFail)
+{
+    // Arange.
+    const std::string invalidHexView {"+0"};
+    constexpr int etalonResult {0};
+    // Act.
+    const int testResult {Validator::ValidateHexView (invalidHexView)};
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateHexViewWrongSymbolInMiddlePositionFail)
+{
+    // Arange.
+    const std::string invalidHexView {"0j1"};
+    constexpr int etalonResult {1};
+    // Act.
+    const int testResult {Validator::ValidateHexView (invalidHexView)};
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateHexViewWrongSymbolInLastPositionFail)
+{
+    // Arange.
+    const std::string invalidHexView {"00 "};
+    constexpr int etalonResult {2};
+    // Act.
+    const int testResult {Validator::ValidateHexView (invalidHexView)};
     // Assert.
     EXPECT_EQ (etalonResult, testResult);
 }
