@@ -1,6 +1,5 @@
 #include "Representer.h"
 #include <algorithm>
-#include <iostream>
 
 
 
@@ -99,21 +98,21 @@ std::string Representer::StringViewToHexView (const std::string & stringView) co
 
 
 
-std::string Representer::ReverseCode (const std::string & code) const
+std::string Representer::ReverseCode (const std::string & stringView) const
 {
-    std::string reversedCode (code);
+    std::string reversedStringView (stringView);
 
-    std::reverse (reversedCode.begin (), reversedCode.end () );
+    std::reverse (reversedStringView.begin (), reversedStringView.end () );
 
-    return reversedCode;
+    return reversedStringView;
 }
 
 
 
-std::string Representer::InverseCode (const std::string & code) const
+std::string Representer::InverseCode (const std::string & stringView) const
 {
-    return std::accumulate (code.begin (), code.end (), std::string (),
-                [& code](std::string & result, const char & c) {
+    return std::accumulate (stringView.begin (), stringView.end (), std::string (),
+                [& stringView](std::string & result, const char & c) {
                     switch (c) {
                         case '+': return result.append ("-");
                         case '-': return result.append ("+");
@@ -125,25 +124,24 @@ std::string Representer::InverseCode (const std::string & code) const
 
 
 
-std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & code) const
+std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & stringView) const
 {
     std::array <std::string, codeFamilySize> family;
 
-    // TODO: Add invariant checking (codeFamilySize great or equal 4) and declare suitable exception class.
-    family [0] = code;
-    family [1] = ReverseCode (code);
-    family [2] = InverseCode (code);
-    family [3] = ReverseCode (InverseCode (code) );
+    static_assert (codeFamilySize == 4, "Constant codeFamilySize must be equal to 4 (view, reversed view, inversed view, inversed and reversed view).");
+    family [0] = stringView;
+    family [1] = ReverseCode (stringView);
+    family [2] = InverseCode (stringView);
+    family [3] = ReverseCode (InverseCode (stringView) );
 
-    
     return family;
 }
 
 
 
-std::string Representer::DetectCodeId (const std::string & code) const
+std::string Representer::DetectCodeId (const std::string & stringView) const
 {
-    const auto family = GenerateCodeFamily (code);
+    const auto family = GenerateCodeFamily (stringView);
 
     return StringViewToHexView (* std::min_element (family.begin (), family.end () ) );
 }
