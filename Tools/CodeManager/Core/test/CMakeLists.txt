@@ -8,6 +8,7 @@ set (CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 
 set (
     CodeManagerCoreTest_SOURCES
+    ../src/Exception.cpp
     ../src/Validator.cpp
     ../src/Calculator.cpp
     ../src/Representer.cpp

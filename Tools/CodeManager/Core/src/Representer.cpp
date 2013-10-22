@@ -1,4 +1,6 @@
 #include "Representer.h"
+#include "Exception.h"
+#include "Validator.h"
 #include <algorithm>
 
 
@@ -52,6 +54,10 @@ std::map <std::string, char> Representer::conversionStringToHexTable {
 
 std::string Representer::HexViewToStringView (const std::string & hexView)
 {
+    if (Validator::ValidateHexView (hexView) != viewIsValid) {
+        throw ExceptionInvalidHexView ();
+    }
+
     std::string stringView;
 
     for (size_t i = 0; i < hexView.length (); ++i) {
@@ -67,6 +73,10 @@ std::string Representer::HexViewToStringView (const std::string & hexView)
 
 std::string Representer::HexViewToStringView (const std::string & hexView, const size_t length)
 {
+    if (Validator::ValidateHexView (hexView) != viewIsValid) {
+        throw ExceptionInvalidHexView ();
+    }
+
     std::string stringView;
 
     for (size_t i = 0; i < hexView.length (); ++i) {
@@ -82,6 +92,10 @@ std::string Representer::HexViewToStringView (const std::string & hexView, const
 
 std::string Representer::StringViewToHexView (const std::string & stringView)
 {
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
     constexpr int tetradSize {4};
     std::string hexView;
     const size_t shortageSize {stringView.length () % tetradSize};
@@ -100,8 +114,11 @@ std::string Representer::StringViewToHexView (const std::string & stringView)
 
 std::string Representer::ReverseCode (const std::string & stringView)
 {
-    std::string reversedStringView (stringView);
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
 
+    std::string reversedStringView (stringView);
     std::reverse (reversedStringView.begin (), reversedStringView.end () );
 
     return reversedStringView;
@@ -111,6 +128,10 @@ std::string Representer::ReverseCode (const std::string & stringView)
 
 std::string Representer::InverseCode (const std::string & stringView)
 {
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
     return std::accumulate (stringView.begin (), stringView.end (), std::string (),
                 [& stringView](std::string & result, const char & c) {
                     switch (c) {
@@ -126,6 +147,10 @@ std::string Representer::InverseCode (const std::string & stringView)
 
 std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const std::string & stringView)
 {
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
     std::array <std::string, codeFamilySize> family;
 
     static_assert (codeFamilySize == 4, "Constant codeFamilySize must be equal to 4 (view, reversed view, inversed view, inversed and reversed view).");
@@ -141,6 +166,10 @@ std::array <std::string, codeFamilySize> Representer::GenerateCodeFamily (const 
 
 std::string Representer::DetectCodeId (const std::string & stringView)
 {
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
     const auto family = GenerateCodeFamily (stringView);
 
     return StringViewToHexView (* std::min_element (family.begin (), family.end () ) );

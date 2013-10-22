@@ -1,10 +1,13 @@
 #include "Representer.h"
+#include "Exception.h"
 #include <gtest/gtest.h>
 
 
 
 using Pslrk::Core::Representer;
 using Pslrk::Core::codeFamilySize;
+using Pslrk::Core::ExceptionInvalidStringView;
+using Pslrk::Core::ExceptionInvalidHexView;
 
 
 
@@ -29,6 +32,16 @@ void RepresenterTest::TearDown ()
 
 
 
+TEST_F (RepresenterTest, HexViewToStringViewInvalidViewThrow)
+{
+    // Arange.
+    const std::string hexView {"1j35"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::HexViewToStringView (hexView), ExceptionInvalidHexView);
+}
+
+
+
 TEST_F (RepresenterTest, HexViewToStringViewSuccess)
 {
     // Arange.
@@ -38,6 +51,17 @@ TEST_F (RepresenterTest, HexViewToStringViewSuccess)
     const std::string testStringView {Representer::HexViewToStringView (hexView)};
     // Assert.
     EXPECT_EQ (etalonStringView, testStringView);
+}
+
+
+
+TEST_F (RepresenterTest, HexViewToStringViewLeadingZeroInvalidViewThrow)
+{
+    // Arange.
+    const std::string hexView {"1j35"};
+    constexpr size_t codeLength {13};
+    // Act, Assert.
+    EXPECT_THROW (Representer::HexViewToStringView (hexView, codeLength), ExceptionInvalidHexView);
 }
 
 
@@ -56,6 +80,16 @@ TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewSuccess)
 
 
 
+TEST_F (RepresenterTest, StringViewToHexViewInvalidViewThrow)
+{
+    // Arange.
+    const std::string stringView {"+++++--1+-+-+"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::StringViewToHexView (stringView), ExceptionInvalidStringView);
+}
+
+
+
 TEST_F (RepresenterTest, StringViewToHexViewSuccess)
 {
     // Arange.
@@ -69,15 +103,35 @@ TEST_F (RepresenterTest, StringViewToHexViewSuccess)
 
 
 
+TEST_F (RepresenterTest, ReverseCodeInvalidViewThrow)
+{
+    // Arange.
+    const std::string stringView {"+++++--1+-+-+"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::ReverseCode (stringView), ExceptionInvalidStringView);
+}
+
+
+
 TEST_F (RepresenterTest, ReverseCodeSuccess)
 {
     // Arange.
-    const std::string code {"+++++--++-+-+"};
+    const std::string stringView {"+++++--++-+-+"};
     const std::string etalonReversedCode {"+-+-++--+++++"};
     // Act.
-    const std::string testReversedCode {Representer::ReverseCode (code)};
+    const std::string testReversedCode {Representer::ReverseCode (stringView)};
     // Assert.
     EXPECT_EQ (etalonReversedCode, testReversedCode);
+}
+
+
+
+TEST_F (RepresenterTest, InverseCodeInvalidViewThrow)
+{
+    // Arange.
+    const std::string stringView {"+++++--1+-+-+"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::InverseCode (stringView), ExceptionInvalidStringView);
 }
 
 
@@ -85,12 +139,22 @@ TEST_F (RepresenterTest, ReverseCodeSuccess)
 TEST_F (RepresenterTest, InverseCode)
 {
     // Arange.
-    const std::string code {"+++++--++-+-+"};
+    const std::string stringView {"+++++--++-+-+"};
     const std::string etalonInversedCode {"-----++--+-+-"};
     // Act.
-    const std::string testInversedCode {Representer::InverseCode (code)};
+    const std::string testInversedCode {Representer::InverseCode (stringView)};
     // Assert.
     EXPECT_EQ (etalonInversedCode, testInversedCode);
+}
+
+
+
+TEST_F (RepresenterTest, GenerateCodeFamilyInvalidViewThrow)
+{
+    // Arange.
+    const std::string stringView {"+++++--1+-+-+"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::GenerateCodeFamily (stringView), ExceptionInvalidStringView);
 }
 
 
@@ -98,7 +162,7 @@ TEST_F (RepresenterTest, InverseCode)
 TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
 {
     // Arange.
-    const std::string code {"+++++--++-+-+"};
+    const std::string stringView {"+++++--++-+-+"};
     const std::array <std::string, codeFamilySize> etalonCodeFamily {
         "+++++--++-+-+",
         "+-+-++--+++++",
@@ -106,9 +170,19 @@ TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
         "-+-+--++-----"
     };
     // Act.
-    const std::array <std::string, codeFamilySize> testCodeFamily = Representer::GenerateCodeFamily (code);
+    const std::array <std::string, codeFamilySize> testCodeFamily = Representer::GenerateCodeFamily (stringView);
     // Assert.
     EXPECT_EQ (etalonCodeFamily, testCodeFamily);
+}
+
+
+
+TEST_F (RepresenterTest, DetectCodeIdInvalidViewThrow)
+{
+    // Arange.
+    const std::string stringView {"+++++--1+-+-+"};
+    // Act, Assert.
+    EXPECT_THROW (Representer::DetectCodeId (stringView), ExceptionInvalidStringView);
 }
 
 
@@ -116,10 +190,10 @@ TEST_F (RepresenterTest, GenerateCodeFamilySuccess)
 TEST_F (RepresenterTest, DetectCodeId_13_Success)
 {
     // Arange.
-    const std::string code {"+++++--++-+-+"};
+    const std::string stringView {"+++++--++-+-+"};
     const std::string etalonCodeId {"1f35"};
     // Act.
-    const std::string testCodeId {Representer::DetectCodeId (code)};
+    const std::string testCodeId {Representer::DetectCodeId (stringView)};
     // Assert.
     EXPECT_EQ (etalonCodeId, testCodeId);
 }
@@ -129,11 +203,11 @@ TEST_F (RepresenterTest, DetectCodeId_13_Success)
 TEST_F (RepresenterTest, DetectCodeId_51_Success)
 {
     // Arange.
-    const std::string code {"16dab767701c7"};
+    const std::string stringView {"16dab767701c7"};
     const std::string etalonCodeId {"71c077376adb4"};
 
     // Act.
-    const std::string testCodeId {Representer::DetectCodeId (Representer::HexViewToStringView (code, 51) )};
+    const std::string testCodeId {Representer::DetectCodeId (Representer::HexViewToStringView (stringView, 51) )};
     // Assert.
     EXPECT_EQ (etalonCodeId, testCodeId);
 }

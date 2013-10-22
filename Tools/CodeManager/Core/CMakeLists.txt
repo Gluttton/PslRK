@@ -8,6 +8,7 @@ set (CMAKE_SHARED_LINKER_FLAGS "-Wall -Wextra")
 
 
 set (CodeManagerCore_SOURCES
+    ${PROJECT_SOURCE_DIR}/Core/src/Exception.cpp
     ${PROJECT_SOURCE_DIR}/Core/src/Validator.cpp
     ${PROJECT_SOURCE_DIR}/Core/src/Calculator.cpp
     ${PROJECT_SOURCE_DIR}/Core/src/Representer.cpp

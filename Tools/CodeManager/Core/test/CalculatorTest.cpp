@@ -1,9 +1,11 @@
 #include "Calculator.h"
+#include "Exception.h"
 #include <gtest/gtest.h>
 
 
 
 using Pslrk::Core::Calculator;
+using Pslrk::Core::ExceptionInvalidStringView;
 
 
 
@@ -25,6 +27,17 @@ void CalculatorTest::SetUp ()
 void CalculatorTest::TearDown ()
 {
 }
+
+
+
+TEST_F (CalculatorTest, CalculateAcfInvalidViewThrow)
+{
+    // Arange.
+    const std::string code {"+0+++"};
+    // Act, Assert.
+    EXPECT_THROW (Calculator::CalculateAcf (code), ExceptionInvalidStringView);
+}
+
 
 
 //     |+-+++|
@@ -75,6 +88,16 @@ TEST_F (CalculatorTest, CalculateAcf_00011010_Success)
     const std::vector <int> testAcf {Calculator::CalculateAcf (code)};
     // Assert.
     EXPECT_EQ (etalonAcf, testAcf);
+}
+
+
+
+TEST_F (CalculatorTest, CalculateMslInvalidViewThrow)
+{
+    // Arange.
+    const std::string code {"+0+++"};
+    // Act, Assert.
+    EXPECT_THROW (Calculator::CalculateMsl (code), ExceptionInvalidStringView);
 }
 
 
