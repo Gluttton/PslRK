@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <boost/lexical_cast.hpp>
 #include <Validator.h>
 #include <Calculator.h>
 #include <Representer.h>
@@ -13,64 +14,130 @@ int main (int argc, char * argv [])
     using Pslrk::Core::Representer;
 
 
-    if (argc < 2) {
-        std::cout << "Input parameters were not passed!" << std::endl;
-        return EXIT_FAILURE;
-    }
+    std::vector <std::string> codes;
 
+    auto actionHelp = []() {
+        std::cout << "help              Produce this message." << std::endl;
+        std::cout << "push code         " << std::endl;
+        std::cout << "push family       " << std::endl;
+        std::cout << "show codes        " << std::endl;
+        std::cout << "show msl          " << std::endl;
+        std::cout << "show family       " << std::endl;
+        std::cout << "show id           " << std::endl;
+        std::cout << "to string         " << std::endl;
+        std::cout << "to hex            " << std::endl;
+        std::cout << "erase code        " << std::endl;
+        std::cout << "clear codes       " << std::endl;
+        std::cout << "quit              " << std::endl;
+    };
 
-    std::string code = argv [1];
-    std::cout << "Input code:               " << code << std::endl;
-    std::cout << "Recognizing format:       ";
+    auto actionPushCode = [&](const std::string & code) {
+        codes.push_back (code);
+    };
 
-    const int validationAsStringResult = Validator::ValidateStringView (code);
-    if (-1 != validationAsStringResult) {
-        const int validationAsHexResult = Validator::ValidateHexView (code);
-        if (-1 != validationAsHexResult) {
-            std::cout << "unsuccessful." << std::endl;
-            std::cout << "String wrong symbol:      " << code << std::endl;
-            for (int i = 0; i < 26 + validationAsStringResult; ++i) {
-                std::cout << " ";
-            }
-            std::cout << "^" << std::endl;
-            std::cout << "Hex wrong symbol:         " << code << std::endl;;
-            for (int i = 0; i < 26 + validationAsHexResult; ++i) {
-                std::cout << " ";
-            }
-            std::cout << "^" << std::endl;
-            return EXIT_FAILURE;
+    auto actionPushFamily = [&](const std::string & code) {
+        for (const auto & variant : Representer::GenerateCodeFamily (code) ) {
+            codes.push_back (variant);
         }
-        else {
-            std::cout << "hex." << std::endl;
+    };
 
-            if (2 == argc) {
-                code = Representer::HexViewToStringView (code);
-            } else if (3 == argc) {
-                code = Representer::HexViewToStringView (code, std::stoi (argv [2]) );
+    auto actionShowCodes = [&]() {
+        for (const auto & code : codes) {
+            std::cout << code << std::endl;
+        }
+    };
+
+    auto actionShowMsl = [&]() {
+        for (const auto & code : codes) {
+            std::cout << Calculator::CalculateMsl (code) << std::endl;
+        }
+    };
+
+    auto actionShowFamily = [&]() {
+        for (const auto & code : codes) {
+            for (const auto & variant : Representer::GenerateCodeFamily (code) ) {
+                std::cout << code << " - " << variant << std::endl;
             }
         }
+    };
+
+    auto actionShowId = [&]() {
+        for (const auto & code : codes) {
+            std::cout << code << " - " << Representer::DetectCodeId (code) << std::endl;
+        }
+    };
+
+    auto actionToString = [&]() {
+        for (auto & code : codes) {
+            code = Representer::HexViewToStringView (code);
+        }
+    };
+
+    auto actionToHex = [&]() {
+        for (auto & code : codes) {
+            code = Representer::StringViewToHexView (code);
+        }
+    };
+
+    auto actionEraseCode = [&](const int position) {
+        if (position < codes.size () ) {
+            codes.erase (codes.begin () + position);
+        }
+    };
+
+    auto actionClearCodes = [&]() {
+        codes.clear ();
+    };
+
+
+    while (true) {
+        std::cout << "> ";
+        {
+            std::string command {""};
+            std::getline (std::cin, command);
+
+            if      (0 == command.find ("help") ) {
+                actionHelp ();
+            }
+            else if (0 == command.find ("push code ") ) {
+                actionPushCode (command.substr (std::string ("push code ").length () ) );
+            }
+            else if (0 == command.find ("push family ") ) {
+                actionPushFamily (command.substr (std::string ("push family ").length () ) );
+            }
+            else if (0 == command.find ("show codes") ) {
+                actionShowCodes ();
+            }
+            else if (0 == command.find ("show msl") ) {
+                actionShowMsl ();
+            }
+            else if (0 == command.find ("show family") ) {
+                actionShowFamily ();
+            }
+            else if (0 == command.find ("show id") ) {
+                actionShowId ();
+            }
+            else if (0 == command.find ("to string") ) {
+                actionToString ();
+            }
+            else if (0 == command.find ("to hex") ) {
+                actionToHex ();
+            }
+            else if (0 == command.find ("quit") ) {
+                return EXIT_SUCCESS;
+            }
+            else if (0 == command.find ("erase code ") ) {
+                actionEraseCode (boost::lexical_cast <int> (command.substr (std::string ("erase code ").length () ) ) );
+            }
+            else if (0 == command.find ("clear codes") ) {
+                actionClearCodes ();
+            }
+            else {
+                std::cout << "Unrecognized command: " << command << std::endl;
+            }
+        }
+
     }
-    else {
-        std::cout << "string." << std::endl;
-    }
-    std::cout << "String view of code:      " << code << std::endl;
-
-
-    std::cout << "Autocorrelation function: ";
-    auto acf = Calculator::CalculateAcf (code);
-    for (auto e : acf) {
-        std::cout << e << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Maximum Peak Sidelobe:    " << Calculator::CalculateMsl (code) << std::endl;
-
-    auto family = Representer::GenerateCodeFamily (code);
-    std::cout << "Code family:              " << family [0] << std::endl;
-    std::cout << "                          " << family [1] << std::endl;
-    std::cout << "                          " << family [2] << std::endl;
-    std::cout << "                          " << family [3] << std::endl;
-    std::cout << "Code ID:                  " << Representer::DetectCodeId (code) << std::endl;
 
 
     return EXIT_SUCCESS;

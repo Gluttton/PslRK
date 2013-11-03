@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 2.8.8)
 
+#find_package (Boost COMPONENTS filesystem REQUIRED)
+
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++0x")
 set (CMAKE_CXX_FLAGS_DEBUG   "-O0 -g")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
@@ -28,4 +30,5 @@ add_executable (
 target_link_libraries (
     pslcm
     mslmcore
+#    ${Boost_LIBRARIES}
 )
