@@ -17,18 +17,19 @@ int main (int argc, char * argv [])
     std::vector <std::string> codes;
 
     auto actionHelp = []() {
-        std::cout << "help              Produce this message." << std::endl;
-        std::cout << "push code         " << std::endl;
-        std::cout << "push family       " << std::endl;
-        std::cout << "show codes        " << std::endl;
-        std::cout << "show msl          " << std::endl;
-        std::cout << "show family       " << std::endl;
-        std::cout << "show id           " << std::endl;
-        std::cout << "to string         " << std::endl;
-        std::cout << "to hex            " << std::endl;
-        std::cout << "erase code        " << std::endl;
-        std::cout << "clear codes       " << std::endl;
-        std::cout << "quit              " << std::endl;
+        std::cout << "[Command]         [Parameters]    [Description]" << std::endl;
+        std::cout << "help                              Print this message." << std::endl;
+        std::cout << "push code         <string>        Put specified code into local storage." << std::endl;
+        std::cout << "push family       <string>        Put family of specified code into local storage." << std::endl;
+        std::cout << "show codes                        Print local storage." << std::endl;
+        std::cout << "show msl                          Print MSL for each of codes from local storage." << std::endl;
+        std::cout << "show family                       Print family for each of codes from local storage." << std::endl;
+        std::cout << "show id                           Print ID for each of codes from local storage." << std::endl;
+        std::cout << "to string                         Convert each of codes from local storage into string format." << std::endl;
+        std::cout << "to hex                            Convert each of codes from local storage into hex format." << std::endl;
+        std::cout << "erase code        <int>           Erase code with specified index from local storage." << std::endl;
+        std::cout << "clear codes                       Clear local storage." << std::endl;
+        std::cout << "quit                              Exit the program." << std::endl;
     };
 
     auto actionPushCode = [&](const std::string & code) {
@@ -89,7 +90,6 @@ int main (int argc, char * argv [])
         codes.clear ();
     };
 
-
     while (true) {
         std::cout << "> ";
         {
@@ -136,7 +136,6 @@ int main (int argc, char * argv [])
                 std::cout << "Unrecognized command: " << command << std::endl;
             }
         }
-
     }
 
 
