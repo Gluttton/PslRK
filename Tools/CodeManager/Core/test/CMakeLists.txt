@@ -1,5 +1,7 @@
-find_package (GTest REQUIRED)
-
+find_package (GTest                       REQUIRED)
+find_package (Boost COMPONENTS filesystem
+                               system     REQUIRED)
+find_package (PugiXML                     REQUIRED)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -mtune=native -march=native -fprofile-arcs -ftest-coverage")
 set (CMAKE_SHARED_LINKER_FLAGS "-Wall -Wextra")
@@ -12,13 +14,17 @@ set (
     ${PROJECT_SOURCE_DIR}/Core/src/Validator.cpp
     ${PROJECT_SOURCE_DIR}/Core/src/Calculator.cpp
     ${PROJECT_SOURCE_DIR}/Core/src/Representer.cpp
+    ${PROJECT_SOURCE_DIR}/Core/src/XmlManager.cpp
     ${PROJECT_SOURCE_DIR}/Core/test/ValidatorTest.cpp
     ${PROJECT_SOURCE_DIR}/Core/test/CalculatorTest.cpp
     ${PROJECT_SOURCE_DIR}/Core/test/RepresenterTest.cpp
+    ${PROJECT_SOURCE_DIR}/Core/test/XmlManagerTest.cpp
 )
 
 include_directories (
     ${PROJECT_SOURCE_DIR}/Core/include
+    ${Boost_INCLUDE_DIR}
+    ${PUGIXML_INCLUDE_DIR}
 )
 
 
@@ -67,6 +73,8 @@ set_directory_properties (
 
 target_link_libraries (
     CodeManagerCoreTest
+    ${Boost_LIBRARIES}
+    ${PUGIXML_LIBRARIES}
     gtest
     gtest_main
     gcov

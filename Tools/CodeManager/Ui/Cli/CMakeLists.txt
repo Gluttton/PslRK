@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8.8)
 
-#find_package (Boost COMPONENTS filesystem REQUIRED)
+find_package (PugiXML REQUIRED)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++0x")
 set (CMAKE_CXX_FLAGS_DEBUG   "-O0 -g")
@@ -16,6 +16,7 @@ set (CodeManagerCli_SOURCES
 include_directories (
     ${PROJECT_SOURCE_DIR}/Core/include
     ${PROJECT_SOURCE_DIR}/Ui/Cli/include
+    ${PUGIXML_INCLUDE_DIR}
 )
 
 link_directories (
@@ -30,5 +31,5 @@ add_executable (
 target_link_libraries (
     pslcm
     mslmcore
-#    ${Boost_LIBRARIES}
+    ${PUGIXML_LIBRARIES}
 )

@@ -52,6 +52,39 @@ class ExceptionInvalidHexView : public ExceptionInvalidView
         virtual const char * what () const noexcept (true) override;
 };
 
+
+
+class ExceptionXmlError : public Exception
+{
+    public:
+        ExceptionXmlError          () = default;
+        virtual ~ExceptionXmlError () = default;
+
+        virtual const char * what () const noexcept (true) override;
+};
+
+
+
+class ExceptionXmlErrorLoadFile : public ExceptionXmlError
+{
+    public:
+        ExceptionXmlErrorLoadFile          () = default;
+        virtual ~ExceptionXmlErrorLoadFile () = default;
+
+        virtual const char * what () const noexcept (true) override;
+};
+
+
+
+class ExceptionXmlErrorSaveFile : public ExceptionXmlError
+{
+    public:
+        ExceptionXmlErrorSaveFile          () = default;
+        virtual ~ExceptionXmlErrorSaveFile () = default;
+
+        virtual const char * what () const noexcept (true) override;
+};
+
 }// namespace Core
 }// namespace Pslrk
 
