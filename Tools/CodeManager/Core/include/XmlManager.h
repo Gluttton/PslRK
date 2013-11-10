@@ -22,8 +22,8 @@ class XmlManager
         void Save                       ();
         const pugi::xpath_node Select   (const std::string &);
         void Insert                     (const std::string &,
-                                         const std::string &,
-                                         const std::string &,
+                                         const int,
+                                         const int,
                                          const std::string &,
                                          const std::vector <std::array <std::string, 3> > &);
         void Remove                     (const std::string &);

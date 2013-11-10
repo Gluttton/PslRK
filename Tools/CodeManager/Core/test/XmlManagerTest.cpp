@@ -127,8 +127,8 @@ TEST_F (XmlManagerTest, AddCodeSuccess)
     pugi::xml_node nodeCodes = document.append_child ("codes");
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "3";
-    nodeCode.append_attribute ("length") = "2";
-    nodeCode.append_attribute ("maxpsl") = "1";
+    nodeCode.append_attribute ("length") = 2;
+    nodeCode.append_attribute ("maxpsl") = 1;
     nodeCode.append_child ("sequence").text ().set ("++");
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";
@@ -141,7 +141,7 @@ TEST_F (XmlManagerTest, AddCodeSuccess)
 
     // Act.
     const pugi::xpath_node testBeforeResult = xmlManager.Select (xPathQuery);
-    xmlManager.Insert ("3", "2", "1", "++",
+    xmlManager.Insert ("3", 2, 1, "++",
                        { {"Group synchronization of binary digital systems",
                           "R.H. Barker",
                           "http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems"
@@ -164,8 +164,8 @@ TEST_F (XmlManagerTest, RemoveCodeSuccess)
     pugi::xml_node nodeCodes = document.append_child ("codes");
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "2";
-    nodeCode.append_attribute ("length") = "2";
-    nodeCode.append_attribute ("maxpsl") = "1";
+    nodeCode.append_attribute ("length") = 2;
+    nodeCode.append_attribute ("maxpsl") = 1;
     nodeCode.append_child ("sequence").text ().set ("+-");
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";

@@ -1,5 +1,4 @@
 #include "XmlManager.h"
-#include <iostream>
 #include <cstring>
 
 
@@ -43,15 +42,15 @@ const pugi::xpath_node XmlManager::Select (const std::string & xPathQuery)
 
 
 void XmlManager::Insert (const std::string & id,
-                         const std::string & length,
-                         const std::string & maxPsl,
+                         const int length,
+                         const int maxPsl,
                          const std::string & sequence,
                          const std::vector <std::array <std::string, 3> > & references)
 {
     pugi::xml_node nodeCode = xmlDocument.child ("codes").append_child ("code");
     nodeCode.append_attribute ("id")     = id.c_str ();
-    nodeCode.append_attribute ("length") = length.c_str ();
-    nodeCode.append_attribute ("maxpsl") = maxPsl.c_str ();
+    nodeCode.append_attribute ("length") = length;
+    nodeCode.append_attribute ("maxpsl") = maxPsl;
     nodeCode.append_child ("sequence").text ().set (sequence.c_str () );
     for (const auto & reference : references) {
         pugi::xml_node nodeReference = nodeCode.append_child ("reference");
