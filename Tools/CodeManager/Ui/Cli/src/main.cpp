@@ -4,17 +4,33 @@
 #include <Validator.h>
 #include <Calculator.h>
 #include <Representer.h>
+#include <XmlManager.h>
+
+
+
+// Some kind of RAII helper.
+struct Finally
+{
+    Finally  (const std::function <void ()> action) : finalAction (action) {};
+    ~Finally ()                                      {finalAction ();};
+    const std::function <void ()>                     finalAction;
+};
 
 
 
 int main (int argc, char * argv [])
 {
+    using Pslrk::Core::Exception;
     using Pslrk::Core::Validator;
     using Pslrk::Core::Calculator;
     using Pslrk::Core::Representer;
+    using Pslrk::Core::XmlManager;
 
 
     std::vector <std::string> codes;
+    XmlManager * xmlManager {nullptr};
+    Finally xmlManagerFinally ([&](){delete xmlManager;});
+
 
     auto actionHelp = []() {
         std::cout << "[Command]         [Parameters]    [Description]" << std::endl;
@@ -29,6 +45,13 @@ int main (int argc, char * argv [])
         std::cout << "to hex                            Convert each of codes from local storage into hex format." << std::endl;
         std::cout << "erase code        <int>           Erase code with specified index from local storage." << std::endl;
         std::cout << "clear codes                       Clear local storage." << std::endl;
+        std::cout << "open base         <string>        Open XML file (whith codes)." << std::endl;
+        std::cout << "close base                        Close XML file." << std::endl;
+        std::cout << "save base                         Save XML file." << std::endl;
+        std::cout << "show base                         Print codes which contained in XML file." << std::endl;
+        std::cout << "add base                          Add code to XML file." << std::endl;
+        std::cout << "remove base       <string>        Remove code from XML file." << std::endl;
+        std::cout << "search base       <string>        Search code in XML file." << std::endl;
         std::cout << "quit                              Exit the program." << std::endl;
     };
 
@@ -90,6 +113,124 @@ int main (int argc, char * argv [])
         codes.clear ();
     };
 
+    auto actionOpenBase = [&](const std::string & fileName) {
+        try {
+            xmlManager = new XmlManager (fileName);
+        }
+        catch (Exception & e) {
+            std::cout << e.what () << std::endl;
+        }
+    };
+
+    auto actionCloseBase = [&]() {
+        delete xmlManager;
+        xmlManager = nullptr;
+    };
+
+    auto actionSaveBase = [&]() {
+        if (xmlManager) {
+            try {
+                xmlManager->Save ();
+            }
+            catch (Exception & e) {
+                std::cout << e.what () << std::endl;
+            }
+        }
+        else {
+            std::cout << "Attempting to save file which was not opened." << std::endl;
+        }
+    };
+
+    auto actionShowBase = [&]() {
+        if (xmlManager) {
+            const pugi::xml_node codes = xmlManager->Select ("/").node ();
+            for (const auto & code : codes.child ("codes").children ("code") ) {
+                std::cout << " Code: id       = " << code.attribute ("id").value     () << std::endl <<
+                             "       length   = " << code.attribute ("length").value () << std::endl <<
+                             "       max PSL  = " << code.attribute ("maxpsl").value () << std::endl <<
+                             "       sequence = " << code.child_value ("sequence")      << std::endl;
+                std::cout << std::endl;
+            }
+        }
+        else {
+            std::cout << "Attempting to print file which was not opened." << std::endl;
+        }
+    };
+
+    auto actionAddBase = [&]() {
+        if (xmlManager) {
+            std::string input {""};
+            std::cout << "Input code: > ";
+            std::getline (std::cin, input);
+            std::string stringView;
+            if      (Validator::ValidateStringView (input) == Pslrk::Core::viewIsValid) {
+                stringView = input;
+            }
+            else if (Validator::ValidateHexView    (input) == Pslrk::Core::viewIsValid) {
+                stringView = Representer::HexViewToStringView (input);
+            }
+            else {
+                std::cout << "Invalid code, stop adding!" << std::endl;
+                return;
+            }
+
+            const std::string codeId {Representer::DetectCodeId (stringView)};
+            const int codeLength = stringView.length ();
+            const int maxPsl {Calculator::CalculateMsl (stringView)};
+
+            std::cout << "Sequence: " << stringView << std::endl;
+            std::cout << "ID:       " << codeId     << std::endl;
+            std::cout << "Length:   " << codeLength << std::endl;
+            std::cout << "Max PSL:  " << maxPsl     << std::endl;
+
+            std::cout << "Input reference article: > ";
+            std::getline (std::cin, input);
+            const std::string referenceArticle  {input};
+            std::cout << "Input reference author: > ";
+            std::getline (std::cin, input);
+            const std::string referenceAuthor {input};
+            std::cout << "Input reference link: > ";
+            std::getline (std::cin, input);
+            const std::string referenceLink   {input};
+
+            xmlManager->Insert (codeId, codeLength, maxPsl, stringView, { {referenceAuthor, referenceArticle, referenceLink} });
+        }
+        else {
+            std::cout << "Attempting to process file which was not opened." << std::endl;
+        }
+    };
+
+    auto actionRemoveBase = [&](const std::string & id) {
+        if (xmlManager) {
+            try {
+                xmlManager->Remove (id);
+            }
+            catch (Exception & e) {
+                std::cout << e.what () << std::endl;
+            }
+        }
+        else {
+            std::cout << "Attempting to process file which was not opened." << std::endl;
+        }
+    };
+
+    auto actionSearchBase = [&](const std::string & xPathQuery) {
+        if (xmlManager) {
+            try {
+                pugi::xml_document result;
+                result.append_child () = xmlManager->Select (xPathQuery).node ();
+                result.print (std::cout);
+            }
+            catch (Exception & e) {
+                std::cout << e.what () << std::endl;
+            }
+        }
+        else {
+            std::cout << "Attempting to process file which was not opened." << std::endl;
+        }
+    };
+
+
     while (true) {
         std::cout << "> ";
         {
@@ -131,6 +272,27 @@ int main (int argc, char * argv [])
             }
             else if (0 == command.find ("clear codes") ) {
                 actionClearCodes ();
+            }
+            else if (0 == command.find ("open base") ) {
+                actionOpenBase (command.substr (std::string ("open base ").length () ) );
+            }
+            else if (0 == command.find ("close base") ) {
+                actionCloseBase ();
+            }
+            else if (0 == command.find ("save base") ) {
+                actionSaveBase ();
+            }
+            else if (0 == command.find ("show base") ) {
+                actionShowBase ();
+            }
+            else if (0 == command.find ("add base") ) {
+                actionAddBase ();
+            }
+            else if (0 == command.find ("remove base") ) {
+                actionRemoveBase (command.substr (std::string ("remove base ").length () ) );
+            }
+            else if (0 == command.find ("search base") ) {
+                actionSearchBase (command.substr (std::string ("search base ").length () ) );
             }
             else {
                 std::cout << "Unrecognized command: " << command << std::endl;
