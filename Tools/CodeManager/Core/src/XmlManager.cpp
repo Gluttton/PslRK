@@ -12,7 +12,7 @@ XmlManager::XmlManager (const std::string & fileName)
             : xmlDocument ()
             , fileName    (fileName)
 {
-    if (!xmlDocument.load_file (fileName.c_str () ) ) {
+    if (!xmlDocument.load_file (fileName.c_str (), pugi::parse_default | pugi::parse_comments | pugi::parse_declaration) ) {
         throw ExceptionXmlErrorLoadFile ();
     }
 }
