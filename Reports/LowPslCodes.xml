@@ -1,75 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <codes>
-<code id="2" length="2" maxpsl="1">
-    <sequence>+-</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="3" length="2" maxpsl="1">
-    <sequence>++</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="6" length="3" maxpsl="1">
-    <sequence>++-</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="D" length="4" maxpsl="1">
-    <sequence>++-+</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="E" length="4" maxpsl="1">
-    <sequence>+++-</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="1D" length="5" maxpsl="1">
-    <sequence>+++-+</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="72" length="7" maxpsl="1">
-    <sequence>+++--+-</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="712" length="11" maxpsl="1">
-    <sequence>+++---+--+-</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
-<code id="1F35" length="13" maxpsl="1">
-    <sequence>+++++--++-+-+</sequence>
-    <reference
-        article="Group synchronization of binary digital systems"
-        author="R.H. Barker"
-        link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems">
-    </reference>
-</code>
+	<code id="2" length="2" maxpsl="1">
+		<sequence>+-</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="3" length="2" maxpsl="1">
+		<sequence>++</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="6" length="3" maxpsl="1">
+		<sequence>++-</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="D" length="4" maxpsl="1">
+		<sequence>++-+</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="E" length="4" maxpsl="1">
+		<sequence>+++-</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="1D" length="5" maxpsl="1">
+		<sequence>+++-+</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="72" length="7" maxpsl="1">
+		<sequence>+++--+-</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="712" length="11" maxpsl="1">
+		<sequence>+++---+--+-</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
+	<code id="1F35" length="13" maxpsl="1">
+		<sequence>+++++--++-+-+</sequence>
+		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+	</code>
 </codes>
