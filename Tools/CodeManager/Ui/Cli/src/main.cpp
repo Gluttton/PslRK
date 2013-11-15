@@ -41,7 +41,7 @@ int main (int argc, char * argv [])
         std::cout << "show msl                          Print MSL for each of codes from local storage." << std::endl;
         std::cout << "show family                       Print family for each of codes from local storage." << std::endl;
         std::cout << "show id                           Print ID for each of codes from local storage." << std::endl;
-        std::cout << "to string                         Convert each of codes from local storage into string format." << std::endl;
+        std::cout << "to string         <int>           Convert each of codes from local storage into string format." << std::endl;
         std::cout << "to hex                            Convert each of codes from local storage into hex format." << std::endl;
         std::cout << "erase code        <int>           Erase code with specified index from local storage." << std::endl;
         std::cout << "clear codes                       Clear local storage." << std::endl;
@@ -91,9 +91,14 @@ int main (int argc, char * argv [])
         }
     };
 
-    auto actionToString = [&]() {
+    auto actionToString = [&](const size_t length = 0) {
         for (auto & code : codes) {
-            code = Representer::HexViewToStringView (code);
+            if (length) {
+                code = Representer::HexViewToStringView (code, length);
+            }
+            else {
+                code = Representer::HexViewToStringView (code);
+            }
         }
     };
 
@@ -259,7 +264,12 @@ int main (int argc, char * argv [])
                 actionShowId ();
             }
             else if (0 == command.find ("to string") ) {
-                actionToString ();
+                if (command.length () > std::string ("to string ").length () ) {
+                    actionToString (boost::lexical_cast <int> (command.substr (std::string ("to string ").length () ) ) );
+                }
+                else {
+                    actionToString ();
+                }
             }
             else if (0 == command.find ("to hex") ) {
                 actionToHex ();
