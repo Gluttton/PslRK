@@ -12,15 +12,15 @@
 		<sequence>++-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
-	<code id="D" length="4" maxpsl="1">
+	<code id="d" length="4" maxpsl="1">
 		<sequence>++-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
-	<code id="E" length="4" maxpsl="1">
+	<code id="e" length="4" maxpsl="1">
 		<sequence>+++-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
-	<code id="1D" length="5" maxpsl="1">
+	<code id="1d" length="5" maxpsl="1">
 		<sequence>+++-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
@@ -32,7 +32,7 @@
 		<sequence>+++---+--+-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
-	<code id="1F35" length="13" maxpsl="1">
+	<code id="1f35" length="13" maxpsl="1">
 		<sequence>+++++--++-+-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
