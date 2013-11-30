@@ -198,7 +198,7 @@ int main (int argc, char * argv [])
             std::getline (std::cin, input);
             const std::string referenceLink   {input};
 
-            xmlManager->Insert (codeId, codeLength, maxPsl, stringView, { {referenceAuthor, referenceArticle, referenceLink} });
+            xmlManager->Insert (codeId, codeLength, maxPsl, stringView, { {referenceArticle, referenceAuthor, referenceLink} });
         }
         else {
             std::cout << "Attempting to process file which was not opened." << std::endl;
