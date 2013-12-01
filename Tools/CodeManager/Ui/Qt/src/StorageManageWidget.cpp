@@ -66,8 +66,9 @@ void StorageManageWidget::createWidgets ()
 
     QStringList tableReferencesHeaders;
     tableReferencesHeaders
-        << tr ("Article")
+        // TODO: Author and Article should be swaped.
         << tr ("Author")
+        << tr ("Article")
         << tr ("Link");
     modelReferences->setHorizontalHeaderLabels (tableReferencesHeaders);
     modelReferences->setColumnCount (3);
@@ -150,8 +151,8 @@ void StorageManageWidget::onDataSourceOpening ()
         cells.append (cellMsl);
         cellMsl->setData (code.attribute ("maxpsl").value (), Qt::DisplayRole);
 
-        int row {};
-        for (const auto & sequence : code.child ("sequence") ) {
+        int row {0};
+        for (const auto & sequence : code.children ("sequence") ) {
             QStandardItem * cellSequence = new QStandardItem ();
             cellSequence->setEditable (false);
             cellSequence->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
@@ -161,6 +162,8 @@ void StorageManageWidget::onDataSourceOpening ()
             cellSequence->setData (1, Qt::UserRole + 1);
             cellId->setChild (row, 0, cellSequence);
             ++row;
+
+            //qDebug () << sequence.text ().get ();
         }
 
         for (const auto & reference : code.children ("reference") ) {
@@ -192,6 +195,10 @@ void StorageManageWidget::onDataSourceOpening ()
             cellId->setChild (row, 1, cellArticle);
             cellId->setChild (row, 2, cellLink);
             ++row;
+
+            //qDebug () << reference.attribute ("author").value ();
+            //qDebug () << reference.attribute ("article").value ();
+            //qDebug () << reference.attribute ("link").value ();
         }
 
         modelCodes->appendRow (cells);
@@ -202,11 +209,13 @@ void StorageManageWidget::onDataSourceOpening ()
 
 void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedItem, QItemSelection deselectedItem)
 {
-    QModelIndex index = selectedItem.indexes ().first ();
+    QModelIndex index = modelCodes->item (selectedItem.indexes ().first ().row (), 0)->index ();
 
-    for (int i = 0; i < modelCodes->item (index.row (), 0)->rowCount (); ++i) {
+    modelSequences->removeRows  (0, modelSequences->rowCount () );
+    modelReferences->removeRows (0, modelReferences->rowCount () );
+
+    for (int i = 0; i < modelCodes->itemFromIndex (index)->rowCount (); ++i) {
         if (modelCodes->data (modelCodes->index (i, 0, index), Qt::UserRole + 1) == 1) {
-            modelSequences->removeRows (0, modelSequences->rowCount () );
             QStandardItem * cell = new QStandardItem ();
             cell->setData (modelCodes->data (modelCodes->index (i, 0, index), Qt::DisplayRole), Qt::DisplayRole);
             QList <QStandardItem *> cells;
@@ -214,7 +223,6 @@ void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedI
             modelSequences->appendRow (cells);
         }
         else if (modelCodes->data (modelCodes->index (i, 0, index), Qt::UserRole + 1) == 2) {
-            modelReferences->removeRows (0, modelReferences->rowCount () );
             QStandardItem * cellAuthor  = new QStandardItem ();
             QStandardItem * cellArticle = new QStandardItem ();
             QStandardItem * cellLink    = new QStandardItem ();

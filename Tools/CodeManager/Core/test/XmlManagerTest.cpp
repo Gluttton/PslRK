@@ -88,6 +88,7 @@ void XmlManagerTest::CompareNodes (const pugi::xml_node & etalonNode, const pugi
     ASSERT_EQ (0, strcmp (etalonNode.attribute ("length").value (), testNode.attribute("length").value () ) );
     ASSERT_EQ (0, strcmp (etalonNode.attribute ("maxpsl").value (), testNode.attribute("maxpsl").value () ) );
     ASSERT_EQ (0, strcmp (etalonNode.child_value ("sequence")     , testNode.child_value ("sequence")     ) );
+    // FIXME: Error! References is missed.
 }
 
 
