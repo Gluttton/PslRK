@@ -41,6 +41,20 @@ class StorageManageWidget : public QWidget
         QLineEdit                             * editDataSource;
 
         Pslrk::Core::XmlManager               * xmlManager;
+
+        static const int                        columnCountTableCodes       {3};
+        static const int                        columnCountTableSequences   {1};
+        static const int                        columnCountTableReferences  {3};
+        static const int                        columnNumberId              {0};
+        static const int                        columnNumberLength          {1};
+        static const int                        columnNumberMsl             {2};
+        static const int                        columnNumberSequence        {0};
+        static const int                        columnNumberArticle         {0};
+        static const int                        columnNumberAuthor          {1};
+        static const int                        columnNumberLink            {2};
+        static const int                        DataTypeRole                {Qt::UserRole + 1};
+        static const int                        DataTypeSequence            {1};
+        static const int                        DataTypeReference           {2};
 };
 
 #endif//PSLRK_TOOLS_CODE_MANAGER_UI_QT_STORAGE_MANAGE_WIDGET_H

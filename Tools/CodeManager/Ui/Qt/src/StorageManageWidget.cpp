@@ -2,7 +2,6 @@
 #include <QVBoxLayout>
 #include <QHeaderView>
 #include <QFileDialog>
-#include <QDebug>
 
 
 
@@ -43,39 +42,24 @@ void StorageManageWidget::createWidgets ()
     modelSequences  = new QStandardItemModel (this);
     modelReferences = new QStandardItemModel (this);
 
-    QStringList tableCodesHeaders;
-    tableCodesHeaders
-        << tr ("ID")
-        << tr ("Length")
-        << tr ("MSL");
-    modelCodes->setHorizontalHeaderLabels (tableCodesHeaders);
-    modelCodes->setColumnCount (3);
+    modelCodes->setHorizontalHeaderLabels ({tr ("ID"), tr ("Length"), tr ("MSL")});
+    modelCodes->setColumnCount (columnCountTableCodes);
     tableCodes->setModel (modelCodes);
-    tableCodes->horizontalHeader ()->setSectionResizeMode (0, QHeaderView::Stretch);
-    tableCodes->horizontalHeader ()->setSectionResizeMode (1, QHeaderView::Stretch);
-    tableCodes->horizontalHeader ()->setSectionResizeMode (2, QHeaderView::Stretch);
+    tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberId,     QHeaderView::Stretch);
+    tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberLength, QHeaderView::Stretch);
+    tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberMsl,    QHeaderView::Stretch);
 
-
-    QStringList tableSequencesHeaders;
-    tableSequencesHeaders
-        << tr ("Sequence");
-    modelSequences->setHorizontalHeaderLabels (tableSequencesHeaders);
-    modelSequences->setColumnCount (1);
+    modelSequences->setHorizontalHeaderLabels ({tr ("Sequence")});
+    modelSequences->setColumnCount (columnCountTableSequences);
     tableSequences->setModel (modelSequences);
-    tableSequences->horizontalHeader ()->setSectionResizeMode (0, QHeaderView::Stretch);
+    tableSequences->horizontalHeader ()->setSectionResizeMode (columnNumberSequence, QHeaderView::Stretch);
 
-    QStringList tableReferencesHeaders;
-    tableReferencesHeaders
-        // TODO: Author and Article should be swaped.
-        << tr ("Author")
-        << tr ("Article")
-        << tr ("Link");
-    modelReferences->setHorizontalHeaderLabels (tableReferencesHeaders);
-    modelReferences->setColumnCount (3);
+    modelReferences->setHorizontalHeaderLabels ({tr ("Article"), tr ("Author"), tr ("Link")});
+    modelReferences->setColumnCount (columnCountTableReferences);
     tableReferences->setModel (modelReferences);
-    tableReferences->horizontalHeader ()->setSectionResizeMode (0, QHeaderView::Stretch);
-    tableReferences->horizontalHeader ()->setSectionResizeMode (1, QHeaderView::Stretch);
-    tableReferences->horizontalHeader ()->setSectionResizeMode (2, QHeaderView::Stretch);
+    tableReferences->horizontalHeader ()->setSectionResizeMode (columnNumberArticle, QHeaderView::Stretch);
+    tableReferences->horizontalHeader ()->setSectionResizeMode (columnNumberAuthor,  QHeaderView::Stretch);
+    tableReferences->horizontalHeader ()->setSectionResizeMode (columnNumberLink,    QHeaderView::Stretch);
 
     buttonDataSourceBrowse = new QPushButton (tr ("..."), this);
     buttonDataSourceOpen   = new QPushButton (tr ("Open"), this);
@@ -126,79 +110,52 @@ void StorageManageWidget::onDataSourceOpening ()
     const pugi::xml_node codes = xmlManager->Select ("/").node ();
     for (const auto & code : codes.child ("codes").children ("code") ) {
         QStandardItem * cellId = new QStandardItem ();
-        cellId->setEditable (false);
         cellId->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
-        cellId->setCheckable (false);
         cellId->setEditable (false);
         cellId->setData (code.attribute ("id").value (), Qt::DisplayRole);
 
         QStandardItem * cellLength = new QStandardItem ();
-        cellLength->setEditable (false);
         cellLength->setTextAlignment (Qt::AlignCenter);
-        cellLength->setCheckable (false);
         cellLength->setEditable (false);
         cellLength->setData (code.attribute ("length").value (), Qt::DisplayRole);
 
         QStandardItem * cellMsl = new QStandardItem ();
-        cellMsl->setEditable (false);
         cellMsl->setTextAlignment (Qt::AlignCenter);
-        cellMsl->setCheckable (false);
         cellMsl->setEditable (false);
-
-        QList <QStandardItem *> cells;
-        cells.append (cellId);
-        cells.append (cellLength);
-        cells.append (cellMsl);
         cellMsl->setData (code.attribute ("maxpsl").value (), Qt::DisplayRole);
+
+        QList <QStandardItem *> cells {cellId, cellLength, cellMsl};
 
         int row {0};
         for (const auto & sequence : code.children ("sequence") ) {
             QStandardItem * cellSequence = new QStandardItem ();
-            cellSequence->setEditable (false);
             cellSequence->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
-            cellSequence->setCheckable (false);
-            cellSequence->setEditable (false);
             cellSequence->setData (sequence.text ().get (), Qt::DisplayRole);
-            cellSequence->setData (1, Qt::UserRole + 1);
-            cellId->setChild (row, 0, cellSequence);
+            cellSequence->setData (DataTypeSequence, DataTypeRole);
+            cellId->setChild (row, columnNumberId, cellSequence);
             ++row;
-
-            //qDebug () << sequence.text ().get ();
         }
 
         for (const auto & reference : code.children ("reference") ) {
             QStandardItem * cellAuthor = new QStandardItem ();
-            cellAuthor->setEditable (false);
             cellAuthor->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
-            cellAuthor->setCheckable (false);
-            cellAuthor->setEditable (false);
             cellAuthor->setData (reference.attribute ("author").value (), Qt::DisplayRole);
-            cellAuthor->setData (2, Qt::UserRole + 1);
+            cellAuthor->setData (DataTypeReference, DataTypeRole);
 
             QStandardItem * cellArticle = new QStandardItem ();
-            cellArticle->setEditable (false);
             cellArticle->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
-            cellArticle->setCheckable (false);
-            cellArticle->setEditable (false);
             cellArticle->setData (reference.attribute ("article").value (), Qt::DisplayRole);
-            cellArticle->setData (2, Qt::UserRole + 1);
+            cellArticle->setData (DataTypeReference, DataTypeRole);
 
             QStandardItem * cellLink = new QStandardItem ();
-            cellLink->setEditable (false);
             cellLink->setTextAlignment (Qt::AlignLeft | Qt::AlignVCenter);
-            cellLink->setCheckable (false);
-            cellLink->setEditable (false);
             cellLink->setData (reference.attribute ("link").value (), Qt::DisplayRole);
-            cellLink->setData (2, Qt::UserRole + 1);
+            cellLink->setData (DataTypeReference, DataTypeRole);
 
-            cellId->setChild (row, 0, cellAuthor);
-            cellId->setChild (row, 1, cellArticle);
-            cellId->setChild (row, 2, cellLink);
+            cellId->setChild (row, columnNumberArticle, cellArticle);
+            cellId->setChild (row, columnNumberAuthor,  cellAuthor);
+            cellId->setChild (row, columnNumberLink,    cellLink);
             ++row;
-
-            //qDebug () << reference.attribute ("author").value ();
-            //qDebug () << reference.attribute ("article").value ();
-            //qDebug () << reference.attribute ("link").value ();
         }
 
         modelCodes->appendRow (cells);
@@ -209,33 +166,31 @@ void StorageManageWidget::onDataSourceOpening ()
 
 void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedItem, QItemSelection deselectedItem)
 {
-    QModelIndex index = modelCodes->item (selectedItem.indexes ().first ().row (), 0)->index ();
+    QModelIndex index = modelCodes->item (selectedItem.indexes ().first ().row (), columnNumberId)->index ();
 
-    modelSequences->removeRows  (0, modelSequences->rowCount () );
+    modelSequences->removeRows  (0, modelSequences->rowCount  () );
     modelReferences->removeRows (0, modelReferences->rowCount () );
 
     for (int i = 0; i < modelCodes->itemFromIndex (index)->rowCount (); ++i) {
-        if (modelCodes->data (modelCodes->index (i, 0, index), Qt::UserRole + 1) == 1) {
-            QStandardItem * cell = new QStandardItem ();
-            cell->setData (modelCodes->data (modelCodes->index (i, 0, index), Qt::DisplayRole), Qt::DisplayRole);
-            QList <QStandardItem *> cells;
-            cells.append (cell);
-            modelSequences->appendRow (cells);
-        }
-        else if (modelCodes->data (modelCodes->index (i, 0, index), Qt::UserRole + 1) == 2) {
-            QStandardItem * cellAuthor  = new QStandardItem ();
-            QStandardItem * cellArticle = new QStandardItem ();
-            QStandardItem * cellLink    = new QStandardItem ();
-            cellAuthor->setData (modelCodes->data (modelCodes->index (i, 0, index), Qt::DisplayRole), Qt::DisplayRole);
-            cellArticle->setData (modelCodes->data (modelCodes->index (i, 1, index), Qt::DisplayRole), Qt::DisplayRole);
-            cellLink->setData (modelCodes->data (modelCodes->index (i, 2, index), Qt::DisplayRole), Qt::DisplayRole);
-            QList <QStandardItem *> cells;
-            cells.append (cellAuthor);
-            cells.append (cellArticle);
-            cells.append (cellLink);
-            modelReferences->appendRow (cells);
-        }
-        else {
+        switch (modelCodes->data (modelCodes->index (i, columnNumberId, index), DataTypeRole).toInt () ) {
+            case DataTypeSequence:
+            {
+                QStandardItem * cell = new QStandardItem ();
+                cell->setData (modelCodes->data (modelCodes->index (i, columnNumberId, index), Qt::DisplayRole), Qt::DisplayRole);
+                modelSequences->appendRow ({cell});
+                break;
+            }
+            case DataTypeReference:
+            {
+                QStandardItem * cellAuthor  = new QStandardItem ();
+                QStandardItem * cellArticle = new QStandardItem ();
+                QStandardItem * cellLink    = new QStandardItem ();
+                cellArticle->setData (modelCodes->data (modelCodes->index (i, columnNumberArticle, index), Qt::DisplayRole), Qt::DisplayRole);
+                cellAuthor->setData  (modelCodes->data (modelCodes->index (i, columnNumberAuthor,  index), Qt::DisplayRole), Qt::DisplayRole);
+                cellLink->setData    (modelCodes->data (modelCodes->index (i, columnNumberLink,    index), Qt::DisplayRole), Qt::DisplayRole);
+                modelReferences->appendRow ({cellArticle, cellAuthor, cellLink});
+                break;
+            }
         }
     }
 }
