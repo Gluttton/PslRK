@@ -198,7 +198,7 @@ int main (int argc, char * argv [])
             std::getline (std::cin, input);
             const std::string referenceLink   {input};
 
-            xmlManager->Insert (codeId, codeLength, maxPsl, stringView, { {referenceArticle, referenceAuthor, referenceLink} });
+            xmlManager->InsertCode (codeId, codeLength, maxPsl, {stringView}, { {referenceArticle, referenceAuthor, referenceLink} });
         }
         else {
             std::cout << "Attempting to process file which was not opened." << std::endl;
@@ -208,7 +208,7 @@ int main (int argc, char * argv [])
     auto actionRemoveBase = [&](const std::string & id) {
         if (xmlManager) {
             try {
-                xmlManager->Remove (id);
+                xmlManager->RemoveCode (id);
             }
             catch (Exception & e) {
                 std::cout << e.what () << std::endl;
