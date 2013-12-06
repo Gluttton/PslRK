@@ -19,14 +19,21 @@ class XmlManager
     public:
         XmlManager                      (const std::string &);
         virtual ~XmlManager             ();
+
+        static constexpr int            referenceAttributeCount {3};
+
         void Save                       ();
         const pugi::xpath_node Select   (const std::string &);
-        void Insert                     (const std::string &,
-                                         const int,
-                                         const int,
-                                         const std::string &,
-                                         const std::vector <std::array <std::string, 3> > &);
-        void Remove                     (const std::string &);
+        void InsertCode                 (const std::string &, const int, const int,
+                                         std::vector <std::string>,
+                                         std::vector <std::array <std::string, referenceAttributeCount> >);
+        void InsertCode                 (const std::string &, const int, const int);
+        void InsertCodeSequence         (const std::string &, const std::string &);
+        void InsertCodeReference        (const std::string &, const std::string &, const std::string &, const std::string &);
+
+        void RemoveCode                 (const std::string &);
+        void RemoveCodeSequence         (const std::string &, const std::string &);
+        void RemoveCodeReference        (const std::string &, const std::string &, const std::string &, const std::string &);
 
     private:
         pugi::xml_document              xmlDocument;
