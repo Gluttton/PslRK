@@ -25,6 +25,15 @@ XmlManager::~XmlManager ()
 
 
 
+void XmlManager::Clear ()
+{
+    for (auto & node : xmlDocument.child ("codes").children ("code") ) {
+        xmlDocument.child ("codes").remove_child (node);
+    }    
+}
+
+
+
 void XmlManager::Save ()
 {
     if (!xmlDocument.save_file (fileName.c_str () ) ) {

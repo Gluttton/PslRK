@@ -22,6 +22,7 @@ class XmlManager
 
         static constexpr int            referenceAttributeCount {3};
 
+        void Clear                      ();
         void Save                       ();
         const pugi::xpath_node Select   (const std::string &);
         void InsertCode                 (const std::string &, const int, const int,

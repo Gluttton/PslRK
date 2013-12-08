@@ -133,6 +133,39 @@ TEST_F (XmlManagerTest, OpenThrow)
 
 
 
+TEST_F (XmlManagerTest, ClearSuccess)
+{
+    // Arrange.
+    XmlManager xmlManager (dummyGoodXmlFileName);
+
+    pugi::xml_document document;
+    pugi::xml_node nodeCodes = document.append_child ("codes");
+    pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
+    nodeCode.append_attribute ("id")     = "2";
+    nodeCode.append_attribute ("length") = 2;
+    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_child ("sequence").text ().set ("+-");
+    pugi::xml_node nodeReference = nodeCode.append_child ("reference");
+    nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";
+    nodeReference.append_attribute ("author") = "R.H. Barker";
+    nodeReference.append_attribute ("link") = "http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems";
+    const pugi::xpath_node etalonBeforeResult (nodeCode);
+    const pugi::xpath_node etalonAfterResult;
+
+    const std::string xPathQuery ("codes/code[@id=\"2\"]");
+
+    // Act.
+    const pugi::xpath_node testBeforeResult = xmlManager.Select (xPathQuery);
+    xmlManager.Clear ();
+    const pugi::xpath_node testAfterResult  = xmlManager.Select (xPathQuery);
+
+    // Assert.
+    CompareNodes (etalonBeforeResult.node (), testBeforeResult.node () );
+    CompareNodes (etalonAfterResult.node  (), testAfterResult.node  () );
+}
+
+
+
 TEST_F (XmlManagerTest, SaveNoThrow)
 {
     // Arrange.
