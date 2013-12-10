@@ -21,7 +21,15 @@ class StorageManageWidget : public QWidget
     private slots:
         void onDataSourceBrowsing               ();
         void onDataSourceOpening                ();
+        void onDataSourceClosing                ();
+        void onDataSourceSaving                 ();
         void onModelCodesSelectionChanged       (QItemSelection, QItemSelection);
+        void onModelCodesItemChanged            (QStandardItem *);
+        void onModelSequencesItemChanged        (QStandardItem *);
+        void onModelReferencesItemChanged       (QStandardItem *);
+        void onFocusChanged                     (QWidget *, QWidget *);
+        void onItemAdding                       ();
+        void onItemRemoving                     ();
 
     private:
         void createWidgets                      ();
@@ -32,12 +40,18 @@ class StorageManageWidget : public QWidget
         QTableView                            * tableSequences;
         QTableView                            * tableReferences;
 
+        QWidget                               * tableFocused;
+
         QStandardItemModel                    * modelCodes;
         QStandardItemModel                    * modelSequences;
         QStandardItemModel                    * modelReferences;
 
         QPushButton                           * buttonDataSourceOpen;
+        QPushButton                           * buttonDataSourceClose;
         QPushButton                           * buttonDataSourceBrowse;
+        QPushButton                           * buttonDataSave;
+        QPushButton                           * buttonItemAdd;
+        QPushButton                           * buttonItemRemove;
         QLineEdit                             * editDataSource;
 
         Pslrk::Core::XmlManager               * xmlManager;
