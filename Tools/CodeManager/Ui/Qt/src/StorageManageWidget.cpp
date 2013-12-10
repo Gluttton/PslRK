@@ -219,6 +219,14 @@ void StorageManageWidget::onDataSourceClosing ()
 
 void StorageManageWidget::onDataSourceSaving ()
 {
+    // HACK: Ugly hack for explicit call onModelCodesSelectionChanged.
+    //       Needed for update modelCodes by data from modelSequences and modelReferences.
+    if (tableCodes->selectionModel ()->hasSelection () ) {
+        const QModelIndex index {tableCodes->selectionModel ()->selectedIndexes ().first ()};
+        tableCodes->selectionModel ()->select (index, QItemSelectionModel::Toggle);
+        tableCodes->selectionModel ()->select (index, QItemSelectionModel::Toggle);
+    }
+    
     xmlManager->Clear ();
 
     for (int i = 0; i < modelCodes->rowCount (); ++i) {
