@@ -39,93 +39,316 @@
 	<code id="3c3f30849aa9" length="46" maxpsl="3">
 		<sequence>++++----++++++--++----+----+--+--++-+-+-+-+--+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="7965817ae677" length="47" maxpsl="3">
 		<sequence>++++--+-++--+-++------+-++++-+-+++--++--+++-+++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="db5377b84783" length="48" maxpsl="3">
 		<sequence>++-++-++-+-+--++-+++-++++-+++----+---++++-----++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="ea949e19b00c" length="48" maxpsl="3">
+		<sequence>+++-+-+-+--+-+--+--++++----++--++-++--------++--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="1a17a6167bbae" length="49" maxpsl="4">
 		<sequence>++-+----+-++++-+--++----+-++--++++-+++-+++-+-+++-</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="1ed5413861b90" length="49" maxpsl="4">
+		<sequence>++++-++-+-+-+-+-----+--+++----++----++-+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="3c701dcddab6d" length="50" maxpsl="4">
 		<sequence>++++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="3da79c543d990" length="50" maxpsl="4">
+		<sequence>++++-++-+--++++--+++---+-+-+----++++-++--++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="71c077376adb4" length="51" maxpsl="3">
 		<sequence>+++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="fa0492a26271c" length="52" maxpsl="4">
 		<sequence>+++++-+------+--+--+--+-+-+---+--++---+--+++---+++--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="f6ba51f0cdb90" length="52" maxpsl="4">
+		<sequence>++++-++-+-+++-+--+-+---+++++----++--++-++-+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="1f0099151694e3" length="53" maxpsl="4">
 		<sequence>+++++--------+--++--+---+-+-+---+-++-+--+-+--+++---++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="1ecd558072d390" length="53" maxpsl="4">
+		<sequence>++++-++--++-+-+-+-+-++--------+++--+-++-+--+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="3bc4b75d786c4c" length="54" maxpsl="4">
 		<sequence>+++-++++---+--+-++-+++-+-+++-+-++++----++-++---+--++--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="3d995d7eb4c390" length="54" maxpsl="4">
+		<sequence>++++-++--++--+-+-+++-+-++++++-+-++-+--++----+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="6e64281ea28d34" length="55" maxpsl="4">
 		<sequence>++-+++--++--+----+-+------++++-+-+---+-+---++-+--++-+--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="7b3d955e1cdb90" length="55" maxpsl="4">
+		<sequence>++++-++--++++-++--+-+-+-+-++++----+++--++-++-+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="f386fe9b098ad5" length="56" maxpsl="4">
 		<sequence>++++--+++----++-+++++++-+--++-++----+--++---+-+-++-+-+-+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="f6645534b84390" length="56" maxpsl="4">
+		<sequence>++++-++--++--+---+-+-+-+--++-+--+-+++----+----+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="1fb93b5458f65b0" length="57" maxpsl="4">
 		<sequence>++++++-+++--+--+++-++-+-+-+---+-++---++++-++--+-++-++----</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="1ed9757129dc390" length="57" maxpsl="4">
+		<sequence>++++-++-++--+-+++-+-+-+++---+--+-+--+++-+++----+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="3f7276a8b1ecb61" length="58" maxpsl="4">
 		<sequence>++++++-+++--+--+++-++-+-+-+---+-++---++++-++--+-++-++----+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="3dc31aba3612990" length="58" maxpsl="4">
+		<sequence>++++-+++----++---++-+-+-+++-+---++-++----+--+-+--++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="63529c100ed95d1" length="59" maxpsl="4">
 		<sequence>++---++-+-+--+-+--+++-----+--------+++-++-++--+-+-+++-+---+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="7b62c7ed75e2390" length="59" maxpsl="4">
+		<sequence>++++-++-++---+-++---++++++-++-+-+++-+-++++---+---+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="ee62feadd12c3cb" length="60" maxpsl="4">
 		<sequence>+++-+++--++---+-+++++++-+-+-++-+++-+---+--+-++----++++--+-++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="f54720f368cdad0" length="60" maxpsl="4">
+		<sequence>++++-+-+-+---+++--+-----++++--++-++-+---++--++-++-+-++-+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="1fdb45a97147c8ce" length="61" maxpsl="4">
 		<sequence>+++++++-++-++-+---+-++-+-+--+-+++---+-+---+++++--+---++--+++-</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="1fa4bb3b38615caf" length="61" maxpsl="4">
+		<sequence>++++++-+--+--+-+++-++--+++-++--+++----++----+-+-+++--+-+-++++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="3ff398db83a6a974" length="62" maxpsl="4">
 		<sequence>++++++++++--+++--++---++-++-+++-----+++-+--++-+-+-+--+-+++-+--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="3fd2999cb34f8baf" length="62" maxpsl="4">
+		<sequence>++++++++-+--+-+--++--++--+++--+-++--++-+--+++++---+-+++-+-++++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="64cbed0fafeac631" length="63" maxpsl="4">
 		<sequence>++--+--++--+-+++++-++-+----+++++-+-+++++++-+-+-++---++---++---+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="7b30a5db8e9a8390" length="63" maxpsl="4">
+		<sequence>++++-++--++----+-+--+-+++-++-+++---+++-+--++-+-+-----+++--+----</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="d93602a0a5e28673" length="64" maxpsl="4">
 		<sequence>++-++--+--++-++-------+-+-+-----+-+--+-++++---+-+----++--+++--++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="bf6f5d1619cdc83d" length="64" maxpsl="4">
+		<sequence>+-++++++-++-++++-+-+++-+---+-++----++--+++--++-+++--+-----++++-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="1bfea89d387b13c96" length="65" maxpsl="4">
 		<sequence>++-+++++++++-+-+-+---+--+++-+--+++----++++-++---+--++++--+--+-++-</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="1fd23f4f26431abaf" length="65" maxpsl="4">
+		<sequence>+++++++-+--+---++++++-+--++++--+--++--+----++---++-+-+-+++-+-++++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 	<code id="3c010d334f47353ab" length="66" maxpsl="4">
 		<sequence>++++---------+----++-+--++--++-+--++++-+---+++--++-+-+--+++-+-+-++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="3f964bab8c60ed4bd" length="66" maxpsl="4">
+		<sequence>+++++++--+-++--+--+-+++-+-+-+++---++---++-----+++-++-+-+--+-++++-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="78c3d0523bbdaad9b" length="67" maxpsl="4">
 		<sequence>++++---++----++++-+-----+-+--+---+++-+++-++++-++-+-+-+-++-++--++-++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 	</code>
+	<code id="5faf93654e16f633d" length="67" maxpsl="4">
+		<sequence>+-++++++-+-+++++--+--++-++--+-+-+--+++----+-++-++++-++---++--++++-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
 	<code id="a9d4735b71f36fd81" length="68" maxpsl="4">
 		<sequence>+-+-+--+++-+-+---+++--++-+-++-++-+++---+++++--++-++-++++++-++------+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
+	</code>
+	<code id="ff61b61c99d5715af" length="68" maxpsl="4">
+		<sequence>++++++++-++----++-++-++----+++--+--++--+++-+-+-+-+++---+-+-++-+-++++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1d9024f657c5ee71ea" length="69" maxpsl="4">
+		<sequence>+++-++--+------+--+--++++-++--+-+-+++++---+-++++-+++--+++---++++-+-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="25ecc4b1cf6c122a81" length="70" maxpsl="4">
+		<sequence>+--+-++++-++--++---+--+-++---+++--++++-++-++-----+--+---+-+-+-+------+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="63383ab6b452ed93fe" length="71" maxpsl="4">
+		<sequence>++---++--+++-----+++-+-+-++-++-+-++-+---+-+--+-+++-++-++--+--+++++++++-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="e4cd5af0d054433d82" length="72" maxpsl="4">
+		<sequence>+++--+--++--++-+-+-++-+-++++----++-+-----+-+-+---+----++--++++-++-----+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1b66b26359c3e2bc00a" length="73" maxpsl="4">
+		<sequence>++-++-++--++-+-++--+--++---++-+-++--+++----+++++---+-+-++++----------+-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="36ddbed681f98c70eae" length="74" maxpsl="4">
+		<sequence>++-++-++-+++-++-+++++-++-+-++-+------++++++--++---++---+++----+++-+-+-+++-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="6399c983d03efdb556d" length="75" maxpsl="4">
+		<sequence>++---+++--++--+++--+--++-----++++-+------+++++-++++++-++-++-+-+-+-+-++-++-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="fa07abcb8e7776e6924" length="76" maxpsl="4">
+		<sequence>+++++-+------++++-+-+-++++--+-+++---+++--+++-+++-+++-++-+++--++-+--+--+--+--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1a04881ead88eb714f2c" length="77" maxpsl="4">
+		<sequence>++-+------+--+---+------++++-+-+-++-++---+---+++-+-++-+++---+-+--++++--+-++--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="33b7adc9e1883fa8b453" length="78" maxpsl="4">
+		<sequence>++--+++-++-++++-+-++-+++--+--++++----++---+-----+++++++-+-+---+-++-+---+-+--++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="7f504e571e8d98748648" length="79" maxpsl="4">
+		<sequence>+++++++-+-+-----+--+++--+-+-+++---++++-+---++-++--++----+++-+--+----++--+--+---</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="ce43c8d986ed429f7d75" length="80" maxpsl="4">
+		<sequence>++--+++--+----++++--+---++-++--++----++-+++-++-+-+----+-+--+++++-+++++-+-+++-+-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="16654ceb68100f4167871" length="81" maxpsl="4">
+		<sequence>+-++--++--+-+-+--++--+++-+-++-++-+------+--------++++-+-----+-++--++++----+++---+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="3ea5a9bbb71cc072e934f" length="82" maxpsl="4">
+		<sequence>+++++-+-+--+-++-+-+--++-+++-+++-++-+++---+++--++-------+++--+-+++-+--+--++-+--++++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="711763ae7dbb8482d3a5a" length="83" maxpsl="5">
+		<sequence>+++---+---+-+++-++---+++-+-+++--+++++-++-+++-+++----+--+-----+-++-+--+++-+--+-++-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="ce79cccdb6003c1e95aaa" length="84" maxpsl="5">
+		<sequence>++--+++--++++--+++--++--++--++-++-++-++-----------++++-----++++-+--+-+-++-+-+-+-+-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1a2a5a5d0eb073accffecc" length="85" maxpsl="5">
+		<sequence>++-+---+-+-+--+-++-+--+-+++-+----+++-+-++-----+++--+++-+-++--++--+++++++++++-++--++--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="38c7152951606269b7f01b" length="86" maxpsl="5">
+		<sequence>+++---++---+++---+-+-+--+-+--+-+-+---+-++------++---+--++-+--++-++-+++++++-------++-++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="7f7184f04f4e5e4d9b56aa" length="87" maxpsl="5">
+		<sequence>+++++++-+++---++----+--++++-----+--++++-+--+++--+-++++--+--++-++--++-++-+-+-++-+-+-+-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="fee309e09e9cbc9b36ad54" length="88" maxpsl="5">
+		<sequence>+++++++-+++---++----+--++++-----+--++++-+--+++--+-++++--+--++-++--++-++-+-+-++-+-+-+-+--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="180e09434e1bbc44acdac8a" length="89" maxpsl="5">
+		<sequence>++-------+++-----+--+-+----++-+--+++----++-+++-++++---+---+--+-+-++--++-++-+-++--+---+-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="3326d87c3a91da8afa84211" length="90" maxpsl="5">
+		<sequence>++--++--+--++-++-++----+++++----+++-+-+--+---+++-++-+-+---+-+-+++++-+-+----+----+----+---+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="77f80e632661c3459492a55" length="91" maxpsl="5">
+		<sequence>+++-++++++++-------+++--++---++--+--++--++----+++----++-+---+-++--+-+--+--+--+-+-+--+-+-+-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="f01eaa85addb6465e7e79cc" length="92" maxpsl="5">
+		<sequence>++++-------++++-+-+-+-+-+----+-++-+-++-+++-++-++-++--+---++--+-++++--++++++--++++--+++--++--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="187b2ecb802fb4f56bccece5" length="93" maxpsl="5">
+		<sequence>++----++++-++--+-+++-++--+-+++---------+-+++++-++-+--++++-+-+-++-+-++++--++--+++-++--+++--+-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="387816fba512a02b2465919c" length="94" maxpsl="5">
+		<sequence>+++----++++------+-++-+++++-+++-+--+-+---+--+-+-+-------+-+-++--+--+---++--+-++--+---++--+++--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="69566b2accc8bc3ce0de0005" length="95" maxpsl="5">
+		<sequence>++-+--+-+-+-++--++-+-++--+-+-+-++--++--++--+---+-++++----++++--+++-----++-++++--------------+-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="cf963fd09b1381657a8a098e" length="96" maxpsl="5">
+		<sequence>++--+++++--+-++---++++++++-+----+--++-++---+--+++------+-++--+-+-++++-+-+---+-+-----+--++---+++-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1a843dc410898b2d3ae8fc362" length="97" maxpsl="5">
+		<sequence>++-+-+----+----++++-+++---+-----+----+---+--++---+-++--+-++-+--+++-+-+++-+---++++++----++-++---+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="3ec019cceda6a92a1460e81c3" length="98" maxpsl="5">
+		<sequence>+++++-++---------++--+++--++--+++-++-++-+--++-+-+-+--+--+-+-+----+-+---++-----+++-+------+++----++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="77731087c0bcab3d72b6db3a7" length="99" maxpsl="5">
+		<sequence>+++-+++-+++--++---+----+----+++++------+-++++--+-+-+-++--++++-+-+++--+-+-++-++-++-++-++--+++-+--+++</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="df490ffb1f8390a54e3cd9aae" length="100" maxpsl="5">
+		<sequence>++-+++++-+--+--+----+++++++++-++---++++++-----+++--+----+-+--+-+-+--+++---++++--++-++--++-+-+-+-+++-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="2af9d3d7b664037631dc36975a" length="102" maxpsl="5">
+		<sequence>+-+-+-+++++--+++-+--++++-+-++++-++-++--++--+--------++-+++-++---++---+++-+++----++-++-+--+-+++-+-++-+-</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="e568ed4982f9660eba2f611184" length="104" maxpsl="5">
+		<sequence>+++--+-+-++-+---+++-++-+-+--+--++-----+-+++++--+-++--++-----+++-+-+++-+---+-++++-++----+---+---++----+--</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+	</code>
+	<code id="1c6387ff5da4fa325c895958dc5" length="105" maxpsl="5">
+		<sequence>+++---++---+++----+++++++++++-+-+++-++-+--+--+++++-+---++--+--+-+++--+---+--+-+-++--+-+-++---++-+++---+-+</sequence>
+		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 	</code>
 </codes>
