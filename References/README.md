@@ -12,6 +12,7 @@ Links on the Internet resources must be added directly in this file in paragraph
 ##### Documents:
 - [Binary Sequences with Minimum Peak Sidelobe Level up to Length 68](Binary Sequences with Minimum Peak Sidelobe Level up to Length 68.pdf) ([link](http://arxiv.org/pdf/1212.4930.pdf));
 - [A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation](A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation.pdf) ([link](http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf));
+- [Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105](Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105.pdf) ([link](http://norbertwiener.umd.edu/crowds/documents/best_known_binary.pdf));
 
 ##### Links:
 - [Professors Jonathan Jedwab page](http://people.math.sfu.ca/~jed/);
@@ -21,7 +22,6 @@ Links on the Internet resources must be added directly in this file in paragraph
 - [Binary Sequences with Small Peak Sidelobe Level](http://www-e.uni-magdeburg.de/kai-usch/pub/lowpsl.pdf);
 - [Radar Pulse Compression](http://www.ittc.ku.edu/workshops/Summer2004Lectures/Radar_Pulse_Compression.pdf);
 - [Radartutorial.eu](http://www.radartutorial.eu/08.transmitters/tx17.en.html);
-- [Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105](http://norbertwiener.umd.edu/crowds/documents/best_known_binary.pdf);
 - [Polyphase Pulse Compression Codes with Optimal Peak and Integrated Sidelobes](http://www.norbertwiener.umd.edu/crowds/documents/polyphase_pulse_comprssion_codes_with_optimal_sidelobes.pdf);
 - [Efficient Design of Pulse Compression Codes Using Multiobjective Genetic Algorithm](http://www.researchgate.net/publication/220882017_Efficient_Design_of_Pulse_Compression_Codes_using_Multiobjective_Genetic_Algorithm/file/3deec521d50f43a8d4.pdf);
 - [Generation of Pulse Compression Codes Using NSGA-II](http://dspace.nitrkl.ac.in/dspace/bitstream/2080/1112/1/aks2fin.pdf);
