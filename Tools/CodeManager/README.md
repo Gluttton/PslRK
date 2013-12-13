@@ -11,7 +11,7 @@ System requirements
 
 Features
 ========
-The CodeManager already has CLI user interface which allows:
+The CodeManager already has CLI and GUI user interface which allows:
 - convert hex view of sequence into string view (based on symbols '+' and '-') and vice versa;
 - calculate Minimum Peak Sidelobe Level (MSL) of sequence;
 - get view of sequence which is required for adding to the [Collection](https://github.com/Gluttton/PslRK/tree/master/Reports);
@@ -20,8 +20,8 @@ The CodeManager already has CLI user interface which allows:
 
 
 
-Usage
-=====
+Usage CLI
+=========
 Example of session which consists of the following steps:
 - open the Collection of sequences;
 - input sequence in arbitrary view;
@@ -55,3 +55,10 @@ Input reference link: > http://arxiv.org/pdf/1212.4930.pdf
 > close base
 > quit
 ```
+
+
+
+Usage GUI
+=========
+Using of GUI is trivial. Example of session see below:
+![Screenshot](Screenshot.png)
