@@ -1,4 +1,5 @@
 #include "ActivityWidget.h"
+#include "ValidatorAdapter.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QVBoxLayout>
@@ -37,6 +38,9 @@ void ActivityWidget::createWidgets ()
     editHexView    = new QLineEdit (this);
     editStringView = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
+
+    editHexView->setValidator    (new ValidatorHexViewAdapter);
+    editStringView->setValidator (new ValidatorStringViewAdapter);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);

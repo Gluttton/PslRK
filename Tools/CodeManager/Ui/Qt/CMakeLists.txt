@@ -19,6 +19,7 @@ set (CodeManagerQt_SOURCES
 )
 
 set (CodeManagerQt_HEADERS
+    ${PROJECT_SOURCE_DIR}/Ui/Qt/include/ValidatorAdapter.h
     ${PROJECT_SOURCE_DIR}/Ui/Qt/include/MainWidget.h
     ${PROJECT_SOURCE_DIR}/Ui/Qt/include/StorageManageWidget.h
     ${PROJECT_SOURCE_DIR}/Ui/Qt/include/ActivityWidget.h
