@@ -30,6 +30,6 @@ add_executable (
 
 target_link_libraries (
     pslcm
-    pslmcore
+    pslcmcore
     ${PUGIXML_LIBRARIES}
 )
