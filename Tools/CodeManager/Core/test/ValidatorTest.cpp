@@ -28,11 +28,28 @@ void ValidatorTest::TearDown ()
 
 
 
-TEST_F (ValidatorTest, ValidateStringViewSuccess)
+TEST_F (ValidatorTest, ValidateStringViewEmptySuccess)
+{
+    // Arange.
+    const std::string validStringView {""};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
+    int testResult {0};
+    // Act.
+    EXPECT_NO_THROW (
+        testResult = Validator::ValidateStringView (validStringView);
+    );
+
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
+TEST_F (ValidatorTest, ValidateStringViewNonEmptySuccess)
 {
     // Arange.
     const std::string validStringView {"+-"};
-    constexpr int etalonResult {-1};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
     // Act.
     const int testResult {Validator::ValidateStringView (validStringView) };
     // Assert.
@@ -80,11 +97,28 @@ TEST_F (ValidatorTest, ValidateStringViewWrongSymbolInLastPositionFail)
 
 
 
+TEST_F (ValidatorTest, ValidateHexViewEmptySuccess)
+{
+    // Arange.
+    const std::string validHexView {""};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
+    int testResult {0};
+    // Act.
+    EXPECT_NO_THROW (
+        testResult = Validator::ValidateHexView (validHexView);
+    );
+
+    // Assert.
+    EXPECT_EQ (etalonResult, testResult);
+}
+
+
+
 TEST_F (ValidatorTest, ValidateHexView_0_Success)
 {
     // Arange.
     const std::string validHexView {"0"};
-    constexpr int etalonResult {-1};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
     // Act.
     const int testResult {Validator::ValidateHexView (validHexView)};
     // Assert.
@@ -97,7 +131,7 @@ TEST_F (ValidatorTest, ValidateHexView_01_Success)
 {
     // Arange.
     const std::string validHexView {"01"};
-    constexpr int etalonResult {-1};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
     // Act.
     const int testResult {Validator::ValidateHexView (validHexView)};
     // Assert.
@@ -110,7 +144,7 @@ TEST_F (ValidatorTest, ValidateHexView_0f_Success)
 {
     // Arange.
     const std::string validHexView {"0f"};
-    constexpr int etalonResult {-1};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
     // Act.
     const int testResult {Validator::ValidateHexView (validHexView)};
     // Assert.
@@ -123,7 +157,7 @@ TEST_F (ValidatorTest, ValidateHexView_0F_Success)
 {
     // Arange.
     const std::string validHexView {"0F"};
-    constexpr int etalonResult {-1};
+    constexpr int etalonResult {Pslrk::Core::viewIsValid};
     // Act.
     const int testResult {Validator::ValidateHexView (validHexView)};
     // Assert.

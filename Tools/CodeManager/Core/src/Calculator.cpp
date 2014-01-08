@@ -44,6 +44,10 @@ std::vector <int> Calculator::CalculateAcf (const std::string & stringView)
 
 int Calculator::CalculatePsl (const std::string & stringView)
 {
+    if (stringView.empty () ) {
+        return 0;
+    }
+
     if (Validator::ValidateStringView (stringView) != viewIsValid) {
         throw ExceptionInvalidStringView ();
     }

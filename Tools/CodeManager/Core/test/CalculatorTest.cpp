@@ -40,6 +40,22 @@ TEST_F (CalculatorTest, CalculateAcfInvalidViewThrow)
 
 
 
+TEST_F (CalculatorTest, CalculateAcfEmptyViewSuccess)
+{
+    // Arange.
+    const std::string code {""};
+    const std::vector <int> etalonAcf {};
+    std::vector <int> testAcf {};
+    // Act.
+    EXPECT_NO_THROW (
+        testAcf = Calculator::CalculateAcf (code)
+    );
+    // Assert.
+    EXPECT_EQ (etalonAcf, testAcf);
+}
+
+
+
 //     |+-+++|
 // +-++|+    |        1
 //  +-+|++   |        0
@@ -98,6 +114,22 @@ TEST_F (CalculatorTest, CalculatePslInvalidViewThrow)
     const std::string code {"+0+++"};
     // Act, Assert.
     EXPECT_THROW (Calculator::CalculatePsl (code), ExceptionInvalidStringView);
+}
+
+
+
+TEST_F (CalculatorTest, CalculatePslEmptyViewSuccess)
+{
+    // Arange.
+    const std::string code {""};
+    constexpr int etalonPsl {0};
+    int testPsl;
+    // Act.
+    EXPECT_NO_THROW (
+        testPsl = Calculator::CalculatePsl (code);
+    );
+    // Assert.
+    EXPECT_EQ (etalonPsl, testPsl);
 }
 
 

@@ -58,13 +58,16 @@ std::string Representer::HexViewToStringView (const std::string & hexView)
         throw ExceptionInvalidHexView ();
     }
 
-    std::string stringView;
+    std::string stringView {};
 
     for (size_t i = 0; i < hexView.length (); ++i) {
         stringView.append (conversionHexToStringTable [hexView [i] ]);
     }
 
-    stringView = stringView.substr (stringView.find_first_of ('+') );
+    const auto firstSignedPos = stringView.find_first_of ('+');
+    if (std::string::npos != firstSignedPos) {
+        stringView = stringView.substr (firstSignedPos);
+    }
 
     return stringView;
 }
