@@ -51,7 +51,7 @@ void XmlManagerTest::SetUp ()
     bfs::ofstream goodFile (dummyGoodXmlFileName);
     goodFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
     goodFile << "<codes>" << std::endl;
-    goodFile << "<code id=\"2\" length=\"2\" maxpsl=\"1\">" << std::endl;
+    goodFile << "<code id=\"2\" length=\"2\" psl=\"1\">" << std::endl;
     goodFile << "<sequence>+-</sequence>" << std::endl;
     goodFile << "<reference" << std::endl;
     goodFile << "    article=\"Group synchronization of binary digital systems\"" << std::endl;
@@ -86,7 +86,7 @@ void XmlManagerTest::CompareNodes (const pugi::xml_node & etalonNode, const pugi
 {
     ASSERT_EQ (0, strcmp (etalonNode.attribute ("id").value     (), testNode.attribute("id").value     () ) );
     ASSERT_EQ (0, strcmp (etalonNode.attribute ("length").value (), testNode.attribute("length").value () ) );
-    ASSERT_EQ (0, strcmp (etalonNode.attribute ("maxpsl").value (), testNode.attribute("maxpsl").value () ) );
+    ASSERT_EQ (0, strcmp (etalonNode.attribute ("psl").value    (), testNode.attribute("psl").value () ) );
 
     std::vector <std::string> etalonSequences;
     for (const auto & sequence : etalonNode.children ("sequence") ) {
@@ -143,7 +143,7 @@ TEST_F (XmlManagerTest, ClearSuccess)
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "2";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     nodeCode.append_child ("sequence").text ().set ("+-");
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";
@@ -186,7 +186,7 @@ TEST_F (XmlManagerTest, InsertCodeSuccess)
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "3";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     const pugi::xpath_node etalonBeforeResult;
     const pugi::xpath_node etalonAfterResult (nodeCode);
 
@@ -213,7 +213,7 @@ TEST_F (XmlManagerTest, InsertCodeCompletelySuccess)
     pugi::xml_node nodeCode = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id") = "3";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     nodeCode.append_child ("sequence").text ().set ("++");
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";
@@ -249,7 +249,7 @@ TEST_F (XmlManagerTest, InsertCodeSequenceSuccess)
     bfs::ofstream goodFile (dummyGoodXmlFileName);
     goodFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
     goodFile << "<codes>" << std::endl;
-    goodFile << "<code id=\"3\" length=\"2\" maxpsl=\"1\">" << std::endl;
+    goodFile << "<code id=\"3\" length=\"2\" psl=\"1\">" << std::endl;
     goodFile << "</code>" << std::endl;
     goodFile << "</codes>" << std::endl;
     goodFile.close ();
@@ -259,7 +259,7 @@ TEST_F (XmlManagerTest, InsertCodeSequenceSuccess)
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "3";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     const pugi::xpath_node etalonBeforeResult (nodeCode);
     nodeCode.append_child ("sequence").text ().set ("++");
     const pugi::xpath_node etalonAfterResult  (nodeCode);
@@ -288,7 +288,7 @@ TEST_F (XmlManagerTest, InsertCodeReferenceSuccess)
     bfs::ofstream goodFile (dummyGoodXmlFileName);
     goodFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
     goodFile << "<codes>" << std::endl;
-    goodFile << "<code id=\"3\" length=\"2\" maxpsl=\"1\">" << std::endl;
+    goodFile << "<code id=\"3\" length=\"2\" psl=\"1\">" << std::endl;
     goodFile << "</code>" << std::endl;
     goodFile << "</codes>" << std::endl;
     goodFile.close ();
@@ -298,7 +298,7 @@ TEST_F (XmlManagerTest, InsertCodeReferenceSuccess)
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "3";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     const pugi::xpath_node etalonBeforeResult (nodeCode);
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group of systems";
@@ -333,7 +333,7 @@ TEST_F (XmlManagerTest, RemoveCodeSuccess)
     pugi::xml_node nodeCode  = nodeCodes.append_child ("code");
     nodeCode.append_attribute ("id")     = "2";
     nodeCode.append_attribute ("length") = 2;
-    nodeCode.append_attribute ("maxpsl") = 1;
+    nodeCode.append_attribute ("psl")    = 1;
     nodeCode.append_child ("sequence").text ().set ("+-");
     pugi::xml_node nodeReference = nodeCode.append_child ("reference");
     nodeReference.append_attribute ("article") = "Group synchronization of binary digital systems";
@@ -367,7 +367,7 @@ TEST_F (XmlManagerTest, RemoveCodeSequenceSuccess)
     pugi::xml_node nodeCodeAfter  = nodeCodesAfter.append_child ("code");
     nodeCodeAfter.append_attribute ("id")     = "2";
     nodeCodeAfter.append_attribute ("length") = 2;
-    nodeCodeAfter.append_attribute ("maxpsl") = 1;
+    nodeCodeAfter.append_attribute ("psl")    = 1;
     pugi::xml_node nodeReferenceAfter = nodeCodeAfter.append_child ("reference");
     nodeReferenceAfter.append_attribute ("article") = "Group synchronization of binary digital systems";
     nodeReferenceAfter.append_attribute ("author")  = "R.H. Barker";
@@ -379,7 +379,7 @@ TEST_F (XmlManagerTest, RemoveCodeSequenceSuccess)
     pugi::xml_node nodeCodeBefore  = nodeCodesBefore.append_child ("code");
     nodeCodeBefore.append_attribute ("id")     = "2";
     nodeCodeBefore.append_attribute ("length") = 2;
-    nodeCodeBefore.append_attribute ("maxpsl") = 1;
+    nodeCodeBefore.append_attribute ("psl")    = 1;
     nodeCodeBefore.append_child ("sequence").text ().set ("+-");
     pugi::xml_node nodeReferenceBefore = nodeCodeBefore.append_child ("reference");
     nodeReferenceBefore.append_attribute ("article") = "Group synchronization of binary digital systems";
@@ -412,7 +412,7 @@ TEST_F (XmlManagerTest, RemoveCodeReferenceSuccess)
     pugi::xml_node nodeCodeAfter  = nodeCodesAfter.append_child ("code");
     nodeCodeAfter.append_attribute ("id")     = "2";
     nodeCodeAfter.append_attribute ("length") = 2;
-    nodeCodeAfter.append_attribute ("maxpsl") = 1;
+    nodeCodeAfter.append_attribute ("psl")    = 1;
     nodeCodeAfter.append_child ("sequence").text ().set ("+-");
     const pugi::xpath_node etalonAfterResult (nodeCodeAfter);
 
@@ -421,7 +421,7 @@ TEST_F (XmlManagerTest, RemoveCodeReferenceSuccess)
     pugi::xml_node nodeCodeBefore  = nodeCodesBefore.append_child ("code");
     nodeCodeBefore.append_attribute ("id")     = "2";
     nodeCodeBefore.append_attribute ("length") = 2;
-    nodeCodeBefore.append_attribute ("maxpsl") = 1;
+    nodeCodeBefore.append_attribute ("psl")    = 1;
     nodeCodeBefore.append_child ("sequence").text ().set ("+-");
     pugi::xml_node nodeReferenceBefore = nodeCodeBefore.append_child ("reference");
     nodeReferenceBefore.append_attribute ("article") = "Group synchronization of binary digital systems";

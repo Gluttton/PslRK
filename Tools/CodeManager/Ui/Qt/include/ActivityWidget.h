@@ -30,7 +30,7 @@ class ActivityWidget : public QWidget
         QLineEdit                             * editLength;
         QLineEdit                             * editHexView;
         QLineEdit                             * editStringView;
-        QLineEdit                             * editMsl;
+        QLineEdit                             * editPsl;
         QCheckBox                             * checkLengthAuto;
 
         QCustomPlot                           * plot;

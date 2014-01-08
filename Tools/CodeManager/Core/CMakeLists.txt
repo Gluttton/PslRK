@@ -27,13 +27,13 @@ link_directories (
 )
 
 add_library (
-    mslmcore SHARED
+    pslmcore SHARED
     ${CodeManagerCore_SOURCES}
     ${PUGIXML_LIBRARIES}
 )
 
 target_link_libraries (
-    mslmcore
+    pslmcore
 )
 
 

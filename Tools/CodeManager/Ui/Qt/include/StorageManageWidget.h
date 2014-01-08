@@ -61,7 +61,7 @@ class StorageManageWidget : public QWidget
         static const int                        columnCountTableReferences  {3};
         static const int                        columnNumberId              {0};
         static const int                        columnNumberLength          {1};
-        static const int                        columnNumberMsl             {2};
+        static const int                        columnNumberPsl             {2};
         static const int                        columnNumberSequence        {0};
         static const int                        columnNumberArticle         {0};
         static const int                        columnNumberAuthor          {1};

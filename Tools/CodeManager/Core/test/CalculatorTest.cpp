@@ -92,36 +92,36 @@ TEST_F (CalculatorTest, CalculateAcf_00011010_Success)
 
 
 
-TEST_F (CalculatorTest, CalculateMslInvalidViewThrow)
+TEST_F (CalculatorTest, CalculatePslInvalidViewThrow)
 {
     // Arange.
     const std::string code {"+0+++"};
     // Act, Assert.
-    EXPECT_THROW (Calculator::CalculateMsl (code), ExceptionInvalidStringView);
+    EXPECT_THROW (Calculator::CalculatePsl (code), ExceptionInvalidStringView);
 }
 
 
 
-TEST_F (CalculatorTest, CalculateMsl_10111_Success)
+TEST_F (CalculatorTest, CalculatePsl_10111_Success)
 {
     // Arange.
     const std::string code {"+-+++"};
-    constexpr int etalonMsl {1};
+    constexpr int etalonPsl {1};
     // Act.
-    const int testMsl {Calculator::CalculateMsl (code)};
+    const int testPsl {Calculator::CalculatePsl (code)};
     // Assert.
-    EXPECT_EQ (etalonMsl, testMsl);
+    EXPECT_EQ (etalonPsl, testPsl);
 }
 
 
 
-TEST_F (CalculatorTest, CalculateMsl_00011010_Success)
+TEST_F (CalculatorTest, CalculatePsl_00011010_Success)
 {
     // Arange.
     const std::string code {"---++-+-"};
-    constexpr int etalonMsl {2};
+    constexpr int etalonPsl {2};
     // Act.
-    const int testMsl {Calculator::CalculateMsl (code)};
+    const int testPsl {Calculator::CalculatePsl (code)};
     // Assert.
-    EXPECT_EQ (etalonMsl, testMsl);
+    EXPECT_EQ (etalonPsl, testPsl);
 }

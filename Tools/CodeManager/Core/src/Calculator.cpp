@@ -42,7 +42,7 @@ std::vector <int> Calculator::CalculateAcf (const std::string & stringView)
 
 
 
-int Calculator::CalculateMsl (const std::string & stringView)
+int Calculator::CalculatePsl (const std::string & stringView)
 {
     if (Validator::ValidateStringView (stringView) != viewIsValid) {
         throw ExceptionInvalidStringView ();

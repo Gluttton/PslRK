@@ -38,7 +38,7 @@ int main (int argc, char * argv [])
         std::cout << "push code         <string>        Put specified code into local storage." << std::endl;
         std::cout << "push family       <string>        Put family of specified code into local storage." << std::endl;
         std::cout << "show codes                        Print local storage." << std::endl;
-        std::cout << "show msl                          Print MSL for each of codes from local storage." << std::endl;
+        std::cout << "show psl                          Print PSL for each of codes from local storage." << std::endl;
         std::cout << "show family                       Print family for each of codes from local storage." << std::endl;
         std::cout << "show id                           Print ID for each of codes from local storage." << std::endl;
         std::cout << "to string         <int>           Convert each of codes from local storage into string format." << std::endl;
@@ -71,9 +71,9 @@ int main (int argc, char * argv [])
         }
     };
 
-    auto actionShowMsl = [&]() {
+    auto actionShowPsl = [&]() {
         for (const auto & code : codes) {
-            std::cout << Calculator::CalculateMsl (code) << std::endl;
+            std::cout << Calculator::CalculatePsl (code) << std::endl;
         }
     };
 
@@ -152,7 +152,7 @@ int main (int argc, char * argv [])
             for (const auto & code : codes.child ("codes").children ("code") ) {
                 std::cout << " Code: id       = " << code.attribute ("id").value     () << std::endl <<
                              "       length   = " << code.attribute ("length").value () << std::endl <<
-                             "       max PSL  = " << code.attribute ("maxpsl").value () << std::endl <<
+                             "       PSL      = " << code.attribute ("psl").value    () << std::endl <<
                              "       sequence = " << code.child_value ("sequence")      << std::endl;
                 std::cout << std::endl;
             }
@@ -181,12 +181,12 @@ int main (int argc, char * argv [])
 
             const std::string codeId {Representer::DetectCodeId (stringView)};
             const int codeLength = stringView.length ();
-            const int maxPsl {Calculator::CalculateMsl (stringView)};
+            const int psl {Calculator::CalculatePsl (stringView)};
 
             std::cout << "Sequence: " << stringView << std::endl;
             std::cout << "ID:       " << codeId     << std::endl;
             std::cout << "Length:   " << codeLength << std::endl;
-            std::cout << "Max PSL:  " << maxPsl     << std::endl;
+            std::cout << "PSL:      " << psl        << std::endl;
 
             std::cout << "Input reference article: > ";
             std::getline (std::cin, input);
@@ -198,7 +198,7 @@ int main (int argc, char * argv [])
             std::getline (std::cin, input);
             const std::string referenceLink   {input};
 
-            xmlManager->InsertCode (codeId, codeLength, maxPsl, {stringView}, { {referenceArticle, referenceAuthor, referenceLink} });
+            xmlManager->InsertCode (codeId, codeLength, psl, {stringView}, { {referenceArticle, referenceAuthor, referenceLink} });
         }
         else {
             std::cout << "Attempting to process file which was not opened." << std::endl;
@@ -254,8 +254,8 @@ int main (int argc, char * argv [])
             else if (0 == command.find ("show codes") ) {
                 actionShowCodes ();
             }
-            else if (0 == command.find ("show msl") ) {
-                actionShowMsl ();
+            else if (0 == command.find ("show psl") ) {
+                actionShowPsl ();
             }
             else if (0 == command.find ("show family") ) {
                 actionShowFamily ();

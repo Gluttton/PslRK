@@ -52,12 +52,12 @@ void StorageManageWidget::createWidgets ()
     modelSequences  = new QStandardItemModel (this);
     modelReferences = new QStandardItemModel (this);
 
-    modelCodes->setHorizontalHeaderLabels ({tr ("ID"), tr ("Length"), tr ("MSL")});
+    modelCodes->setHorizontalHeaderLabels ({tr ("ID"), tr ("Length"), tr ("PSL")});
     modelCodes->setColumnCount (columnCountTableCodes);
     tableCodes->setModel (modelCodes);
     tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberId,     QHeaderView::Stretch);
     tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberLength, QHeaderView::Stretch);
-    tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberMsl,    QHeaderView::Stretch);
+    tableCodes->horizontalHeader ()->setSectionResizeMode (columnNumberPsl,    QHeaderView::Stretch);
 
     modelSequences->setHorizontalHeaderLabels ({tr ("Sequence")});
     modelSequences->setColumnCount (columnCountTableSequences);
@@ -154,11 +154,11 @@ void StorageManageWidget::onDataSourceOpening ()
         cellLength->setTextAlignment (Qt::AlignCenter);
         cellLength->setData (code.attribute ("length").value (), Qt::DisplayRole);
 
-        QStandardItem * cellMsl = new QStandardItem ();
-        cellMsl->setTextAlignment (Qt::AlignCenter);
-        cellMsl->setData (code.attribute ("maxpsl").value (), Qt::DisplayRole);
+        QStandardItem * cellPsl = new QStandardItem ();
+        cellPsl->setTextAlignment (Qt::AlignCenter);
+        cellPsl->setData (code.attribute ("psl").value (), Qt::DisplayRole);
 
-        QList <QStandardItem *> cells {cellId, cellLength, cellMsl};
+        QList <QStandardItem *> cells {cellId, cellLength, cellPsl};
 
         int row {0};
         for (const auto & sequence : code.children ("sequence") ) {
@@ -232,8 +232,8 @@ void StorageManageWidget::onDataSourceSaving ()
     for (int i = 0; i < modelCodes->rowCount (); ++i) {
         const std::string id     = modelCodes->item (i, columnNumberId    )->data (Qt::DisplayRole).toString ().toStdString ();
         const std::string length = modelCodes->item (i, columnNumberLength)->data (Qt::DisplayRole).toString ().toStdString ();
-        const std::string maxpsl = modelCodes->item (i, columnNumberMsl   )->data (Qt::DisplayRole).toString ().toStdString ();
-        xmlManager->InsertCode (id, std::stoi (length), std::stoi (maxpsl) );
+        const std::string psl    = modelCodes->item (i, columnNumberPsl   )->data (Qt::DisplayRole).toString ().toStdString ();
+        xmlManager->InsertCode (id, std::stoi (length), std::stoi (psl) );
 
         QModelIndex indexId = modelCodes->item (i, columnNumberId)->index ();
         for (int j = 0; j < modelCodes->itemFromIndex (indexId)->rowCount (); ++j) {
@@ -358,11 +358,11 @@ void StorageManageWidget::onItemAdding ()
     if (tableFocused == tableCodes) {
         QStandardItem * cellId     = new QStandardItem ();
         QStandardItem * cellLength = new QStandardItem ();
-        QStandardItem * cellMsl    = new QStandardItem ();
+        QStandardItem * cellPsl    = new QStandardItem ();
         cellId->setTextAlignment     (Qt::AlignLeft | Qt::AlignVCenter);
         cellLength->setTextAlignment (Qt::AlignCenter);
-        cellMsl->setTextAlignment    (Qt::AlignCenter);
-        modelCodes->appendRow ({cellId, cellLength, cellMsl});
+        cellPsl->setTextAlignment    (Qt::AlignCenter);
+        modelCodes->appendRow ({cellId, cellLength, cellPsl});
     }
     else if (tableFocused == tableSequences) {
         QStandardItem * cellSequence = new QStandardItem ();

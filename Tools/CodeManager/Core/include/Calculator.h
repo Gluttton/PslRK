@@ -15,7 +15,7 @@ class Calculator
 {
     public:
         static std::vector <int> CalculateAcf (const std::string &);
-        static int               CalculateMsl (const std::string &);
+        static int               CalculatePsl (const std::string &);
 };
 
 }// namespace Core

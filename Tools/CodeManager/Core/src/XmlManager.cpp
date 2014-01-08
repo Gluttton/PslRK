@@ -50,11 +50,11 @@ const pugi::xpath_node XmlManager::Select (const std::string & xPathQuery)
 
 
 
-void XmlManager::InsertCode (const std::string & id, const int length, const int maxPsl,
+void XmlManager::InsertCode (const std::string & id, const int length, const int psl,
                              std::vector <std::string> sequences,
                              std::vector <std::array <std::string, referenceAttributeCount> > references)
 {
-    InsertCode (id, length, maxPsl);
+    InsertCode (id, length, psl);
     for (const auto & sequence : sequences) {
         InsertCodeSequence (id, sequence);
     }
@@ -65,12 +65,12 @@ void XmlManager::InsertCode (const std::string & id, const int length, const int
 
 
 
-void XmlManager::InsertCode (const std::string & id, const int length, const int maxPsl)
+void XmlManager::InsertCode (const std::string & id, const int length, const int psl)
 {
     pugi::xml_node nodeCode = xmlDocument.child ("codes").append_child ("code");
     nodeCode.append_attribute ("id")     = id.c_str ();
     nodeCode.append_attribute ("length") = length;
-    nodeCode.append_attribute ("maxpsl") = maxPsl;
+    nodeCode.append_attribute ("psl")    = psl;
 }
 
 

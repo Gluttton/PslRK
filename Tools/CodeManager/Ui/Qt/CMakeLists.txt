@@ -48,7 +48,7 @@ add_executable (
 
 target_link_libraries (
     pslcmqt
-    mslmcore
+    pslmcore
     ${PUGIXML_LIBRARIES}
 )
 

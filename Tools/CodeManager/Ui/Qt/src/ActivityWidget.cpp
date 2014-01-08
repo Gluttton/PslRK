@@ -18,7 +18,7 @@ ActivityWidget::ActivityWidget (QWidget * parent)
             , editLength        (nullptr)
             , editHexView       (nullptr)
             , editStringView    (nullptr)
-            , editMsl           (nullptr)
+            , editPsl           (nullptr)
             , checkLengthAuto   (nullptr)
             , plot              (nullptr)
             , isLengthAutoDetect(true)
@@ -36,7 +36,7 @@ void ActivityWidget::createWidgets ()
     editLength     = new QLineEdit (this);
     editHexView    = new QLineEdit (this);
     editStringView = new QLineEdit (this);
-    editMsl        = new QLineEdit (this);
+    editPsl        = new QLineEdit (this);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
@@ -71,22 +71,22 @@ void ActivityWidget::createLayouts ()
     layoutStringView->addWidget (labelStringView);
     layoutStringView->addWidget (editStringView);
 
-    QHBoxLayout * layoutMsl = new QHBoxLayout ();
-    QLabel * labelMsl = new QLabel (tr ("Max PSL") );
-    layoutMsl->addWidget (labelMsl);
-    layoutMsl->addWidget (editMsl);
+    QHBoxLayout * layoutPsl = new QHBoxLayout ();
+    QLabel * labelPsl = new QLabel (tr ("PSL") );
+    layoutPsl->addWidget (labelPsl);
+    layoutPsl->addWidget (editPsl);
 
     int width {0};
     width = std::max (labelCodeId->fontMetrics     ().width (labelCodeId->text     () ), width);
     width = std::max (labelLength->fontMetrics     ().width (labelLength->text     () ), width);
     width = std::max (labelHexView->fontMetrics    ().width (labelHexView->text    () ), width);
     width = std::max (labelStringView->fontMetrics ().width (labelStringView->text () ), width);
-    width = std::max (labelMsl->fontMetrics        ().width (labelMsl->text        () ), width);
+    width = std::max (labelPsl->fontMetrics        ().width (labelPsl->text        () ), width);
     labelCodeId->setFixedWidth     (width);
     labelLength->setFixedWidth     (width);
     labelHexView->setFixedWidth    (width);
     labelStringView->setFixedWidth (width);
-    labelMsl->setFixedWidth        (width);
+    labelPsl->setFixedWidth        (width);
 
     QWidget * widgetCode = new QWidget ();
     QVBoxLayout * layoutCode  = new QVBoxLayout ();
@@ -94,7 +94,7 @@ void ActivityWidget::createLayouts ()
     layoutCode->addLayout (layoutLength);
     layoutCode->addLayout (layoutHexView);
     layoutCode->addLayout (layoutStringView);
-    layoutCode->addLayout (layoutMsl);
+    layoutCode->addLayout (layoutPsl);
     layoutCode->addStretch ();
     widgetCode->setLayout (layoutCode);
 
@@ -161,7 +161,7 @@ void ActivityWidget::onStringViewEdited (const QString & view)
 void ActivityWidget::onViewChanged (const std::string & view)
 {
     editCodeId->setText (QString::fromStdString (Pslrk::Core::Representer::DetectCodeId (view) ) );
-    editMsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::CalculateMsl (view) ) );
+    editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::CalculatePsl (view) ) );
     if (isLengthAutoDetect) {
         editLength->setText (QString ("%1").arg (view.size () ) );
     }
