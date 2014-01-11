@@ -41,6 +41,7 @@ void ActivityWidget::createWidgets ()
 
     editHexView->setValidator    (new ValidatorHexViewAdapter);
     editStringView->setValidator (new ValidatorStringViewAdapter);
+    editStringView->setReadOnly  (!isLengthAutoDetect);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
@@ -132,6 +133,9 @@ void ActivityWidget::createConnections ()
 void ActivityWidget::onLengthAutoDetectChanged (const int state)
 {
     isLengthAutoDetect = (state == Qt::Checked ? true : false);
+
+    // Explicit setting of code length has sense only for manipulating with hex views.
+    editStringView->setReadOnly (!isLengthAutoDetect);
 }
 
 
