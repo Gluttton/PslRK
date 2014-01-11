@@ -96,6 +96,23 @@ TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewSuccess)
 
 
 
+TEST_F (RepresenterTest, HexViewToStringLeadingZeroViewWrongLengthSuccess)
+{
+    // Arange.
+    const std::string hexView {"00ca"};
+    const std::string etalonStringView {"--------++--+-+-"};
+    constexpr size_t codeLength {130};
+    std::string testStringView {};
+    // Act.
+    EXPECT_NO_THROW (
+        testStringView = Representer::HexViewToStringView (hexView, codeLength)
+    );
+    // Assert.
+    EXPECT_EQ (etalonStringView, testStringView);
+}
+
+
+
 TEST_F (RepresenterTest, StringViewToHexViewInvalidViewThrow)
 {
     // Arange.

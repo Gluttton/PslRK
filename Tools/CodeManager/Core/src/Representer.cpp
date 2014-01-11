@@ -86,7 +86,7 @@ std::string Representer::HexViewToStringView (const std::string & hexView, const
         stringView.append (conversionHexToStringTable [hexView [i] ]);
     }
 
-    stringView = stringView.substr (stringView.length () - length);
+    stringView = stringView.substr (stringView.length () - std::min (stringView.length (), length) );
 
     return stringView;
 }
