@@ -14,7 +14,7 @@ The collection must follows the next requirements:
     - ```<code>```        - each sequences with low PSL level is reported in ```<code>``` element, which has attributes:
         - ```id```        - hexadecimal view of sequence (maximum of values which start from a one);
         - ```length```    - length of sequence;
-        - ```maxpsl```    - maximum level of PSL;
+        - ```psl```       - PSL;
     - ```<sequence>```    - character representation of sequence;
     - ```<reference>```   - source of information is reported in ```<reference>``` element, which has attributes;
         - ```article```   - title of a article;
@@ -25,7 +25,7 @@ Example:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <codes>
-<code id="1D" length="5" maxpsl="1">
+<code id="1D" length="5" psl="1">
     <sequence>+++-+</sequence>
     <reference
         article="Group synchronization of binary digital systems"
