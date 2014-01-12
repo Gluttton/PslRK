@@ -11,15 +11,13 @@
 class Logger
 {
     public:
-        Logger  (std::string directoryName);
-        ~Logger ();
+        explicit Logger (const std::string &);
+        virtual ~Logger () = default;
 
-        void LogMessage   (std::string & message);
-        void LogCode      (__u8 length, CodeContainer & code);
-        void LogStatistic (std::string & message);
+        void LogMessage   (const std::string &);
+        void LogCode      (const __u8, const CodeContainer &);
+        void LogStatistic (const std::string &);
     private:
-        Logger  ();
-
         const std::string currentDirectoryName;
         const std::string logFileName;
         const std::string datFileName;

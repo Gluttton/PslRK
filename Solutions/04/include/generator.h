@@ -13,41 +13,39 @@
 class Generator
 {
     public:
-        Generator (Logger * commonLogger, __s32 begin, __s32 end) :
-                                                            beginLength (begin < 2 ? 2 : begin),
-                                                            endLength   (end   > 64 * codeU64Count ? 64 * codeU64Count : end),
-                                                            length      (begin < 2 ? 2 : begin),
-                                                            logger      (commonLogger)
+        Generator (Logger * const commonLogger, const __s32 begin, const __s32 end)
+                    : beginLength {begin < 2 ? 2 : begin}
+                    , endLength   {end   > 64 * codeU64Count ? 64 * codeU64Count : end}
+                    , length      {begin < 2 ? 2 : begin}
+                    , logger      {commonLogger}
         {
             CalculateMaxCode (beginLength, maxCode);
         };
 
 
 
-        virtual ~Generator  ()
-        {
-        };
+        virtual ~Generator  () = default;
 
 
 
         int CalculateMaxCode (const __s32 requestedLength, CodeContainer & returnedMaxCode) {
             // Utility variables.
-            __s32 x = 1 + (requestedLength >> 3);   // Shift means dividing by 8.
+            const __s32 x {1 + (requestedLength >> 3)};     // Shift means dividing by 8.
 
-            memset (&returnedMaxCode.u8 [x],      0x00U, codeU8Count - 1 - x);
-            memset (&returnedMaxCode.u8 [0],      0xFFU,                   x);
-            memset (&returnedMaxCode.u8 [x - 1], (0x01U << (requestedLength & 7) ) - 1, 1);
+            memset (&returnedMaxCode.u8 [x],      0x00u, codeU8Count - 1 - x);
+            memset (&returnedMaxCode.u8 [0],      0xFFu,                   x);
+            memset (&returnedMaxCode.u8 [x - 1], (0x01u << (requestedLength & 7) ) - 1, 1);
 
             return 0;
         };
 
 
 
-        int GetNextCode (__s32 & returnedLength, CodeContainer & returnedCode, __s32 & returnedSideLobeLimit)
+        virtual int GetNextCode (__s32 & returnedLength, CodeContainer & returnedCode, __s32 & returnedSideLobeLimit)
         {
-            static __u64 rdtsc = __rdtsc ();
-            static __u64 codes = 0;
-            __u8 i = 0;
+            static __u64 rdtsc {__rdtsc ()};
+            static __u64 codes {0ull};
+            __u8 i {0x00u};
 
             if (memcmp (returnedCode.u8, maxCode.u8, codeU8Count) ) {
                 do {
@@ -59,7 +57,7 @@ class Generator
                     std::string statisticString;
                     statisticString  = std::to_string (length);
                     statisticString += "\trdtsc " + std::to_string (__rdtsc () - rdtsc);
-                    statisticString += "\tcodes " + std::to_string (codes) + " / " + std::to_string (1ULL << length);
+                    statisticString += "\tcodes " + std::to_string (codes) + " / " + std::to_string (1ull << length);
                     statisticString += "\n";
                     logger->LogStatistic (statisticString);
                 }
@@ -83,14 +81,13 @@ class Generator
             return 0;
         };
 
-        const __s32 beginLength;
-        const __s32 endLength;
-        __s32 length;
-        CodeContainer maxCode;
+        const __s32 beginLength {0};
+        const __s32 endLength   {0};
+        __s32 length            {0};
+        CodeContainer maxCode   {};
 
     private:
-        Generator ();
-        Logger * logger;
+        Logger * logger         {nullptr};
 };
 
 #endif//LPSLCD_GENERATOR_H

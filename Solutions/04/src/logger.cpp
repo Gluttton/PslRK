@@ -2,28 +2,17 @@
 
 
 
-Logger::Logger (std::string directoryName) : currentDirectoryName (directoryName),
-                                             logFileName  (currentDirectoryName + "/lpslcd.log"),
-                                             datFileName  (currentDirectoryName + "/lpslcd.dat"),
-                                             statFileName (currentDirectoryName + "/lpslcd.stat")
+Logger::Logger (const std::string & directoryName)
+            : currentDirectoryName {directoryName}
+            , logFileName  {currentDirectoryName + "/lpslcd.log"}
+            , datFileName  {currentDirectoryName + "/lpslcd.dat"}
+            , statFileName {currentDirectoryName + "/lpslcd.stat"}
 {
 }
 
 
 
-Logger::Logger ()
-{
-}
-
-
-
-Logger::~Logger ()
-{
-}
-
-
-
-void Logger::LogStatistic (std::string & message)
+void Logger::LogStatistic (const std::string & message)
 {
     statFile.open (statFileName, std::fstream::out | std::fstream::app);
     statFile << message;
@@ -32,7 +21,7 @@ void Logger::LogStatistic (std::string & message)
 
 
 
-void Logger::LogMessage (std::string & message)
+void Logger::LogMessage (const std::string & message)
 {
     logFile.open (logFileName, std::fstream::out | std::fstream::app);
     logFile << message;
@@ -41,7 +30,7 @@ void Logger::LogMessage (std::string & message)
 
 
 
-void Logger::LogCode (__u8 length, CodeContainer & code)
+void Logger::LogCode (const __u8 length, const CodeContainer & code)
 {
     std::string codeString;
 

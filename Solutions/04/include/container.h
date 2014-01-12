@@ -3,6 +3,8 @@
 
 #include <linux/types.h>
 #include <x86intrin.h>
+#include <initializer_list>
+#include <cstring>
 
 
 
@@ -24,15 +26,43 @@ typedef __u64   u64_128     __attribute__ ((vector_size (16)));
 
 union CodeContainer
 {
-    u8_128   u8v;
-    u16_128  u16v;
-    u32_128  u32v;
-    u64_128  u64v;
-    __u8     u8    [codeU8Count];
-    __u16    u16   [codeU16Count];
-    __u32    u32   [codeU32Count];
-    __u64    u64   [codeU64Count];
-    __m128i  m128i [codeM128Count];
+    public:
+        CodeContainer ()
+        {
+            memset (&u8, 0x00u, codeU8Count);
+        };
+
+        CodeContainer (std::initializer_list <__u8> list)
+        {
+            unsigned int i {0};
+            if (list.size () >= codeU8Count) {
+                for (; i < codeU8Count; ++i) {
+                    u8 [i] = * (list.begin () + i);
+                }
+            }
+            else {
+                for (; i < list.size (); ++i) {
+                    u8 [i] = * (list.begin () + i);
+                }
+                for (; i < codeU8Count; ++i) {
+                    u8 [i] = 0x00u;
+                }
+            }
+        };
+
+        ~CodeContainer ()
+        {
+        };
+
+        u8_128   u8v;
+        u16_128  u16v;
+        u32_128  u32v;
+        u64_128  u64v;
+        __u8     u8    [codeU8Count];
+        __u16    u16   [codeU16Count];
+        __u32    u32   [codeU32Count];
+        __u64    u64   [codeU64Count];
+        __m128i  m128i [codeM128Count];
 }   __attribute__ ((aligned (16)));
 
 #endif//LPSLCD_CONTAINER_H

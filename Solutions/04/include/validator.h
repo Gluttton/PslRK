@@ -10,18 +10,15 @@
 class Validator
 {
     public:
-        Validator (Generator * bindGenerator) : generator (bindGenerator)
+        Validator (Generator * bindGenerator)
+                    : generator {bindGenerator}
         {
-            length        = 0;
-            sideLobeLimit = 0;
-            memset (&code, 0x00, sizeof (code) );
+            memset (&code, 0x00u, sizeof (code) );
         };
 
 
 
-        virtual ~Validator ()
-        {
-        };
+        virtual ~Validator () = default;
 
 
 
@@ -45,12 +42,12 @@ class Validator
 
             for (__s32 shift = 1; shift < length; ++shift) {
                 // Utility variables.
-                __s32 x = (length - shift) >> 6;     // Shift means dividing by 64.
-                __s32 y =           shift  >> 6;     // Shift means dividing by 64.
+                const __s32 x {(length - shift) >> 6};  // Shift means dividing by 64.
+                const __s32 y {          shift  >> 6};  // Shift means dividing by 64.
                 // Redundant raised bits which included in sum.
-                __s32 extra = __builtin_popcountll (code.u64 [x] >> ( (length - shift) & 63) );
+                const __s32 extra {__builtin_popcountll (code.u64 [x] >> ( (length - shift) & 63) )};
 
-                __s32 sideLobeSum = 0;
+                __s32 sideLobeSum {0};
                 for (__s32 i = 0; i <= x; ++i) {
                     sideLobeSum += __builtin_popcountll (
                                           (code.u64 [i     + y] >> (      shift & 63)
@@ -59,7 +56,8 @@ class Validator
                         );
                 }
 
-                if (abs (length - shift - (sideLobeSum - extra) * 2) > sideLobeLimit) {
+                // Shift means multiply by two.
+                if (abs (length - shift - ( (sideLobeSum - extra) << 1) ) > sideLobeLimit) {
                     return 1;
                 }
             }
@@ -69,10 +67,10 @@ class Validator
 
 
 
-        Generator * generator;
-        CodeContainer code;
-        __s32 length;
-        __s32 sideLobeLimit;
+        Generator * generator   {nullptr};
+        CodeContainer code      {};
+        __s32 length            {0};
+        __s32 sideLobeLimit     {0};
 };
 
 #endif//LPSLCD_VALIDATOR_H

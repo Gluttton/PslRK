@@ -1,32 +1,16 @@
-#include "generator.h"
 #include "validator.h"
+#include "generator.mock.h"
 #include <gtest/gtest.h>
+
+
+
+using testing::_;
 
 
 
 class ValidatorTest : public ::testing::Test
 {
-    protected:
-        Generator * generator;
-        Validator * validator;
-        CodeContainer code;
-
-        void SetUp    ();
-        void TearDown ();
 };
-
-
-
-void ValidatorTest::SetUp ()
-{
-    memset (&code, 0x00, sizeof (code) );
-}
-
-
-
-void ValidatorTest::TearDown ()
-{
-}
 
 
 
@@ -36,20 +20,25 @@ void ValidatorTest::TearDown ()
 TEST_F (ValidatorTest, Validate_00_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 2;
-    validator->code.u64 [0] = 0x00;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {2};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -60,20 +49,25 @@ TEST_F (ValidatorTest, Validate_00_Success)
 TEST_F (ValidatorTest, Validate_10_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 2;
-    validator->code.u64 [0] = 0x02;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {2};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x02u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -84,20 +78,25 @@ TEST_F (ValidatorTest, Validate_10_Success)
 TEST_F (ValidatorTest, Validate_001_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 3;
-    validator->code.u64 [0] = 0x01;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {3};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x01u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -108,20 +107,25 @@ TEST_F (ValidatorTest, Validate_001_Success)
 TEST_F (ValidatorTest, Validate_0001_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 4;
-    validator->code.u64 [0] = 0x01;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {4};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x01u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -132,20 +136,25 @@ TEST_F (ValidatorTest, Validate_0001_Success)
 TEST_F (ValidatorTest, Validate_0100_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 4;
-    validator->code.u64 [0] = 0x04;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {4};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x04u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -156,20 +165,25 @@ TEST_F (ValidatorTest, Validate_0100_Success)
 TEST_F (ValidatorTest, Validate_00010_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 5;
-    validator->code.u64 [0] = 0x02;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {5};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x02u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -180,20 +194,25 @@ TEST_F (ValidatorTest, Validate_00010_Success)
 TEST_F (ValidatorTest, Validate_0001101_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 7;
-    validator->code.u64 [0] = 0x0D;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {7};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x0Du}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -204,20 +223,25 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
 TEST_F (ValidatorTest, Validate_00011101101_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 11;
-    validator->code.u64 [0] = 0xED;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {11};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0xEDu}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -228,20 +252,25 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
 TEST_F (ValidatorTest, Validate_0000011001010_Success)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 13;
-    validator->code.u64 [0] = 0xCA;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {13};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0xCAu}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 0);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -252,20 +281,25 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
 TEST_F (ValidatorTest, Validate_10110_Fail)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 5;
-    validator->code.u64 [0] = 0x16;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {5};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x16u}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 1);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -276,20 +310,25 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
 TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 {
     // Arange.
-    validator = new Validator (NULL);
-    validator->length = 13;
-    validator->code.u64 [0] = 0x1F36;
-    validator->sideLobeLimit = 1;
-    int result = -1;
+    constexpr __s32 length          {13};
+    constexpr __s32 sideLobeLimit   {1};
+    GeneratorMock generator {nullptr, length, length};
+    Validator validator {& generator};
+    EXPECT_CALL (generator, GetNextCode (_, _, _) )
+            .WillOnce (
+                DoAll (
+                    testing::SetArgReferee <0> (length),
+                    testing::SetArgReferee <1> (CodeContainer {0x36u, 0x1Fu}),
+                    testing::SetArgReferee <2> (sideLobeLimit)
+                )
+            );
+    validator.SetNextCode ();
 
     // Act.
-    result = validator->Validate ();
+    const auto result = validator.Validate ();
 
     // Assert.
     EXPECT_EQ (result, 1);
-
-    // Cleaning.
-    delete validator;
 }
 
 
@@ -307,28 +346,24 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
 {
     // Arange.
-    const __s32 begin = 3;
-    const __s32 end   = 5;
-    generator = new Generator (nullptr, begin, end);
-    validator = new Validator (generator);
-    __u8 etalon [] = {0,   1,   1,   0,   1,   0,   0,   1,   1,   0,   0,   1,   0,   1,   1,   0};
-    //                0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
-    //                  0001 0010      0100           0111 1000           1011      1101 1110
-    __u8 test   [] = {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
+    constexpr __s32 begin   {3};
+    constexpr __s32 end     {5};
+    Generator generator     {nullptr, begin, end};
+    Validator validator     {&generator};
+    __u8 etalon [] {0,   1,   1,   0,   1,   0,   0,   1,   1,   0,   0,   1,   0,   1,   1,   0};
+    //              0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+    //                0001 0010      0100           0111 1000           1011      1101 1110
+    __u8 test   [] {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
 
     // Act.
-    while (!validator->SetNextCode () ) {
-        if (!validator->Validate () && validator->length == 4) {
-            test [validator->code.u64 [0] & 0x0F] = 1;
+    while (!validator.SetNextCode () ) {
+        if (!validator.Validate () && validator.length == 4) {
+            test [validator.code.u64 [0] & 0x0F] = 1;
         }
     }
 
     // Assert.
-    for (__u8 i = 0; i < sizeof (etalon); ++i) {
+    for (size_t i = 0; i < sizeof (etalon); ++i) {
         EXPECT_EQ (etalon [i], test [i]);
     }
-
-    // Cleaning.
-    delete generator;
-    delete validator;
 }

@@ -8,7 +8,7 @@ OPTIMIZATION       ?= O0
 #===--- Executable specified variables ---===#
 EXE_CXXFLAGS        = -c \
                       -MD \
-                      -std=c++0x -march=native -mtune=native -m64 \
+                      -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
@@ -24,13 +24,13 @@ EXE                 = lpslcd
 #===--- Testing specified variables    ---===#
 TEST_CXXFLAGS       = -c \
                       -MD \
-                      -std=c++0x -march=native -mtune=native -m64 \
+                      -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
                       -pg -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
-TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lpthread
+TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
 TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp

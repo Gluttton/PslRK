@@ -14,10 +14,12 @@ int main ()
         std::cout << "Abnormal exit (unable to detect current directory)!" << std::endl;
         return EXIT_FAILURE;
     }
-    Logger    * logger    = new Logger    (currentDirectoryName);
+    Logger    * logger    {new Logger    (currentDirectoryName)};
 
-    Generator * generator = new Generator (logger, 3, 32);
-    Validator * validator = new Validator (generator);
+    constexpr __s32 begin {3};
+    constexpr __s32 end   {32};
+    Generator * generator {new Generator (logger, begin, end)};
+    Validator * validator {new Validator (generator)};
 
 
     while (!validator->SetNextCode () ) {
