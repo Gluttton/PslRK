@@ -7,6 +7,7 @@
 #include <QSplitter>
 #include <QFontMetrics>
 #include <QVector>
+#include <QIntValidator>
 #include <Calculator.h>
 #include <Representer.h>
 #include <QDebug>
@@ -39,9 +40,13 @@ void ActivityWidget::createWidgets ()
     editStringView = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
 
+    editCodeId->setReadOnly      (true);
+    editLength->setValidator     (new QIntValidator);
+    editLength->setReadOnly      (isLengthAutoDetect);
     editHexView->setValidator    (new ValidatorHexViewAdapter);
     editStringView->setValidator (new ValidatorStringViewAdapter);
     editStringView->setReadOnly  (!isLengthAutoDetect);
+    editPsl->setReadOnly         (true);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
@@ -123,9 +128,17 @@ void ActivityWidget::createLayouts ()
 
 void ActivityWidget::createConnections ()
 {
+    connect (editLength,      SIGNAL (textEdited   (const QString &) ), this, SLOT (onLengthEdited     (const QString &) ) );
     connect (editHexView,     SIGNAL (textEdited   (const QString &) ), this, SLOT (onHexViewEdited    (const QString &) ) );
     connect (editStringView,  SIGNAL (textEdited   (const QString &) ), this, SLOT (onStringViewEdited (const QString &) ) );
     connect (checkLengthAuto, SIGNAL (stateChanged (int) ),             this, SLOT (onLengthAutoDetectChanged (const int) ) );
+}
+
+
+
+void ActivityWidget::onLengthEdited (const QString & length)
+{
+    onHexViewEdited (editHexView->text () );
 }
 
 
@@ -134,6 +147,7 @@ void ActivityWidget::onLengthAutoDetectChanged (const int state)
 {
     isLengthAutoDetect = (state == Qt::Checked ? true : false);
 
+    editLength->setReadOnly     (isLengthAutoDetect);
     // Explicit setting of code length has sense only for manipulating with hex views.
     editStringView->setReadOnly (!isLengthAutoDetect);
 }

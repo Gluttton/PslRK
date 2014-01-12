@@ -16,6 +16,7 @@ class ActivityWidget : public QWidget
         virtual ~ActivityWidget                 () = default;
 
     public slots:
+        void onLengthEdited                     (const QString &);
         void onLengthAutoDetectChanged          (const int);
         void onHexViewEdited                    (const QString &);
         void onStringViewEdited                 (const QString &);
