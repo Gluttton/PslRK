@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8.8)
 
 find_package (PugiXML REQUIRED)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mtune=native -march=native -std=c++11")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -mtune=native -std=c++11")
 set (CMAKE_CXX_FLAGS_DEBUG   "-O0 -g")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 
