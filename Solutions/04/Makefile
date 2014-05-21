@@ -8,13 +8,16 @@ OPTIMIZATION       ?= O0
 #===--- Executable specified variables ---===#
 EXE_CXXFLAGS        = -c \
                       -MD \
-                      -std=c++11 -march=native -mtune=native \
+                      -std=c++1y -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 EXE_LDPATH          =
 EXE_LDADD           =
 EXE_SRC             = src/main.cpp \
+                      src/code.cpp \
+                      src/generator.cpp \
+                      src/validator.cpp \
                       src/logger.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
 EXE                 = lpslcd
@@ -24,14 +27,17 @@ EXE                 = lpslcd
 #===--- Testing specified variables    ---===#
 TEST_CXXFLAGS       = -c \
                       -MD \
-                      -std=c++11 -march=native -mtune=native \
+                      -std=c++1y -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
                       -pg -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
 TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
-TEST_SRC            = src/logger.cpp \
+TEST_SRC            = src/code.cpp \
+                      src/generator.cpp \
+                      src/validator.cpp \
+                      src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
 TEST_OBJ            = $(TEST_SRC:.cpp=.o)
@@ -51,7 +57,7 @@ COV_DATA            = $(shell find . -type f -name '*.d' -o -name '*.gcov' -o -n
 LST_DATA            = $(shell find . -type f -name '*.lst')
 PRO_DATA            = $(shell find . -type f -name 'gmon.out')
 TMP_DATA            = $(shell find . -type f -name '*~')
-LOG_DATA            = $(shell find . -type f -name 'lpslcd.log' -o -name 'lpslcd.dat' -o -name 'lpslcd.stat')
+LOG_DATA            = $(shell find . -type f -name 'lpslcd.dat' -o -name 'lpslcd.stat')
 
 
 
@@ -79,8 +85,8 @@ clean:
 
 
 coverage:
-	lcov -q -c -f -b . -d test -o coverage.info &&\
-	lcov -q -r coverage.info /usr/\* -b . -d test -o coverage.info &&\
+	lcov -c -f -b . -d . -o coverage.info &&\
+	lcov -e coverage.info "`pwd -P`/*" -b . -d . -o coverage.info &&\
 	genhtml coverage.info --legend --demangle-cpp -f -q -o coverage
 
 

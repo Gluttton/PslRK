@@ -16,7 +16,7 @@ class GeneratorMock : public Generator
 
         virtual ~GeneratorMock () = default;
 
-        MOCK_METHOD3 (GetNextCode, int (__s32 &, CodeContainer &, __s32 &) );
+        MOCK_METHOD3 (GetNextCode, int (__s32 &, Code &, __s32 &) );
 };
 
 #endif//LPSLCD_GENERATOR_MOCK_H

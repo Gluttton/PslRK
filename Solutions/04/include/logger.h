@@ -1,7 +1,7 @@
 #ifndef LPSLCD_LOGGER_H
 #define LPSLCD_LOGGER_H
 
-#include "container.h"
+#include "code.h"
 #include <linux/types.h>
 #include <fstream>
 #include <string>
@@ -15,7 +15,7 @@ class Logger
         virtual ~Logger () = default;
 
         void LogMessage   (const std::string &);
-        void LogCode      (const __u8, const CodeContainer &);
+        void LogCode      (const __u8, const Code &);
         void LogStatistic (const std::string &);
     private:
         const std::string currentDirectoryName;

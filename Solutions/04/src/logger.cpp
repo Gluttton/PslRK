@@ -30,7 +30,7 @@ void Logger::LogMessage (const std::string & message)
 
 
 
-void Logger::LogCode (const __u8 length, const CodeContainer & code)
+void Logger::LogCode (const __u8 length, const Code & code)
 {
     std::string codeString;
 

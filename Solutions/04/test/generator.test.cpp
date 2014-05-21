@@ -6,7 +6,7 @@
 class GeneratorTest : public ::testing::Test
 {
     protected:
-        CodeContainer code;
+        Code code;
 
         void SetUp    () override;
         void TearDown () override;
@@ -237,7 +237,7 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (code.u64 [0], 0x03);
-    for (auto i = 1; i < codeU64Count; ++i) {
+    for (auto i = 1; i < Code::u64ChunkCount; ++i) {
         EXPECT_EQ (code.u64 [i], 0x00);
     }
 }
@@ -263,7 +263,7 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_5_Success)
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (code.u64 [0], 0x1F);
-    for (auto i = 1; i < codeU64Count; ++i) {
+    for (auto i = 1; i < Code::u64ChunkCount; ++i) {
         EXPECT_EQ (code.u64 [i], 0x00);
     }
 }
@@ -289,7 +289,7 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_8_Success)
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (code.u64 [0], 0xFF);
-    for (auto i = 1; i < codeU64Count; ++i) {
+    for (auto i = 1; i < Code::u64ChunkCount; ++i) {
         EXPECT_EQ (code.u64 [i], 0x00);
     }
 }
@@ -315,7 +315,7 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_9_Success)
     // Assert.
     EXPECT_EQ (result, 0);
     EXPECT_EQ (code.u64 [0], 0x01FF);
-    for (auto i = 1; i < codeU64Count; ++i) {
+    for (auto i = 1; i < Code::u64ChunkCount; ++i) {
         EXPECT_EQ (code.u64 [i], 0x00);
     }
 }

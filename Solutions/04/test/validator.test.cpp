@@ -28,7 +28,7 @@ TEST_F (ValidatorTest, Validate_00_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {}),
+                    testing::SetArgReferee <1> (Code {}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -57,7 +57,7 @@ TEST_F (ValidatorTest, Validate_10_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x02u}),
+                    testing::SetArgReferee <1> (Code {0x02u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -86,7 +86,7 @@ TEST_F (ValidatorTest, Validate_001_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x01u}),
+                    testing::SetArgReferee <1> (Code {0x01u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -115,7 +115,7 @@ TEST_F (ValidatorTest, Validate_0001_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x01u}),
+                    testing::SetArgReferee <1> (Code {0x01u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -144,7 +144,7 @@ TEST_F (ValidatorTest, Validate_0100_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x04u}),
+                    testing::SetArgReferee <1> (Code {0x04u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -173,7 +173,7 @@ TEST_F (ValidatorTest, Validate_00010_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x02u}),
+                    testing::SetArgReferee <1> (Code {0x02u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -202,7 +202,7 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x0Du}),
+                    testing::SetArgReferee <1> (Code {0x0Du}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -231,7 +231,7 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0xEDu}),
+                    testing::SetArgReferee <1> (Code {0xEDu}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -260,7 +260,7 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0xCAu}),
+                    testing::SetArgReferee <1> (Code {0xCAu}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -289,7 +289,7 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x16u}),
+                    testing::SetArgReferee <1> (Code {0x16u}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );
@@ -318,7 +318,7 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
             .WillOnce (
                 DoAll (
                     testing::SetArgReferee <0> (length),
-                    testing::SetArgReferee <1> (CodeContainer {0x36u, 0x1Fu}),
+                    testing::SetArgReferee <1> (Code {0x36u, 0x1Fu}),
                     testing::SetArgReferee <2> (sideLobeLimit)
                 )
             );

@@ -17,7 +17,7 @@ int main ()
     Logger    * logger    {new Logger    (currentDirectoryName)};
 
     constexpr __s32 begin {3};
-    constexpr __s32 end   {32};
+    constexpr __s32 end   {13};
     Generator * generator {new Generator (logger, begin, end)};
     Validator * validator {new Validator (generator)};
 
