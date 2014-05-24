@@ -36,6 +36,10 @@
 		<sequence>+++++--++-+-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
 	</code>
+	<code id="b4888f1" length="28" psl="2">
+		<sequence>+-++-+--+---+---+---++++---+</sequence>
+		<reference article="Fundamentals of Radar Signal Processing, Second Edition" author="Mark A. Richards" link="http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf" />
+	</code>
 	<code id="3c3f30849aa9" length="46" psl="3">
 		<sequence>++++----++++++--++----+----+--+--++-+-+-+-+--+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
@@ -74,6 +78,7 @@
 		<sequence>+++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+		<reference article="Fundamentals of Radar Signal Processing, Second Edition" author="Mark A. Richards" link="http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf" />
 	</code>
 	<code id="fa0492a26271c" length="52" psl="4">
 		<sequence>+++++-+------+--+--+--+-+-+---+--++---+--+++---+++--</sequence>
@@ -278,6 +283,7 @@
 		<sequence>+++++-+-+--+-++-+-+--++-+++-+++-++-+++---+++--++-------+++--+-+++-+--+--++-+--++++</sequence>
 		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 		<reference article="Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105" author="Carroll J. Nunn, Gregory E. Coxson" link="http://norbertwiener.umd.edu/crowds/documents/best_known_binary.pdf" />
+		<reference article="Fundamentals of Radar Signal Processing, Second Edition" author="Mark A. Richards" link="http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf" />
 	</code>
 	<code id="711763ae7dbb8482d3a5a" length="83" psl="5">
 		<sequence>+++---+---+-+++-++---+++-+-+++--+++++-++-+++-+++----+--+-----+-++-+--+++-+--+-++-+-</sequence>
@@ -387,5 +393,6 @@
 		<sequence>+++---++---+++----+++++++++++-+-+++-++-+--+--+++++-+---++--+--+-+++--+---+--+-+-++--+-+-++---++-+++---+-+</sequence>
 		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
 		<reference article="Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105" author="Carroll J. Nunn, Gregory E. Coxson" link="http://norbertwiener.umd.edu/crowds/documents/best_known_binary.pdf" />
+		<reference article="Fundamentals of Radar Signal Processing, Second Edition" author="Mark A. Richards" link="http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf" />
 	</code>
 </codes>
