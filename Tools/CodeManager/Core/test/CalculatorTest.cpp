@@ -157,3 +157,37 @@ TEST_F (CalculatorTest, CalculatePsl_00011010_Success)
     // Assert.
     EXPECT_EQ (etalonPsl, testPsl);
 }
+
+
+
+TEST_F (CalculatorTest, CalclulateDb_1_to_5_Success)
+{
+    // Arange.
+    constexpr int ml  {5};
+    constexpr int psl {1};
+    constexpr long double etalonDb {-13.979f};
+    constexpr long double epsilonDb {0.001f};
+
+    // Act.
+    const long double testDb {Calculator::CalculateDb (ml, psl)};
+
+    // Assert.
+    EXPECT_NEAR (etalonDb, testDb, epsilonDb);
+}
+
+
+
+TEST_F (CalculatorTest, CalclulateDb_1_to_13_Success)
+{
+    // Arange.
+    constexpr int ml  {13};
+    constexpr int psl {1};
+    constexpr long double etalonDb {-22.279f};
+    constexpr long double epsilonDb {0.001f};
+
+    // Act.
+    const long double testDb {Calculator::CalculateDb (ml, psl)};
+
+    // Assert.
+    EXPECT_NEAR (etalonDb, testDb, epsilonDb);
+}

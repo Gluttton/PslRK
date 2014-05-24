@@ -39,6 +39,7 @@ void ActivityWidget::createWidgets ()
     editHexView    = new QLineEdit (this);
     editStringView = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
+    editDb         = new QLineEdit (this);
 
     editCodeId->setReadOnly      (true);
     editLength->setValidator     (new QIntValidator);
@@ -47,6 +48,7 @@ void ActivityWidget::createWidgets ()
     editStringView->setValidator (new ValidatorStringViewAdapter);
     editStringView->setReadOnly  (!isLengthAutoDetect);
     editPsl->setReadOnly         (true);
+    editDb->setReadOnly          (true);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
@@ -81,10 +83,13 @@ void ActivityWidget::createLayouts ()
     layoutStringView->addWidget (labelStringView);
     layoutStringView->addWidget (editStringView);
 
-    QHBoxLayout * layoutPsl = new QHBoxLayout ();
+    QHBoxLayout * layoutFeatures = new QHBoxLayout ();
     QLabel * labelPsl = new QLabel (tr ("PSL") );
-    layoutPsl->addWidget (labelPsl);
-    layoutPsl->addWidget (editPsl);
+    layoutFeatures->addWidget (labelPsl);
+    layoutFeatures->addWidget (editPsl);
+    QLabel * labelDb = new QLabel (tr ("dB") );
+    layoutFeatures->addWidget (labelDb);
+    layoutFeatures->addWidget (editDb);
 
     int width {0};
     width = std::max (labelCodeId->fontMetrics     ().width (labelCodeId->text     () ), width);
@@ -104,7 +109,7 @@ void ActivityWidget::createLayouts ()
     layoutCode->addLayout (layoutLength);
     layoutCode->addLayout (layoutHexView);
     layoutCode->addLayout (layoutStringView);
-    layoutCode->addLayout (layoutPsl);
+    layoutCode->addLayout (layoutFeatures);
     layoutCode->addStretch ();
     widgetCode->setLayout (layoutCode);
 
@@ -187,6 +192,14 @@ void ActivityWidget::onViewChanged (const std::string & view)
     if (isLengthAutoDetect) {
         editLength->setText (QString ("%1").arg (view.size () ) );
     }
+    editDb->setText     (QString::number (
+        Pslrk::Core::Calculator::CalculateDb (
+            editLength->text ().toInt (),
+            Pslrk::Core::Calculator::CalculatePsl (view)
+        ),
+        'f',
+        3       // Only three digits after period must be displayed.
+    ) );
 
     const double range = view.size ();
 

@@ -58,5 +58,12 @@ int Calculator::CalculatePsl (const std::string & stringView)
     return * std::max_element (acf.begin (), acf.begin () + range);
 }
 
+
+
+float Calculator::CalculateDb (const int ml, const int psl)
+{
+    return 20.0f * log10f (static_cast <float> (psl) / static_cast <float> (ml) );
+}
+
 }// namespace Core
 }// namespace Pslrk
