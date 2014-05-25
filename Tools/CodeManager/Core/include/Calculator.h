@@ -15,6 +15,7 @@ class Calculator
 {
     public:
         static std::vector <int> CalculateAcf (const std::string &);
+        static std::vector <int> CalculateCcf (const std::string &, const std::string &);
         static int               CalculatePsl (const std::string &);
         static float             CalculateDb  (const int, const int);
 };

@@ -108,6 +108,107 @@ TEST_F (CalculatorTest, CalculateAcf_00011010_Success)
 
 
 
+//     |+-+++|
+// +-++|+    |        1
+//  +-+|++   |        0
+//   +-|+++  |        1
+//    +|-+++ |        0
+//     |+-+++|        5
+//     | +-++|+       0
+//     |  +-+|++      1
+//     |   +-|+++     0
+//     |    +|-+++    1
+TEST_F (CalculatorTest, CalculateCcf_10111_and_10111_Success)
+{
+    // Arange.
+    const std::string codeOne {"+-+++"};
+    const std::string codeTwo {"+-+++"};
+    const std::vector <int> etalonCcf {1, 0, 1, 0, 5, 0, 1, 0, 1};
+    // Act.
+    const std::vector <int> testCcf = Calculator::CalculateCcf (codeOne, codeTwo);
+    // Assert.
+    EXPECT_EQ (etalonCcf, testCcf);
+}
+
+
+
+//     |+-+++|
+// ++-+|+    |        1
+//  ++-|++   |        0
+//   ++|-++  |       -1
+//    +|+-++ |        4
+//     |++-++|        1
+//     | ++-+|+       0
+//     |  ++-|++      1
+//     |   ++|-++     2
+//     |    +|+-++    1
+TEST_F (CalculatorTest, CalculateCcf_10111_and_11011_Success)
+{
+    // Arange.
+    const std::string codeOne {"+-+++"};
+    const std::string codeTwo {"++-++"};
+    const std::vector <int> etalonCcf {1, 0, -1, 4, 1, 0, 1, 2, 1};
+    // Act.
+    const std::vector <int> testCcf = Calculator::CalculateCcf (codeOne, codeTwo);
+    // Assert.
+    EXPECT_EQ (etalonCcf, testCcf);
+}
+
+
+
+//         |+-+++|
+//  ++-++-+|-    |        -1
+//   ++-++-|+-   |         2
+//    ++-++|-+-  |        -3
+//     ++-+|+-+- |         2
+//      ++-|++-+-|        -1
+//       ++|-++-+|-       -1
+//        +|+-++-|+-       3
+//         |++-++|-+-      1
+//         | ++-+|+-+-     0
+//         |  ++-|++-+-    1
+//         |   ++|-++-+-   2
+//         |    +|+-++-+-  1
+TEST_F (CalculatorTest, CalculateCcf_10111_and_11011010_Success)
+{
+    // Arange.
+    const std::string codeOne {"+-+++"};
+    const std::string codeTwo {"++-++-+-"};
+    const std::vector <int> etalonCcf {-1, 2, -3, 2, -1, -1, 3, 1, 0, 1, 2, 1};
+    // Act.
+    const std::vector <int> testCcf {Calculator::CalculateCcf (codeOne, codeTwo)};
+    // Assert.
+    EXPECT_EQ (etalonCcf, testCcf);
+}
+
+
+
+//         |+++-++-|
+//     +++-|+      |       1
+//      +++|-+     |       0
+//       ++|+-+    |       1
+//        +|++-+   |       0
+//         |+++-+  |       5
+//         | +++-+ |       1
+//         |  +++-+|      -1
+//         |   +++-|+      2
+//         |    +++|-+     1
+//         |     ++|+-+    0
+//         |      +|++-+  -1
+TEST_F (CalculatorTest, CalculateCcf_1110110_and_11101_Success)
+{
+    // Arange.
+    const std::string codeOne {"+++-++-"};
+    const std::string codeTwo {"+++-+"};
+    const std::vector <int> etalonCcf {1, 0, 1, 0, 5, 1, -1, 2, 1, 0, -1};
+    // Act.
+    const std::vector <int> testCcf {Calculator::CalculateCcf (codeOne, codeTwo)};
+    // Assert.
+    EXPECT_EQ (etalonCcf, testCcf);
+}
+
+
+
 TEST_F (CalculatorTest, CalculatePslInvalidViewThrow)
 {
     // Arange.

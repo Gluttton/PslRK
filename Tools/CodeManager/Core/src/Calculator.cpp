@@ -2,6 +2,7 @@
 #include "Validator.h"
 #include "Exception.h"
 #include <algorithm>
+#include <iostream>
 
 
 
@@ -38,6 +39,52 @@ std::vector <int> Calculator::CalculateAcf (const std::string & stringView)
     }
 
     return acf;
+}
+
+
+
+std::vector <int> Calculator::CalculateCcf (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    if (Validator::ValidateStringView (stringViewOne) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
+    if (Validator::ValidateStringView (stringViewTwo) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
+    std::vector <int> ccf {};
+
+    //    |+-++|
+    //  +-|-   |
+    //   +|--  |
+    //    |+-- |
+    //    | +--|
+    //    |  +-|-
+    //    |   +|--
+
+    //    |+--|
+    // +-+|+  |
+    //  +-|++ |
+    //   +|-++|
+    //    |+-+|+
+    //    | +-|++
+    //    |  +|-++
+    const int rangeOne = stringViewOne.length () - 1;
+    const int rangeTwo = stringViewTwo.length () - 1;
+    for (int i {-rangeTwo}; i <= rangeOne; ++i) {
+        const int begin {i <                   0 ?       -i :            0};
+        const int end   {i < rangeOne - rangeTwo ? rangeTwo : rangeOne - i};
+        int sum {0};
+        for (int j {begin}; j <= end; ++j) {
+            const int a {stringViewTwo [    j] == '+' ? 1 : -1};
+            const int b {stringViewOne [i + j] == '+' ? 1 : -1};
+            sum += a * b;
+        }
+        ccf.push_back (sum);
+    }
+
+    return ccf;
 }
 
 
