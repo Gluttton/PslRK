@@ -6,12 +6,18 @@ Tool for everyday tasks.
 
 System requirements
 ===================
+CMake is required in the first place, other requirements will be suggested by CMake.
+Following tools are required for building the project:
+- cmake;
+- g++;
+- pugi-xml;
+- qt.
 
 
 
 Features
 ========
-The CodeManager already has CLI and GUI user interface which allows:
+The CodeManager already has CLI (deprecated) and GUI (Qt) user interface which allows:
 - convert hex view of sequence into string view (based on symbols '+' and '-') and vice versa;
 - calculate Peak Sidelobe Level (PSL) of sequence;
 - get view of sequence which is required for adding to the [Collection](https://github.com/Gluttton/PslRK/tree/master/Reports);
@@ -20,8 +26,16 @@ The CodeManager already has CLI and GUI user interface which allows:
 
 
 
+Usage GUI
+=========
+Using of GUI is trivial. Example of session see below:
+![Screenshot](Screenshot.png)
+
+
+
 Usage CLI
 =========
+CLI version of the CodeManager is deprecated and not recommended but still available. It less comfortable than GUI version and not contains some features.
 Example of session which consists of the following steps:
 - open the Collection of sequences;
 - input sequence in arbitrary view;
@@ -55,10 +69,3 @@ Input reference link: > http://arxiv.org/pdf/1212.4930.pdf
 > close base
 > quit
 ```
-
-
-
-Usage GUI
-=========
-Using of GUI is trivial. Example of session see below:
-![Screenshot](Screenshot.png)
