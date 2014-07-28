@@ -197,7 +197,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
     // Act, Assert.
     // Looking over cases for sequence of length three.
     for (__u64 i = 1; i < (1 << 3); ++i) {
-        result = generator->GetNextCode (length, code, sideLobeLimit);
+        result = generator->GetNextCode (length, code);
         EXPECT_EQ (result, 0);
         EXPECT_EQ (length, 3);
         EXPECT_EQ (code.u8 [0], i);
@@ -224,7 +224,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_3_4_5_Success)
         EXPECT_EQ (generator->maxCode.u8 [0], (1 << 5) - 1);
     }
     // Sequences of length five are end. Five is last value of length and error returns.
-    result = generator->GetNextCode (length, code, sideLobeLimit);
+    result = generator->GetNextCode (length, code);
     EXPECT_NE (result, 0);
 
     // Cleaning.
