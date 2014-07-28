@@ -8,7 +8,7 @@ OPTIMIZATION       ?= O0
 #===--- Executable specified variables ---===#
 EXE_CXXFLAGS        = -c \
                       -MD \
-                      -std=c++0x -march=native -m64 \
+                      -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
@@ -24,7 +24,7 @@ EXE                 = lpslcd
 #===--- Testing specified variables    ---===#
 TEST_CXXFLAGS       = -c \
                       -MD \
-                      -std=c++0x -march=native -m64 \
+                      -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
                       -pg -fprofile-arcs -ftest-coverage \
