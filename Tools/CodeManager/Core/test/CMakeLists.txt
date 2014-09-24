@@ -4,7 +4,6 @@ find_package (Boost COMPONENTS filesystem
 find_package (PugiXML                     REQUIRED)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -march=native -mtune=native -fprofile-arcs -ftest-coverage")
-set (CMAKE_SHARED_LINKER_FLAGS "-Wall -Wextra")
 set (CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 
 
