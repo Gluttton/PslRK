@@ -141,7 +141,7 @@ void ActivityWidget::createConnections ()
 
 
 
-void ActivityWidget::onLengthEdited (const QString & length)
+void ActivityWidget::onLengthEdited (const QString &)
 {
     onHexViewEdited (editHexView->text () );
 }

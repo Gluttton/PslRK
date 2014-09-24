@@ -11,7 +11,7 @@ class ValidatorHexViewAdapter : public QValidator
     Q_OBJECT
 
     public:
-        virtual State validate (QString & input, int & pos) const override
+        virtual State validate (QString & input, int &) const override
         {
             if (Pslrk::Core::viewIsValid != Pslrk::Core::Validator::ValidateHexView (input.toStdString () ) ) {
                 return QValidator::Invalid;
@@ -21,7 +21,7 @@ class ValidatorHexViewAdapter : public QValidator
             }
         };
 
-        virtual void  fixup (QString & input) const override
+        virtual void  fixup (QString &) const override
         {
         };
 };
@@ -33,7 +33,7 @@ class ValidatorStringViewAdapter : public QValidator
     Q_OBJECT
 
     public:
-        virtual State validate (QString & input, int & pos) const override
+        virtual State validate (QString & input, int &) const override
         {
             if (Pslrk::Core::viewIsValid != Pslrk::Core::Validator::ValidateStringView (input.toStdString () ) ) {
                 return QValidator::Invalid;
@@ -43,7 +43,7 @@ class ValidatorStringViewAdapter : public QValidator
             }
         };
 
-        virtual void  fixup (QString & input) const override
+        virtual void  fixup (QString &) const override
         {
         };
 };

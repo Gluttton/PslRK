@@ -13,10 +13,10 @@ StorageManageWidget::StorageManageWidget (QWidget * parent)
             , tableCodes                (nullptr)
             , tableSequences            (nullptr)
             , tableReferences           (nullptr)
+            , tableFocused              (nullptr)
             , modelCodes                (nullptr)
             , modelSequences            (nullptr)
             , modelReferences           (nullptr)
-            , tableFocused              (nullptr)
             , buttonDataSourceOpen      (nullptr)
             , buttonDataSourceClose     (nullptr)
             , buttonDataSourceBrowse    (nullptr)
@@ -314,21 +314,21 @@ void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedI
 
 
 
-void StorageManageWidget::onModelCodesItemChanged (QStandardItem * item)
+void StorageManageWidget::onModelCodesItemChanged (QStandardItem *)
 {
     buttonDataSave->setDisabled (false);
 }
 
 
 
-void StorageManageWidget::onModelSequencesItemChanged (QStandardItem * item)
+void StorageManageWidget::onModelSequencesItemChanged (QStandardItem *)
 {
     buttonDataSave->setDisabled (false);
 }
 
 
 
-void StorageManageWidget::onModelReferencesItemChanged (QStandardItem * item)
+void StorageManageWidget::onModelReferencesItemChanged (QStandardItem *)
 {
     buttonDataSave->setDisabled (false);
 }

@@ -250,7 +250,7 @@ TEST_F (RepresenterTest, GenerateCodeFamilyEmptySuccess)
         "",
         ""
     };
-    std::array <std::string, codeFamilySize> testCodeFamily {};
+    std::array <std::string, codeFamilySize> testCodeFamily {{}};
     // Act.
     EXPECT_NO_THROW (
         testCodeFamily = Representer::GenerateCodeFamily (stringView);

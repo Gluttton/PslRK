@@ -106,7 +106,7 @@ std::string Representer::StringViewToHexView (const std::string & stringView)
     std::string extendedStringView (extendedSize, '-');
     extendedStringView.append (stringView);
 
-    for (int i {0}; i < stringView.length (); i += tetradSize) {
+    for (size_t i {0}; i < stringView.length (); i += tetradSize) {
         hexView.append (1, conversionStringToHexTable [extendedStringView.substr(i, tetradSize)]);
     }
 
