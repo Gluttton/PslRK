@@ -44,23 +44,14 @@ add_custom_command (
 
 add_custom_target  (coverage DEPENDS coverage.info)
 
-
-file (
-    GLOB_RECURSE
-    COVERAGE_GCNO_FILES
-    "${PROJECT_BINARY_DIR}/*.gcno"
-)
-
-file (
-    GLOB_RECURSE
-    COVERAGE_GCDA_FILES
-    "${PROJECT_BINARY_DIR}/*.gcda"
-)
-
+determine_coverage_data ("${CodeManagerCoreTest_SOURCES}" CodeManagerCoreTest COVERAGE_GCNO_FILES ".gcno")
+determine_coverage_data ("${CodeManagerCoreTest_SOURCES}" CodeManagerCoreTest COVERAGE_GCDA_FILES ".gcda")
+set (Coverage_REPORT ${PROJECT_BINARY_DIR}/coverage.info)
+set (Coverage_DIR    ${PROJECT_BINARY_DIR}/coverage)
 set (
     COVERAGE_DATA
-    ${PROJECT_BINARY_DIR}/coverage
-    ${PROJECT_BINARY_DIR}/coverage.info
+    ${Coverage_REPORT}
+    ${Coverage_DIR}
     ${COVERAGE_GCNO_FILES}
     ${COVERAGE_GCDA_FILES}
 )
