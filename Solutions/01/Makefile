@@ -14,8 +14,7 @@ EXE_CXXFLAGS        = -c \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 EXE_LDPATH          =
 EXE_LDADD           =
-EXE_SRC             = src/main.cpp \
-                      src/logger.cpp
+EXE_SRC             = src/main.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
 EXE                 = lpslcd
 
@@ -27,12 +26,11 @@ TEST_CXXFLAGS       = -c \
                       -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
-                      -pg -fprofile-arcs -ftest-coverage \
+                      -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
-TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
-TEST_SRC            = src/logger.cpp \
-                      test/generator.test.cpp \
+TEST_LDADD          = -lgcov -lgtest -lgtest_main -lpthread
+TEST_SRC            = test/generator.test.cpp \
                       test/validator.test.cpp
 TEST_OBJ            = $(TEST_SRC:.cpp=.o)
 TEST                = lpslcd.test
@@ -49,9 +47,7 @@ endif
 OBJ                 = $(EXE_OBJ) $(TEST_OBJ)
 COV_DATA            = $(shell find . -type f -name '*.d' -o -name '*.gcov' -o -name '*.gcda' -o -name '*.gcno' -o -name 'coverage' -o -name 'coverage.info')
 LST_DATA            = $(shell find . -type f -name '*.lst')
-PRO_DATA            = $(shell find . -type f -name 'gmon.out')
 TMP_DATA            = $(shell find . -type f -name '*~')
-LOG_DATA            = $(shell find . -type f -name 'lpslcd.log' -o -name 'lpslcd.dat' -o -name 'lpslcd.stat')
 
 
 
@@ -80,7 +76,3 @@ clean:
 
 coverage:
 	lcov -q -c -f -b . -d test -o coverage.info && genhtml coverage.info --legend --demangle-cpp -f -q -o coverage
-
-
-profile:
-	gprof $(TEST) gmon.out -b -Q

@@ -2,37 +2,14 @@
 #define LPSLCD_VALIDATOR_H
 
 #include "generator.h"
-#include <stdlib.h>
-#include <linux/types.h>
-#include <math.h>
+#include <cmath>
 
 
 
 class Validator
 {
     public:
-        Validator (Generator * bindGenerator) : generator (bindGenerator)
-        {
-            length = 0;
-            memset (&code, 0x00, sizeof (code) );
-        };
-
-
-
-        virtual ~Validator ()
-        {
-        };
-
-
-
-        int SetNextCode ()
-        {
-            return generator->GetNextCode (length, code);
-        };
-
-
-
-        int Validate ()
+        static bool Validate (Code * const code)
         {
             // | N - k            |
             // | ____             |
@@ -43,27 +20,22 @@ class Validator
             // k - 0 < k < N;
             // N - length of sequence.
 
-            __s16 sideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
+            const uint16_t length = code->size ();
+            const int16_t  sideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
 
-            for (__u16 shift = 1; shift < length; ++shift) {
-                __s16 sideLobe = 0;
-                for (__u16 i = 0; i < length - shift; ++i) {
-                    sideLobe += ( (code.u8 [(i + shift) / 8] >> ( (i + shift) % 8) ) & 0x01 ? 1 : -1) *
-                                ( (code.u8 [ i          / 8] >> (  i          % 8) ) & 0x01 ? 1 : -1);
+            for (uint16_t shift = 1; shift < length; ++shift) {
+                int16_t sideLobe = 0;
+                for (uint16_t i = 0; i < length - shift; ++i) {
+                    sideLobe += ( (* code) [i + shift] == '+' ? 1 : -1) *
+                                ( (* code) [i        ] == '+' ? 1 : -1);
                 }
                 if (abs (sideLobe) > sideLobeLimit) {
-                    return 1;
+                    return false;
                 }
             }
 
-            return 0;
+            return true;
         };
-
-
-
-        Generator * generator;
-        __u8 length;
-        CodeContainer code;
 };
 
 #endif//LPSLCD_VALIDATOR_H

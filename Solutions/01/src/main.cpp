@@ -1,31 +1,21 @@
 #include "generator.h"
 #include "validator.h"
-#include "logger.h"
 #include <iostream>
-#include <iomanip>
-#include <math.h>
-#include <unistd.h>
-#include <linux/types.h>
-#include <linux/limits.h>
+#include <cstdlib>
 
 
 
 int main ()
 {
-    char currentDirectoryName [PATH_MAX];
-    if (currentDirectoryName != getcwd (currentDirectoryName, PATH_MAX) ) {
-        std::cout << "Abnormal exit (unable to detect current directory)!" << std::endl;
-        return EXIT_FAILURE;
-    }
-    Logger    * logger    = new Logger    (currentDirectoryName);
+    Generator generator {2, 28};
+    Code    * code      {nullptr};
 
-    Generator * generator = new Generator (logger, 2, 28);
-    Validator * validator = new Validator (generator);
-
-
-    while (!validator->SetNextCode () ) {
-        if (!validator->Validate () ) {
-            logger->LogCode (validator->length, validator->code);
+    while ( (code = generator.GetNextCode () ) ) {
+        if (Validator::Validate (code) ) {
+            for (const auto & sign : * code) {
+                std::cout << sign;
+            }
+            std::cout << std::endl;
         }
     }
 

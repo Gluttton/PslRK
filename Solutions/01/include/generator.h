@@ -1,97 +1,56 @@
 #ifndef LPSLCD_GENERATOR_H
 #define LPSLCD_GENERATOR_H
 
-#include "container.h"
-#include "logger.h"
-#include <x86intrin.h>
-#include <linux/types.h>
-#include <string.h>
+#include <vector>
+#include <algorithm>
+#include <cstdint>
+
+
+
+using Code = std::vector <char>;
 
 
 
 class Generator
 {
     public:
-        Generator (Logger * commonLogger, __u8 begin, __u8 end) :
-                                                            beginLength (begin < 2 ? 1 : begin - 1),
-                                                            endLength   (end   > 8 * codeU8Count ? 8 * codeU8Count : end),
-                                                            length      (begin < 2 ? 1 : begin - 1),
-                                                            logger      (commonLogger)
+        Generator (const uint8_t beginLength, const uint8_t endLength)
+                    : endLength     {endLength}
+                    , length        {beginLength}
+                    , population    {0}
+                    , code          {}
         {
-            CalculateMaxCode (beginLength, maxCode);
-            memcpy (&code, &maxCode, sizeof (code) );
+            code.resize (length);
+            std::fill (code.begin (), code.begin () + length, '-');
         };
 
 
 
-        virtual ~Generator  ()
+        Code * GetNextCode ()
         {
-        };
-
-
-
-        int CalculateMaxCode (const __u8 requestedLength, CodeContainer & returnedMaxCode) {
-            memset (&returnedMaxCode, 0x00, sizeof (returnedMaxCode) );
-
-            __u64 i = 0;
-            while (i < requestedLength / 8) {
-                memset (&returnedMaxCode.u8 [i], 0xFF, 1);
-                ++i;
-            }
-            returnedMaxCode.u8 [i] = (0x01U << (requestedLength % 8) ) - 1;
-
-            return 0;
-        };
-
-
-
-        int GetNextCode (__u8 &returnedLength, CodeContainer &returnedCode)
-        {
-            static __u64 rdtsc = __rdtsc ();
-            __u8 i = 0;
-
-
-            if (memcmp (&code, &maxCode, sizeof (code) ) != 0) {
-                do {
-                    ++code.u8 [i];
-                } while (!code.u8 [i++] && i < codeU8Count);
-            }
-            else {
-                if (logger) {
-                    std::string statisticString;
-                    statisticString  = std::to_string (length);
-                    statisticString += ":\t";
-                    statisticString += std::to_string (__rdtsc () - rdtsc);
-                    statisticString += "\n";
-                    logger->LogStatistic (statisticString);
+            if (!std::next_permutation (code.begin (), code.end () ) ) {
+                if (population > length) {
+                    if (length < endLength) {
+                        ++length;
+                        code.resize (length);
+                        population = 0;
+                    }
+                    else {
+                        return nullptr;
+                    }
                 }
-
-                if (length < endLength) {
-                    ++length;
-                    CalculateMaxCode (length, maxCode);
-                    memset (&code, 0x00, sizeof (code) );
-                    rdtsc = __rdtsc ();
-                }
-                else {
-                    return 1;
-                }
+                std::fill (code.begin (), code.begin () + length,     '-');
+                std::fill (code.begin (), code.begin () + population, '+');
+                ++population;
             }
 
-            memcpy (&returnedLength, &length, sizeof (returnedLength) );
-            memcpy (&returnedCode,   &code,   sizeof (returnedCode) );
-
-            return 0;
+            return & code;
         };
 
-        const __u8 beginLength;
-        const __u8 endLength;
-        __u8 length;
-        CodeContainer code;
-        CodeContainer maxCode;
-
-    private:
-        Generator ();
-        Logger * logger;
+        const uint8_t   endLength;
+        uint8_t         length;
+        uint8_t         population;
+        Code            code;
 };
 
 #endif//LPSLCD_GENERATOR_H
