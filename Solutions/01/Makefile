@@ -26,8 +26,7 @@ TEST_CXXFLAGS       = -c \
                       -std=c++11 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
-                      -fprofile-arcs -ftest-coverage \
-                      -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
+                      -fprofile-arcs -ftest-coverage
 TEST_LDPATH         =
 TEST_LDADD          = -lgcov -lgtest -lgtest_main -lpthread
 TEST_SRC            = test/generator.test.cpp \

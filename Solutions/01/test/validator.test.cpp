@@ -14,7 +14,7 @@ TEST (ValidatorTest, Validate_00_Success)
     Code code {'-', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -31,7 +31,7 @@ TEST (ValidatorTest, Validate_10_Success)
     Code code {'+', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -48,7 +48,7 @@ TEST (ValidatorTest, Validate_001_Success)
     Code code {'-', '-', '+'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -65,7 +65,7 @@ TEST (ValidatorTest, Validate_0001_Success)
     Code code {'-', '-', '-', '+'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -82,7 +82,7 @@ TEST (ValidatorTest, Validate_0100_Success)
     Code code {'-', '+', '-', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -99,7 +99,7 @@ TEST (ValidatorTest, Validate_00010_Success)
     Code code {'-', '-', '-', '+', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -116,7 +116,7 @@ TEST (ValidatorTest, Validate_0001101_Success)
     Code code {'-', '-', '-', '+', '+', '-', '+'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -133,7 +133,7 @@ TEST (ValidatorTest, Validate_00011101101_Success)
     Code code {'-', '-', '-', '+', '+', '+', '-', '+', '+', '-', '+'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -150,7 +150,7 @@ TEST (ValidatorTest, Validate_0000011001010_Success)
     Code code {'-', '-', '-', '-', '-', '+', '+', '-', '-', '+', '-', '+', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_TRUE (result);
@@ -167,7 +167,7 @@ TEST (ValidatorTest, Validate_10110_Fail)
     Code code {'+', '-', '+', '+', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_FALSE (result);
@@ -184,7 +184,7 @@ TEST (ValidatorTest, Validate_1111100110110_Fail)
     Code code {'+', '+', '+', '+', '+', '-', '-', '+', '+', '-', '+', '+', '-'};
 
     // Act.
-    const bool result = Validator::Validate (& code);
+    const bool result = Validator::Validate (code);
 
     // Assert.
     EXPECT_FALSE (result);
@@ -232,7 +232,7 @@ TEST (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
 
     // Act.
     while ( (result = generator.GetNextCode () ) ) {
-        test [* result] = Validator::Validate (result);
+        test [* result] = Validator::Validate (* result);
     }
 
     // Assert.

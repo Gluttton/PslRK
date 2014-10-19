@@ -11,7 +11,7 @@ int main ()
     Code    * code      {nullptr};
 
     while ( (code = generator.GetNextCode () ) ) {
-        if (Validator::Validate (code) ) {
+        if (Validator::Validate (* code) ) {
             for (const auto & sign : * code) {
                 std::cout << sign;
             }

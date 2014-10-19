@@ -14,14 +14,13 @@ using Code = std::vector <char>;
 class Generator
 {
     public:
-        Generator (const uint8_t beginLength, const uint8_t endLength)
-                    : endLength     {endLength}
-                    , length        {beginLength}
-                    , population    {0}
+        Generator (const size_t beginLength, const size_t endLength)
+                    : population    {0}
                     , code          {}
         {
-            code.resize (length);
-            std::fill (code.begin (), code.begin () + length, '-');
+            code.reserve (endLength);
+            code.resize  (beginLength);
+            std::fill    (code.begin (), code.begin () + beginLength, '-');
         };
 
 
@@ -29,28 +28,27 @@ class Generator
         Code * GetNextCode ()
         {
             if (!std::next_permutation (code.begin (), code.end () ) ) {
-                if (population > length) {
-                    if (length < endLength) {
-                        ++length;
-                        code.resize (length);
+                if (population > code.size () ) {
+                    if (code.size () < code.capacity () ) {
+                        code.resize (code.size () + 1);
                         population = 0;
                     }
                     else {
                         return nullptr;
                     }
                 }
-                std::fill (code.begin (), code.begin () + length,     '-');
-                std::fill (code.begin (), code.begin () + population, '+');
+                std::fill (code.begin (), code.begin () + code.size (), '-');
+                std::fill (code.begin (), code.begin () + population,   '+');
                 ++population;
             }
 
             return & code;
         };
 
-        const uint8_t   endLength;
-        uint8_t         length;
-        uint8_t         population;
-        Code            code;
+
+
+        size_t      population;
+        Code        code;
 };
 
 #endif//LPSLCD_GENERATOR_H
