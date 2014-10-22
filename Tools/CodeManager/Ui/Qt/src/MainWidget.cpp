@@ -50,4 +50,5 @@ void MainWidget::createLayouts ()
 
 void MainWidget::createConnections ()
 {
+    connect (storageManageWidget, SIGNAL (codeSubstituting (const QString &) ), activityWidget, SLOT (onCodeSubstituting (const QString &) ) );
 }

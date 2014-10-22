@@ -5,6 +5,7 @@
 #include <QTableView>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QStandardItemModel>
 #include <XmlManager.h>
 
@@ -17,6 +18,9 @@ class StorageManageWidget : public QWidget
     public:
         explicit StorageManageWidget            (QWidget * parent = nullptr);
         virtual ~StorageManageWidget            ();
+
+    signals:
+        void codeSubstituting                   (const QString &);
 
     private slots:
         void onDataSourceBrowsing               ();
@@ -39,6 +43,8 @@ class StorageManageWidget : public QWidget
         QTableView                            * tableCodes;
         QTableView                            * tableSequences;
         QTableView                            * tableReferences;
+
+        QCheckBox                             * checkAutoSubstitution;
 
         QWidget                               * tableFocused;
 

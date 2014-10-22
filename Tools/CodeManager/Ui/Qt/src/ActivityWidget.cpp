@@ -247,3 +247,13 @@ void ActivityWidget::onViewChanged (const std::string & view)
     plot->yAxis->setVisible (true);
     plot->replot ();
 }
+
+
+
+void ActivityWidget::onCodeSubstituting (const QString & stringView)
+{
+    // HACK: Ugly hack for implicit emmit textEdited.
+    //       Needed for update all fields by data from editStringView.
+    editStringView->clear  ();
+    editStringView->insert (stringView);
+}

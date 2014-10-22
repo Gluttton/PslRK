@@ -21,6 +21,7 @@ class ActivityWidget : public QWidget
         void onHexViewEdited                    (const QString &);
         void onStringViewEdited                 (const QString &);
         void onViewChanged                      (const std::string &);
+        void onCodeSubstituting                 (const QString &);
 
     private:
         void createWidgets                      ();

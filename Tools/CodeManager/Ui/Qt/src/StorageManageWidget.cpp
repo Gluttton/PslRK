@@ -83,6 +83,8 @@ void StorageManageWidget::createWidgets ()
     buttonItemRemove->setDisabled      (true);
 
     editDataSource         = new QLineEdit (this);
+
+    checkAutoSubstitution  = new QCheckBox (tr ("Auto substitution"), this);
 }
 
 
@@ -107,6 +109,7 @@ void StorageManageWidget::createLayouts ()
     QVBoxLayout * layoutTop = new QVBoxLayout ();
     layoutTop->addLayout (layoutControl);
     layoutTop->addWidget (tableCodes);
+    layoutTop->addWidget (checkAutoSubstitution);
     layoutTop->addWidget (tableSequences);
     layoutTop->addWidget (tableReferences);
     this->setLayout (layoutTop);
@@ -143,7 +146,7 @@ void StorageManageWidget::onDataSourceBrowsing ()
 void StorageManageWidget::onDataSourceOpening ()
 {
     xmlManager = new Pslrk::Core::XmlManager (editDataSource->text ().toStdString () );
-    
+
     const pugi::xml_node codes = xmlManager->Select ("/").node ();
     for (const auto & code : codes.child ("codes").children ("code") ) {
         QStandardItem * cellId = new QStandardItem ();
@@ -226,7 +229,7 @@ void StorageManageWidget::onDataSourceSaving ()
         tableCodes->selectionModel ()->select (index, QItemSelectionModel::Toggle);
         tableCodes->selectionModel ()->select (index, QItemSelectionModel::Toggle);
     }
-    
+
     xmlManager->Clear ();
 
     for (int i = 0; i < modelCodes->rowCount (); ++i) {
@@ -255,7 +258,7 @@ void StorageManageWidget::onDataSourceSaving ()
             }
         }
     }
-    
+
     xmlManager->Save ();
 
     buttonDataSave->setDisabled (true);
@@ -293,6 +296,11 @@ void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedI
                     cell->setData (modelCodes->data (modelCodes->index (i, columnNumberId, index), Qt::DisplayRole), Qt::DisplayRole);
                     cell->setData (DataTypeSequence, DataTypeRole);
                     modelSequences->appendRow ({cell});
+
+                    if (checkAutoSubstitution->checkState () == Qt::Checked) {
+                        emit codeSubstituting (modelCodes->data (modelCodes->index (i, columnNumberId, index), Qt::DisplayRole).toString () );
+                    }
+
                     break;
                 }
                 case DataTypeReference:
