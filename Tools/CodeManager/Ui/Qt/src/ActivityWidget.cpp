@@ -40,6 +40,8 @@ void ActivityWidget::createWidgets ()
     editStringView = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
     editDb         = new QLineEdit (this);
+    editE          = new QLineEdit (this);
+    editIsl        = new QLineEdit (this);
 
     editCodeId->setReadOnly      (true);
     editLength->setValidator     (new QIntValidator);
@@ -49,10 +51,12 @@ void ActivityWidget::createWidgets ()
     editStringView->setReadOnly  (!isLengthAutoDetect);
     editPsl->setReadOnly         (true);
     editDb->setReadOnly          (true);
+    editE->setReadOnly           (true);
+    editIsl->setReadOnly         (true);
 
     checkLengthAuto = new QCheckBox (this);
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
-    
+
     plot = new QCustomPlot (this);
 }
 
@@ -90,6 +94,12 @@ void ActivityWidget::createLayouts ()
     QLabel * labelDb = new QLabel (tr ("dB") );
     layoutFeatures->addWidget (labelDb);
     layoutFeatures->addWidget (editDb);
+    QLabel * labelE = new QLabel (tr ("Energy") );
+    layoutFeatures->addWidget (labelE);
+    layoutFeatures->addWidget (editE);
+    QLabel * labelIsl = new QLabel (tr ("ISL") );
+    layoutFeatures->addWidget (labelIsl);
+    layoutFeatures->addWidget (editIsl);
 
     int width {0};
     width = std::max (labelCodeId->fontMetrics     ().width (labelCodeId->text     () ), width);
@@ -200,6 +210,13 @@ void ActivityWidget::onViewChanged (const std::string & view)
         'f',
         3       // Only three digits after period must be displayed.
     ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::CalculateE   (view) ) );
+    editIsl->setText    (QString::number (
+        Pslrk::Core::Calculator::CalculateIsl (view),
+        'f',
+        3       // Only three digits after period must be displayed.
+    ) );
+
 
     const double range = view.size ();
 

@@ -17,6 +17,9 @@ class Calculator
         static std::vector <int> CalculateAcf (const std::string &);
         static std::vector <int> CalculateCcf (const std::string &, const std::string &);
         static int               CalculatePsl (const std::string &);
+        static unsigned int      CalculateE   (const std::string &);
+        static float             CalculateIsl (const std::string &);
+        static float             CalculateMf  (const std::string &);
         static float             CalculateDb  (const int, const int);
 };
 

@@ -107,6 +107,78 @@ int Calculator::CalculatePsl (const std::string & stringView)
 
 
 
+unsigned int Calculator::CalculateE (const std::string & stringView)
+{
+    // Calculate energy of binary sequence.
+    //
+    //        N - 1  / N - k            \ 2
+    //        ____   | ____             |
+    // E = 2  \      | \     a + a      |
+    //        /___   | /___   i   i + k |
+    //        n = 1  \ i = 1            /
+    //
+    // N - energy of sequence.
+    // n - 0 < n < N;
+    // k - 0 < k < N;
+    // N - length of sequence.
+
+    unsigned int e {0u};
+
+    const auto acf = CalculateAcf (stringView);
+    for (size_t i = 0; i < stringView.size () - 1; ++i) {
+        e += pow (acf [i], 2);
+    }
+    e *= 2u;
+
+    return e;
+}
+
+
+
+float Calculator::CalculateIsl (const std::string & stringView)
+{
+    // Calculate integrated sidelobe level of binary sequence.
+    //
+    //              /  E  |
+    // I = 10 log   | ----|
+    //          10  |   2 |
+    //              \  N  /
+    //
+    // I - integrated sidelobe level of sequence.
+    // E - energy of sequence.
+    // N - length of sequence.
+
+    const auto e = CalculateE (stringView);
+
+    const float isl = 10 * log10 (e / pow (stringView.size (), 2) );
+
+    return isl;
+}
+
+
+
+float Calculator::CalculateMf (const std::string & stringView)
+{
+    // Calculate merit factor of binary sequence.
+    //
+    //       2
+    //      N
+    // M = ----
+    //      E
+    //
+    // M - merit factor of sequence.
+    // E - energy of sequence.
+    // N - length of sequence.
+
+    const auto e = CalculateE (stringView);
+
+    const float mf = pow (stringView.size (), 2) / e;
+
+    return mf;
+}
+
+
+
 float Calculator::CalculateDb (const int ml, const int psl)
 {
     return 20.0f * log10f (static_cast <float> (psl) / static_cast <float> (ml) );

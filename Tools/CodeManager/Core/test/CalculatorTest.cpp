@@ -261,6 +261,69 @@ TEST_F (CalculatorTest, CalculatePsl_00011010_Success)
 
 
 
+TEST_F (CalculatorTest, CalclulateE_1010110011111_Success)
+{
+    // Arange.
+    const std::string code {"+-+-++--+++++"};
+    constexpr unsigned int etalonE  {2u * 6u};
+
+    // Act.
+    const unsigned int testE {Calculator::CalculateE (code)};
+
+    // Assert.
+    EXPECT_EQ (etalonE, testE);
+}
+
+
+
+TEST_F (CalculatorTest, CalclulateIsl_1010110011111_Success)
+{
+    // Arange.
+    const std::string code {"+-+-++--+++++"};
+    constexpr float etalonIsl  {-11.487f};
+    constexpr float epsilonIsl {0.001f};
+
+    // Act.
+    const float testIsl {Calculator::CalculateIsl (code)};
+
+    // Assert.
+    EXPECT_NEAR (etalonIsl, testIsl, epsilonIsl);
+}
+
+
+
+TEST_F (CalculatorTest, CalclulateMf_10110111000_Success)
+{
+    // Arange.
+    const std::string code {"+-++-+++---"};
+    constexpr float etalonMf  {(11.0f * 11.0f) / (2 * 5)};
+    constexpr float epsilonMf {0.001f};
+
+    // Act.
+    const float testMf {Calculator::CalculateMf (code)};
+
+    // Assert.
+    EXPECT_NEAR (etalonMf, testMf, epsilonMf);
+}
+
+
+
+TEST_F (CalculatorTest, CalclulateMf_1010110011111_Success)
+{
+    // Arange.
+    const std::string code {"+-+-++--+++++"};
+    constexpr float etalonMf  {(13.0f * 13.0f) / (2 * 6)};
+    constexpr float epsilonMf {0.001f};
+
+    // Act.
+    const float testMf {Calculator::CalculateMf (code)};
+
+    // Assert.
+    EXPECT_NEAR (etalonMf, testMf, epsilonMf);
+}
+
+
+
 TEST_F (CalculatorTest, CalclulateDb_1_to_5_Success)
 {
     // Arange.
