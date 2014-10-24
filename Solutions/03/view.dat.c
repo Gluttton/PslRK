@@ -24,6 +24,6 @@ int main (int argc, char * argv [])
             (record.code >> i) & 0x01 ? printf ("+") : printf ("-");
         }
         printf ("\n");
-    } 
+    }
     close (fileStat);
 }

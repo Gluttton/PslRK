@@ -29,7 +29,7 @@ void XmlManager::Clear ()
 {
     for (auto & node : xmlDocument.child ("codes").children ("code") ) {
         xmlDocument.child ("codes").remove_child (node);
-    }    
+    }
 }
 
 

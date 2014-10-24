@@ -23,18 +23,15 @@ pthread_mutex_t mutexFileData = PTHREAD_MUTEX_INITIALIZER;
 
 
 
-void SaveCode (__s32 length, __u64 code) __attribute__ ((noinline));
-void SaveCode (__s32 length, __u64 code)
+void XmlManagerSaveCode (const char *, const __s32, const __u64);
+
+char * xmlFileName = "LowPslCodes.xml";
+
+void SaveCode (const __s32 length, const __u64 code) __attribute__ ((noinline));
+void SaveCode (const __s32 length, const __u64 code)
 {
     pthread_mutex_lock (&mutexFileData);
-    int fileStat = open ("/tmp/lpslcd.dat", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
-    if (write (fileStat, &length, sizeof (length) ) != sizeof (length) ) {
-        return;
-    }
-    if (write (fileStat,  &code, sizeof (code) ) != sizeof (code) ) {
-        return;
-    }
-    close (fileStat);
+    XmlManagerSaveCode (xmlFileName, length, code);
     pthread_mutex_unlock (&mutexFileData);
 }
 
@@ -124,10 +121,14 @@ static void * Validate (void * parameter)
 
 
 
-int main ()
+int main (int argc, char * argv [])
 {
+    if (1 < argc) {
+        xmlFileName = argv [1];
+    }
+
     // Range of lengthes of codes which analyzed.
-    const __s32 beginLength   = 13;
+    const __s32 beginLength   =  2;
     const __s32 endLength     = 28;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
