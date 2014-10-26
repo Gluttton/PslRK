@@ -46,65 +46,70 @@ static void * Validate (void * parameter)
 
 
     __asm__ __volatile__ (
-        "INIT:                                      \n\t"
-        "       xorq       %%r8,       %%r8         \n\t"
-        "       mov        %[length],  %%r8w        \n\t"
-        "       movq       %[code],    %%r9         \n\t"
-        "       movq       %[maxcode], %%r10        \n\t"
-        "       xorq       %%r11,      %%r11        \n\t"
-        "       mov        %[limit],   %%r11w       \n\t"
-        "       movq       %[mask],    %%r12        \n\t"
-
-        "NEXT_CODE:                                 \n\t"
-        "       incq       %%r9                     \n\t"
-        "       cmpq       %%r9,       %%r10        \n\t"
-        "       jbe        QUIT                     \n\t"
-        "       mov        $1,         %%cx         \n\t"
-        "       movq       %%r12,      %%r13        \n\t"
-        "NEXT_SHIFT:                                \n\t"
-        "       movq       %%r9,       %%rdi        \n\t"
-        "       shrq       %%cl,       %%rdi        \n\t"
-        "       xorq       %%r9,       %%rdi        \n\t"
-        "       andq       %%r13,      %%rdi        \n\t"
+        "INIT:                                      \n\t"   //  Prepare for computation.
+        "       xorq       %%r8,       %%r8         \n\t"   //      Load length of sequences into CPU register.
+        "       mov        %[length],  %%r8w        \n\t"   //      .
+        "       movq       %[code],    %%r9         \n\t"   //      Load first sequence of the range into CPU register.
+        "       movq       %[maxcode], %%r10        \n\t"   //      Load last sequence of the range into CPU register.
+        "       xorq       %%r11,      %%r11        \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
+        "       mov        %[limit],   %%r11w       \n\t"   //      .
+        "       movq       %[mask],    %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
+                                                            //  Usage of CPU registers:
+                                                            //  rax rbx rcx rdx rdi  r8  r9 r10 r11 r12 r13
+                                                            //                        x   x   x   x   x
+        "NEXT_CODE:                                 \n\t"   //  Beginning of loop through sequence.
+        "       incq       %%r9                     \n\t"   //      Set next sequence.
+        "       cmpq       %%r9,       %%r10        \n\t"   //      Check if the sequence inside the range.
+        "       jbe        QUIT                     \n\t"   //          If it is not, then go to the end of procedure.
+        "       mov        $1,         %%cx         \n\t"   //      Set the offset value.
+        "       movq       %%r12,      %%r13        \n\t"   //      Set mask into mutable variable.
+        "NEXT_SHIFT:                                \n\t"   //      Beginning of loop through shift of sequence.
+        "       movq       %%r9,       %%rdi        \n\t"   //          Shifting sequence.
+        "       shrq       %%cl,       %%rdi        \n\t"   //          Shif.
+        "       xorq       %%r9,       %%rdi        \n\t"   //          Counting level of sidelobes.
+        "       andq       %%r13,      %%rdi        \n\t"   //              Remove extra bits.
         #ifdef __POPCNT__
-        "       popcntq    %%rdi,      %%rax        \n\t"
+        "       popcntq    %%rdi,      %%rax        \n\t"   //              rax = n                 (number of the different bits).
         #else
         "       pushq      %%rcx                    \n\t"
         "       callq      __popcountdi2            \n\t"
         "       popq       %%rcx                    \n\t"
         #endif
-        "       shl        $1,         %%ax         \n\t"
-        "       sub        %%r8w,      %%ax         \n\t"
-        "       add        %%cx,       %%ax         \n\t"
-        "       jge        ABS                      \n\t"
-        "       neg        %%ax                     \n\t"
-        "       ABS:                                \n\t"
-        "       cmp        %%r11w,     %%ax         \n\t"
-        "       jg         NEXT_CODE                \n\t"
-        "       inc        %%cx                     \n\t"
-        "       cmp        %%cx,       %%r8w        \n\t"
-        "       jbe        SAVE_CODE                \n\t"
-        "       shrq       $1,         %%r13        \n\t"
-        "       jmp        NEXT_SHIFT               \n\t"
+        "       shl        $1,         %%ax         \n\t"   //              rax = n * 2.
+        "       sub        %%r8w,      %%ax         \n\t"   //              rax = l - 2 * n         (l - length of the sequence).
+        "       add        %%cx,       %%ax         \n\t"   //              rax = o + l - 2 * n     (o - current offset).
+        "       jge        ABS                      \n\t"   //              rax =|o + l - 2 * n|    (now rax contain the sidelobe level).
+        "       neg        %%ax                     \n\t"   //              .
+        "       ABS:                                \n\t"   //              .
+        "       cmp        %%r11w,     %%ax         \n\t"   //          Check if the sidelobe level acceptable?
+        "       jg         NEXT_CODE                \n\t"   //              If it is not, then go to the next sequence.
+        "       inc        %%cx                     \n\t"   //          Increment the offset for creating next shifted sequence.
+        "       cmp        %%cx,       %%r8w        \n\t"   //          Check if is it the lass offset.
+        "       jbe        SAVE_CODE                \n\t"   //              If it is, then save cureent sequence.
+        "       shrq       $1,         %%r13        \n\t"   //          Shift mask for next shifted sequence.
+        "       jmp        NEXT_SHIFT               \n\t"   //      End of loop through shift of sequence.
+                                                            //  Usage of CPU registers:
+                                                            //  rax rbx rcx rdx rdi  r8  r9 r10 r11 r12 r13
+                                                            //    x       x       x   x   x       x   x   x
 
-        "SAVE_CODE:                                 \n\t"
-        "       pushq      %%r8                     \n\t"
-        "       pushq      %%r9                     \n\t"
-        "       pushq      %%r10                    \n\t"
-        "       pushq      %%r11                    \n\t"
-        "       pushq      %%r12                    \n\t"
-        "       movl       %%r8d,      %%edi        \n\t"
-        "       movq       %%r9,       %%rsi        \n\t"
-        "       call       SaveCode                 \n\t"
-        "       popq       %%r12                    \n\t"
-        "       popq       %%r11                    \n\t"
-        "       popq       %%r10                    \n\t"
-        "       popq       %%r9                     \n\t"
-        "       popq       %%r8                     \n\t"
-        "       jmp        NEXT_CODE                \n\t"
+        "SAVE_CODE:                                 \n\t"   //  Saving sequence with accepted level of sidelobes.
+        "       pushq      %%r8                     \n\t"   //      Store registers.
+        "       pushq      %%r9                     \n\t"   //      .
+        "       pushq      %%r10                    \n\t"   //      .
+        "       pushq      %%r11                    \n\t"   //      .
+        "       pushq      %%r12                    \n\t"   //      .
+        "       movl       %%r8d,      %%edi        \n\t"   //      .
+        "       movq       %%r9,       %%rsi        \n\t"   //      .
+        "       call       SaveCode                 \n\t"   //      Calling external function for saving the sequence.
+        "       popq       %%r12                    \n\t"   //      Restore registers.
+        "       popq       %%r11                    \n\t"   //      .
+        "       popq       %%r10                    \n\t"   //      .
+        "       popq       %%r9                     \n\t"   //      .
+        "       popq       %%r8                     \n\t"   //      .
+        "       jmp        NEXT_CODE                \n\t"   //      Continue test sequences.
 
-        "QUIT:                                      \n\t"
-        "       nop                                 \n\t"
+        "QUIT:                                      \n\t"   //  Exit of procedure.
+        "       nop                                 \n\t"   //  .
         :
         : [length ] "m" ( (__s32) ( (struct Parameter *) parameter)->length),
           [code   ] "m" ( (__u64) ( (struct Parameter *) parameter)->beginCode),
@@ -128,8 +133,8 @@ int main (int argc, char * argv [])
     }
 
     // Range of lengthes of codes which analyzed.
-    const __s32 beginLength   =  2;
-    const __s32 endLength     = 28;
+    const __s32 beginLength   = 46;
+    const __s32 endLength     = 46;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
     // Parameters which will be passed to validators.
