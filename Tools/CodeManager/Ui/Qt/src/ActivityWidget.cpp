@@ -41,6 +41,7 @@ void ActivityWidget::createWidgets ()
     editPsl        = new QLineEdit (this);
     editDb         = new QLineEdit (this);
     editE          = new QLineEdit (this);
+    editMf         = new QLineEdit (this);
     editIsl        = new QLineEdit (this);
 
     editCodeId->setReadOnly      (true);
@@ -52,6 +53,7 @@ void ActivityWidget::createWidgets ()
     editPsl->setReadOnly         (true);
     editDb->setReadOnly          (true);
     editE->setReadOnly           (true);
+    editMf->setReadOnly          (true);
     editIsl->setReadOnly         (true);
 
     checkLengthAuto = new QCheckBox (this);
@@ -97,6 +99,9 @@ void ActivityWidget::createLayouts ()
     QLabel * labelE = new QLabel (tr ("Energy") );
     layoutFeatures->addWidget (labelE);
     layoutFeatures->addWidget (editE);
+    QLabel * labelMf = new QLabel (tr ("Merit factor") );
+    layoutFeatures->addWidget (labelMf);
+    layoutFeatures->addWidget (editMf);
     QLabel * labelIsl = new QLabel (tr ("ISL") );
     layoutFeatures->addWidget (labelIsl);
     layoutFeatures->addWidget (editIsl);
@@ -207,6 +212,12 @@ void ActivityWidget::onViewChanged (const std::string & view)
             editLength->text ().toInt (),
             Pslrk::Core::Calculator::CalculatePsl (view)
         ),
+        'f',
+        3       // Only three digits after period must be displayed.
+    ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::CalculateE   (view) ) );
+    editMf->setText     (QString::number (
+        Pslrk::Core::Calculator::CalculateMf (view),
         'f',
         3       // Only three digits after period must be displayed.
     ) );

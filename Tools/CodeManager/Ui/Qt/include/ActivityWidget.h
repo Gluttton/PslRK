@@ -35,6 +35,7 @@ class ActivityWidget : public QWidget
         QLineEdit                             * editPsl;
         QLineEdit                             * editDb;
         QLineEdit                             * editE;
+        QLineEdit                             * editMf;
         QLineEdit                             * editIsl;
         QCheckBox                             * checkLengthAuto;
 
