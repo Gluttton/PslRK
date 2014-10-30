@@ -9,7 +9,7 @@
 extern "C"
 {
 
-void XmlManagerSaveCode (char *, const __s32, const __u64);
+void XmlManagerSaveCode (char *, const __u8, const __u64);
 
 }// extern "C"
 

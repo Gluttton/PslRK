@@ -7,14 +7,14 @@
 extern "C"
 {
 
-void XmlManagerSaveCode (char * xmlFileName, const __s32 length, const __u64 code)
+void XmlManagerSaveCode (char * xmlFileName, const __u8 length, const __u64 code)
 {
     using Pslrk::Core::XmlManager;
     using Pslrk::Core::Representer;
     using Pslrk::Core::Calculator;
 
     std::string stringView;
-    for (__s32 i = 0; i < length; ++i) {
+    for (__u8 i = 0; i < length; ++i) {
         stringView += (code >> i) & 0x01 ? "+" : "-";
     }
     std::string id = Representer::DetectCodeId (stringView);
