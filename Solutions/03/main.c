@@ -6,7 +6,6 @@
 #include <math.h>
 #include <fcntl.h>
 #include <pthread.h>
-#include <stdio.h>
 
 
 
@@ -173,5 +172,5 @@ int main (int argc, char * argv [])
     }
 
 
-    return 0;
+    return EXIT_SUCCESS;
 }
