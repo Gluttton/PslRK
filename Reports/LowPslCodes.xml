@@ -48,6 +48,19 @@
 	<code id="b4888f1" length="28" psl="2">
 		<sequence>+-++-+--+---+---+---++++---+</sequence>
 		<reference article="Fundamentals of Radar Signal Processing, Second Edition" author="Mark A. Richards" link="http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="e1ddda4" length="28" psl="2">
+		<sequence>+++----+++-+++-+++-++-+--+--</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="c7015b2" length="28" psl="2">
+		<sequence>++---+++-------+-+-++-++--+-</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="e702a49" length="28" psl="2">
+		<sequence>+++--+++------+-+-+--+--+--+</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="3c3f30849aa9" length="46" psl="3">
 		<sequence>++++----++++++--++----+----+--+--++-+-+-+-+--+</sequence>
