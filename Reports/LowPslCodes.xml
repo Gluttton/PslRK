@@ -3,38 +3,47 @@
 	<code id="2" length="2" psl="1">
 		<sequence>+-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="3" length="2" psl="1">
 		<sequence>++</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="6" length="3" psl="1">
 		<sequence>++-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="d" length="4" psl="1">
 		<sequence>++-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="e" length="4" psl="1">
 		<sequence>+++-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="1d" length="5" psl="1">
 		<sequence>+++-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="72" length="7" psl="1">
 		<sequence>+++--+-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="712" length="11" psl="1">
 		<sequence>+++---+--+-</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="1f35" length="13" psl="1">
 		<sequence>+++++--++-+-+</sequence>
 		<reference article="Group synchronization of binary digital systems" author="R.H. Barker" link="http://www.researchgate.net/publication/238126880_Group_synchronization_of_binary_digital_systems" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="b4888f1" length="28" psl="2">
 		<sequence>+-++-+--+---+---+---++++---+</sequence>
