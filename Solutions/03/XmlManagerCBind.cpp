@@ -25,7 +25,7 @@ void XmlManagerSaveCode (char * xmlFileName, const __u8 length, const __u64 code
     xPathQuery += "\"]";
 
     const std::string article = "PSL Research Kit";
-    const std::string author  = "";
+    const std::string author  = "PslRK";
     const std::string link    = "https://github.com/Gluttton/PslRK";
 
     XmlManager xmlManager (xmlFileName);
