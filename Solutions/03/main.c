@@ -51,13 +51,10 @@ static void * Validate (void * parameter)
         "       movq       %[maxcode], %%r10        \n\t"   //      Load last sequence of the range into CPU register.
         "       movb       %[limit],   %%r11b       \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
         "       movq       %[mask],    %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
-        "NEXT_CODE:                                 \n\t"   //  Beginning of loop through sequence.
-        "       incq       %%r9                     \n\t"   //      Set next sequence.
-        "       cmpq       %%r9,       %%r10        \n\t"   //      Check if the sequence inside the range.
-        "       jbe        QUIT                     \n\t"   //          If it is not, then go to the end of procedure.
+        "CHECK_CODE:                                \n\t"   //  Body of loop through sequence (like the "do-while" loop).
         "       movb       $1,         %%cl         \n\t"   //      Set the offset value.
         "       movq       %%r12,      %%r13        \n\t"   //      Set mask into mutable variable.
-        "NEXT_SHIFT:                                \n\t"   //      Beginning of loop through shift of sequence.
+        "NEXT_SHIFT:                                \n\t"   //      Beginning of loop through shift of sequence (like the "do-while" loop).
         "       movq       %%r9,       %%rdi        \n\t"   //          Shifting sequence.
         "       shrq       %%cl,       %%rdi        \n\t"   //          Shif.
         "       xorq       %%r9,       %%rdi        \n\t"   //          Counting level of sidelobes.
@@ -82,6 +79,11 @@ static void * Validate (void * parameter)
         "       jbe        SAVE_CODE                \n\t"   //              If it is, then save cureent sequence.
         "       shrq       $1,         %%r13        \n\t"   //          Shift mask for next shifted sequence.
         "       jmp        NEXT_SHIFT               \n\t"   //      End of loop through shift of sequence.
+        "NEXT_CODE:                                 \n\t"   //  Control of loop through sequence.
+        "       incq       %%r9                     \n\t"   //      Set next sequence.
+        "       cmpq       %%r10,       %%r9        \n\t"   //      Check if the sequence inside the range.
+        "       jbe        CHECK_CODE               \n\t"   //          If it is, then go to the begining of the loops body.
+        "       jmp        QUIT                     \n\t"   //          If it is not, then go to the end of procedure.
         "SAVE_CODE:                                 \n\t"   //  Saving sequence with accepted level of sidelobes.
         "       pushq      %%r8                     \n\t"   //      Store registers.
         "       pushq      %%r9                     \n\t"   //      .
@@ -149,7 +151,6 @@ int main (int argc, char * argv [])
             parameters [j].length = i;
             parameters [j].beginCode = beginCode;
             parameters [j].endCode   = endCode;
-
             pthread_create (&threads [j], NULL, Validate, &parameters [j]);
 
             // Preparation of initial and final codes for next validator.
