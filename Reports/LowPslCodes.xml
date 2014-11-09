@@ -62,6 +62,38 @@
 		<sequence>+++--+++------+-+-+--+--+--+</sequence>
 		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
+	<code id="3fc79992daa" length="42" psl="3">
+		<sequence>++++++++---++++--++--++--+--+-++-++-+-+-+-</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="3fc78ccd255" length="42" psl="3">
+		<sequence>++++++++---++++---++--++--++-+--+--+-+-+-+</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="3bbb8478b4b" length="42" psl="3">
+		<sequence>+++-+++-+++-+++----+---++++---+-++-+--+-++</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="330ef468282" length="42" psl="3">
+		<sequence>++--++----+++-++++-+---++-+-----+-+-----+-</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="330411782d6" length="42" psl="3">
+		<sequence>++--++-----+-----+---+-++++-----+-++-+-++-</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="3afaf217699" length="42" psl="3">
+		<sequence>+++-+-+++++-+-++++--+----+-+++-++-+--++--+</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="2eeed12de1e" length="42" psl="3">
+		<sequence>+-+++-+++-+++-++-+---+--+-++-++++----++++-</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="307ad08a299" length="42" psl="3">
+		<sequence>++-----++++-+-++-+----+---+-+---+-+--++--+</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
 	<code id="3c3f30849aa9" length="46" psl="3">
 		<sequence>++++----++++++--++----+----+--+--++-+-+-+-+--+</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
