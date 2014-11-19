@@ -60,16 +60,16 @@ static void * Validate (void * parameter)
         "       xorq       %%r9,       %%rdi        \n\t"   //          Counting level of sidelobes.
         "       andq       %%r13,      %%rdi        \n\t"   //              Remove extra bits.
         #ifdef __POPCNT__
-        "       popcntq    %%rdi,      %%rax        \n\t"   //              al = n                 (number of the different bits).
+        "       popcntq    %%rdi,      %%rax        \n\t"   //              al =         n         (number of the different bits).
         #else
         "       pushq      %%rcx                    \n\t"   //              .
         "       callq      __popcountdi2            \n\t"   //              .
         "       popq       %%rcx                    \n\t"   //              .
         #endif
-        "       shlb       $1,         %%al         \n\t"   //              al = n * 2.
-        "       subb       %%r8b,      %%al         \n\t"   //              al = l - 2 * n         (l - length of the sequence).
-        "       addb       %%cl,       %%al         \n\t"   //              al = o + l - 2 * n     (o - current offset).
-        "       jge        ABS                      \n\t"   //              al =|o + l - 2 * n|    (now al contain the sidelobe level).
+        "       shlb       $1,         %%al         \n\t"   //              al =     2 * n.
+        "       subb       %%r8b,      %%al         \n\t"   //              al =     2 * n - l     (l - length of the sequence).
+        "       addb       %%cl,       %%al         \n\t"   //              al = o + 2 * n - l     (o - current offset).
+        "       jge        ABS                      \n\t"   //              al =|o + 2 * n - l|    (now al contain the sidelobe level).
         "       negb       %%al                     \n\t"   //              .
         "       ABS:                                \n\t"   //              .
         "       cmpb       %%r11b,     %%al         \n\t"   //          Check if the sidelobe level acceptable?
