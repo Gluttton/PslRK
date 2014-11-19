@@ -56,7 +56,7 @@ static void * Validate (void * parameter)
         "       movq       %%r12,      %%r13        \n\t"   //      Set mask into mutable variable.
         "NEXT_SHIFT:                                \n\t"   //      Beginning of loop through shift of sequence (like the "do-while" loop).
         "       movq       %%r9,       %%rdi        \n\t"   //          Shifting sequence.
-        "       shrq       %%cl,       %%rdi        \n\t"   //          Shif.
+        "       shrq       %%cl,       %%rdi        \n\t"   //          Shift.
         "       xorq       %%r9,       %%rdi        \n\t"   //          Counting level of sidelobes.
         "       andq       %%r13,      %%rdi        \n\t"   //              Remove extra bits.
         #ifdef __POPCNT__
@@ -99,7 +99,6 @@ static void * Validate (void * parameter)
         "       popq       %%r9                     \n\t"   //      .
         "       popq       %%r8                     \n\t"   //      .
         "       jmp        NEXT_CODE                \n\t"   //      Continue test sequences.
-
         "QUIT:                                      \n\t"   //  Exit of procedure.
         "       nop                                 \n\t"   //  .
         :
