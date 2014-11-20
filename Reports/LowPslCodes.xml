@@ -356,6 +356,11 @@
 		<sequence>++++--+-++--+-++------+-++++-+-+++--++--+++-+++</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
 		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
+	</code>
+	<code id="5d9905ea79e5" length="47" psl="3">
+		<sequence>+-+++-++--++--+-----+-++++-+-+--++++--++++--+-+</sequence>
+		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
 	<code id="db5377b84783" length="48" psl="3">
 		<sequence>++-++-++-+-+--++-+++-++++-+++----+---++++-----++</sequence>
