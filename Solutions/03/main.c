@@ -74,13 +74,13 @@ static void * Validate (void * parameter)
         "       ABS:                                \n\t"   //              .
         "       cmpb       %%r11b,     %%al         \n\t"   //          Check if the sidelobe level acceptable?
         "       jg         NEXT_CODE                \n\t"   //              If it is not, then go to the next sequence.
-        "       incb       %%cl                     \n\t"   //          Increment the offset for creating next shifted sequence.
+        "       addb       $1,         %%cl         \n\t"   //          Increment the offset for creating next shifted sequence.
         "       cmpb       %%cl,       %%r8b        \n\t"   //          Check if is it the lass offset.
         "       jbe        SAVE_CODE                \n\t"   //              If it is, then save cureent sequence.
         "       shrq       $1,         %%r13        \n\t"   //          Shift mask for next shifted sequence.
         "       jmp        NEXT_SHIFT               \n\t"   //      End of loop through shift of sequence.
         "NEXT_CODE:                                 \n\t"   //  Control of loop through sequence.
-        "       incq       %%r9                     \n\t"   //      Set next sequence.
+        "       addq       $1,          %%r9        \n\t"   //      Set next sequence.
         "       cmpq       %%r10,       %%r9        \n\t"   //      Check if the sequence inside the range.
         "       jbe        CHECK_CODE               \n\t"   //          If it is, then go to the begining of the loops body.
         "       jmp        QUIT                     \n\t"   //          If it is not, then go to the end of procedure.
