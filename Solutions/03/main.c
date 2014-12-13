@@ -46,11 +46,11 @@ static void * Validate (void * parameter)
 
     __asm__ __volatile__ (
         "INIT:                                      \n\t"   //  Prepare for computation.
-        "       movb       %[length],  %%r8b        \n\t"   //      Load length of sequences into CPU register.
-        "       movq       %[code],    %%r9         \n\t"   //      Load first sequence of the range into CPU register.
-        "       movq       %[maxcode], %%r10        \n\t"   //      Load last sequence of the range into CPU register.
-        "       movb       %[limit],   %%r11b       \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
-        "       movq       %[mask],    %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
+        "       movb %[length],        %%r8b        \n\t"   //      Load length of sequences into CPU register.
+        "       movq %[beginCode],     %%r9         \n\t"   //      Load first sequence of the range into CPU register.
+        "       movq %[endCode],       %%r10        \n\t"   //      Load last sequence of the range into CPU register.
+        "       movb %[sideLobeLimit], %%r11b       \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
+        "       movq %[mask],          %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
         "CHECK_CODE:                                \n\t"   //  Body of loop through sequence (like the "do-while" loop).
         "       movb       $1,         %%cl         \n\t"   //      Set the offset value.
         "       movq       %%r12,      %%r13        \n\t"   //      Set mask into mutable variable.
@@ -102,11 +102,11 @@ static void * Validate (void * parameter)
         "QUIT:                                      \n\t"   //  Exit of procedure.
         "       nop                                 \n\t"   //  .
         :
-        : [length ] "m" ( (__u8)  ( (struct Parameter *) parameter)->length),
-          [code   ] "m" ( (__u64) ( (struct Parameter *) parameter)->beginCode),
-          [maxcode] "m" ( (__u64) ( (struct Parameter *) parameter)->endCode),
-          [limit  ] "m" (sideLobeLimit),
-          [mask   ] "m" (mask)
+        : [length       ] "m" ( (__u8)  ( (struct Parameter *) parameter)->length),
+          [beginCode    ] "m" ( (__u64) ( (struct Parameter *) parameter)->beginCode),
+          [endCode      ] "m" ( (__u64) ( (struct Parameter *) parameter)->endCode),
+          [sideLobeLimit] "m" (sideLobeLimit),
+          [mask         ] "m" (mask)
         : "%rax", "%rcx", "%rdi", "%rsi",
           "%r8",  "%r9",  "%r10", "%r11", "%r12", "%r13"
     );
