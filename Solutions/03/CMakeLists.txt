@@ -37,6 +37,7 @@ add_library (
 
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=native -mtune=native -std=c11")
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fverbose-asm -save-temps")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set (CMAKE_C_FLAGS_DEBUG   "-O0 -g")
 set (CMAKE_C_FLAGS_RELEASE "-O3")
