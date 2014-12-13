@@ -139,7 +139,8 @@ int main (int argc, char * argv [])
 
 
     for (__u8 i = beginLength; i <= endLength; ++i) {
-        __u64 rdtsc = __rdtsc ();
+        __u32 dummy  = 0;
+        __u64 rdtscp = __rdtscp (&dummy);
         // Calculating and setting of range, inital and final codes.
         __u8  chunkLength = i - x - 1;
         __u64 beginCode =  0x00ULL;
@@ -163,9 +164,9 @@ int main (int argc, char * argv [])
 
 
         // Statistics output.
-        rdtsc = __rdtsc () - rdtsc;
+        rdtscp = __rdtscp (&dummy) - rdtscp;
         int fileStat = open ("/tmp/lpslcd.stat", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
-        if (write (fileStat, &rdtsc,  sizeof (rdtsc) ) != sizeof (rdtsc) ) {
+        if (write (fileStat, &rdtscp,  sizeof (rdtscp) ) != sizeof (rdtscp) ) {
             return 1;
         }
         close (fileStat);
