@@ -40,6 +40,7 @@ static void * Validate (void * parameter)
 {
     const __u8 sideLobeLimit = ( (struct Parameter *) parameter)->length < 14 ? 1 :
                        floor ( ( (struct Parameter *) parameter)->length / 14.0f);
+    const __u8 optimizeLimit = sideLobeLimit + 3;
 
     const __u64 mask = (1ULL << ( ( (struct Parameter *) parameter)->length - 1) ) - 1ULL;
 
@@ -50,6 +51,7 @@ static void * Validate (void * parameter)
         "       movq %[beginCode],     %%r9         \n\t"   //      Load first sequence of the range into CPU register.
         "       movq %[endCode],       %%r10        \n\t"   //      Load last sequence of the range into CPU register.
         "       movb %[sideLobeLimit], %%r11b       \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
+        "       movb %[optimizeLimit], %%r14b       \n\t"   //      Load level of sidelobes which indicates the possibility of skipping sequences.
         "       movq %[mask],          %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
         "CHECK_CODE:                                \n\t"   //  Body of loop through sequence (like the "do-while" loop).
         "       movb       $1,         %%cl         \n\t"   //      Set the offset value.
@@ -72,6 +74,8 @@ static void * Validate (void * parameter)
         "       jge        ABS                      \n\t"   //              al =|o + 2 * n - l|    (now al contain the sidelobe level).
         "       negb       %%al                     \n\t"   //              .
         "       ABS:                                \n\t"   //              .
+        "       cmpb       %%r14b,     %%al         \n\t"   //          Check sidelobe so big that some sequences can be skipped.
+        "       jge        OPTIMIZE_SKIP            \n\t"   //              If it is, then go to the optimization procedure.
         "       cmpb       %%r11b,     %%al         \n\t"   //          Check if the sidelobe level acceptable?
         "       jg         NEXT_CODE                \n\t"   //              If it is not, then go to the next sequence.
         "       addb       $1,         %%cl         \n\t"   //          Increment the offset for creating next shifted sequence.
@@ -79,6 +83,15 @@ static void * Validate (void * parameter)
         "       jbe        SAVE_CODE                \n\t"   //              If it is, then save cureent sequence.
         "       shrq       $1,         %%r13        \n\t"   //          Shift mask for next shifted sequence.
         "       jmp        NEXT_SHIFT               \n\t"   //      End of loop through shift of sequence.
+        "OPTIMIZE_SKIP:                             \n\t"   //      Beginning of procedure to skipping wrong sequences.
+        "       subb       %%r11b,      %%al        \n\t"   //              al = |o + 2 * n - l| - s   (s - sidelobe limit).
+        "       subb       $1,          %%al        \n\t"   //              al = |o + 2 * n - l| - s - 1.
+        "       shr        $1,          %%al        \n\t"   //              al =(|o + 2 * n - l| - s - 1) / 2.
+        "       movb       %%al,        %%cl        \n\t"   //              al now contain number of bits which can be skipped.
+        "       shrq       %%cl,        %%r9        \n\t"   //              .
+        "       incq       %%r9                     \n\t"   //              Set next sequence.
+        "       shlq       %%cl,        %%r9        \n\t"   //              .
+        "       jmp        CHECK_CODE               \n\t"   //      End of procedure of skipping wrong sequnces.
         "NEXT_CODE:                                 \n\t"   //  Control of loop through sequence.
         "       addq       $1,          %%r9        \n\t"   //      Set next sequence.
         "       cmpq       %%r10,       %%r9        \n\t"   //      Check if the sequence inside the range.
@@ -106,9 +119,10 @@ static void * Validate (void * parameter)
           [beginCode    ] "m" ( (__u64) ( (struct Parameter *) parameter)->beginCode),
           [endCode      ] "m" ( (__u64) ( (struct Parameter *) parameter)->endCode),
           [sideLobeLimit] "m" (sideLobeLimit),
+          [optimizeLimit] "m" (optimizeLimit),
           [mask         ] "m" (mask)
         : "%rax", "%rcx", "%rdi", "%rsi",
-          "%r8",  "%r9",  "%r10", "%r11", "%r12", "%r13"
+          "%r8",  "%r9",  "%r10", "%r11", "%r12", "%r13", "%r14"
     );
 
 

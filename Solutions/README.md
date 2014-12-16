@@ -9,7 +9,8 @@ Set of solutions of the problem of finding binary sequences with low PSL level
  - [03](03) - minimalistic solution implemented on C with inline assembly;
     - optimization:
         - multithreading;
-        - skipped inverse-time sequences.
+        - skipped inverse-time sequences;
+        - skipped sequences based on the already calculated sidelobe level of current sequence.
     - portability:  C++11;
     - build:        cmake;
     - contribution:
