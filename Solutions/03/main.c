@@ -51,6 +51,7 @@ static void * Validate (void * parameter)
         "       movq %[beginCode],     %%r9         \n\t"   //      Load first sequence of the range into CPU register.
         "       movq %[endCode],       %%r10        \n\t"   //      Load last sequence of the range into CPU register.
         "       movb %[sideLobeLimit], %%r11b       \n\t"   //      Load maximum allowed level of sidelobes into CPU register.
+        "       addb       $1,         %%r11b       \n\t"   //          To optimization issue used 'level + 1' instead of 'level'.
         "       movb %[optimizeLimit], %%r14b       \n\t"   //      Load level of sidelobes which indicates the possibility of skipping sequences.
         "       movq %[mask],          %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
         "CHECK_CODE:                                \n\t"   //  Body of loop through sequence (like the "do-while" loop).
@@ -77,16 +78,15 @@ static void * Validate (void * parameter)
         "       cmpb       %%r14b,     %%al         \n\t"   //          Check sidelobe so big that some sequences can be skipped.
         "       jge        OPTIMIZE_SKIP            \n\t"   //              If it is, then go to the optimization procedure.
         "       cmpb       %%r11b,     %%al         \n\t"   //          Check if the sidelobe level acceptable?
-        "       jg         NEXT_CODE                \n\t"   //              If it is not, then go to the next sequence.
+        "       jge        NEXT_CODE                \n\t"   //              If it is not, then go to the next sequence.
         "       addb       $1,         %%cl         \n\t"   //          Increment the offset for creating next shifted sequence.
         "       cmpb       %%cl,       %%r8b        \n\t"   //          Check if is it the lass offset.
         "       jbe        SAVE_CODE                \n\t"   //              If it is, then save cureent sequence.
         "       shrq       $1,         %%r13        \n\t"   //          Shift mask for next shifted sequence.
         "       jmp        NEXT_SHIFT               \n\t"   //      End of loop through shift of sequence.
         "OPTIMIZE_SKIP:                             \n\t"   //      Beginning of procedure to skipping wrong sequences.
-        "       subb       %%r11b,      %%al        \n\t"   //              al = |o + 2 * n - l| - s   (s - sidelobe limit).
-        "       subb       $1,          %%al        \n\t"   //              al = |o + 2 * n - l| - s - 1.
-        "       shr        $1,          %%al        \n\t"   //              al =(|o + 2 * n - l| - s - 1) / 2.
+        "       subb       %%r11b,      %%al        \n\t"   //              al = |o + 2 * n - l| - (s + 1)  (s - sidelobe limit).
+        "       shr        $1,          %%al        \n\t"   //              al =(|o + 2 * n - l| - (s + 1) ) / 2.
         "       movb       %%al,        %%cl        \n\t"   //              al now contain number of bits which can be skipped.
         "       shrq       %%cl,        %%r9        \n\t"   //              .
         "       incq       %%r9                     \n\t"   //              Set next sequence.
