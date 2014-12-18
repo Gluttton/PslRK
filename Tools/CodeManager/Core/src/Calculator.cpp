@@ -124,11 +124,13 @@ unsigned int Calculator::CalculateE (const std::string & stringView)
 
     unsigned int e {0u};
 
-    const auto acf = CalculateAcf (stringView);
-    for (size_t i = 0; i < stringView.size () - 1; ++i) {
-        e += pow (acf [i], 2);
+    if (stringView.size () ) {
+        const auto acf = CalculateAcf (stringView);
+        for (size_t i = 0; i < stringView.size () - 1; ++i) {
+            e += pow (acf [i], 2);
+        }
+        e *= 2u;
     }
-    e *= 2u;
 
     return e;
 }
