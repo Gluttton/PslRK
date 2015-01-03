@@ -42,7 +42,7 @@ set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set (CMAKE_C_FLAGS_DEBUG   "-O0 -g")
 set (CMAKE_C_FLAGS_RELEASE "-O3")
 
-add_definitions (-DTHREADS=1)
+add_definitions (-DTHREADS=8)
 
 set (lpslcd_SOURCES
     ${PROJECT_SOURCE_DIR}/main.c

@@ -38,8 +38,9 @@ void SaveCode (const __u8 length, const __u64 code)
 
 static void * Validate (void * parameter)
 {
-    const __u8 sideLobeLimit = ( (struct Parameter *) parameter)->length < 14 ? 1 :
-                       floor ( ( (struct Parameter *) parameter)->length / 14.0f);
+    //const __u8 sideLobeLimit = ( (struct Parameter *) parameter)->length < 14 ? 1 :
+    //                   floor ( ( (struct Parameter *) parameter)->length / 14.0f);
+    const __u8 sideLobeLimit =                 3;
     const __u8 optimizeLimit = sideLobeLimit + 3;
 
     const __u64 mask = (1ULL << ( ( (struct Parameter *) parameter)->length - 1) ) - 1ULL;
@@ -47,6 +48,17 @@ static void * Validate (void * parameter)
 
     __asm__ __volatile__ (
         "INIT:                                      \n\t"   //  Prepare for computation.
+        "       xorq       %%rax,      %%rax        \n\t"   //      Clear all using registers.
+        "       xorq       %%rcx,      %%rcx        \n\t"   //      .
+        "       xorq       %%rdi,      %%rdi        \n\t"   //      .
+        "       xorq       %%rsi,      %%rsi        \n\t"   //      .
+        "       xorq       %%r8,       %%r8         \n\t"   //      .
+        "       xorq       %%r9,       %%r9         \n\t"   //      .
+        "       xorq       %%r10,      %%r10        \n\t"   //      .
+        "       xorq       %%r11,      %%r11        \n\t"   //      .
+        "       xorq       %%r12,      %%r12        \n\t"   //      .
+        "       xorq       %%r13,      %%r13        \n\t"   //      .
+        "       xorq       %%r14,      %%r14        \n\t"   //      .
         "       movb %[length],        %%r8b        \n\t"   //      Load length of sequences into CPU register.
         "       movq %[beginCode],     %%r9         \n\t"   //      Load first sequence of the range into CPU register.
         "       movq %[endCode],       %%r10        \n\t"   //      Load last sequence of the range into CPU register.
@@ -138,8 +150,8 @@ int main (int argc, char * argv [])
     }
 
     // Range of lengthes of codes which analyzed.
-    const __u8 beginLength    = 46;
-    const __u8 endLength      = 46;
+    const __u8 beginLength    = 51;
+    const __u8 endLength      = 51;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
     // Parameters which will be passed to validators.
@@ -166,6 +178,7 @@ int main (int argc, char * argv [])
             parameters [j].beginCode = beginCode;
             parameters [j].endCode   = endCode;
             pthread_create (&threads [j], NULL, Validate, &parameters [j]);
+            //pthread_setschedprio (threads [j], sched_get_priority_max (sched_getscheduler (threads [j]) ) );
 
             // Preparation of initial and final codes for next validator.
             beginCode = endCode;
