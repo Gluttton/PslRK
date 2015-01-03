@@ -115,10 +115,12 @@ static void * Validate (void * parameter)
         "       pushq      %%r10                    \n\t"   //      .
         "       pushq      %%r11                    \n\t"   //      .
         "       pushq      %%r12                    \n\t"   //      .
+        "       pushq      %%r14                    \n\t"   //      .
         "       movl       %%r8d,      %%edi        \n\t"   //      .
         "       movq       %%r9,       %%rsi        \n\t"   //      .
         "       call       SaveCode                 \n\t"   //      Calling external function for saving the sequence.
-        "       popq       %%r12                    \n\t"   //      Restore registers.
+        "       popq       %%r14                    \n\t"   //      Restore registers.
+        "       popq       %%r12                    \n\t"   //      .
         "       popq       %%r11                    \n\t"   //      .
         "       popq       %%r10                    \n\t"   //      .
         "       popq       %%r9                     \n\t"   //      .
