@@ -38,8 +38,6 @@ void SaveCode (const __u8 length, const __u64 code)
 
 static void * Validate (void * parameter)
 {
-    //const __u8 sideLobeLimit = ( (struct Parameter *) parameter)->length < 14 ? 1 :
-    //                   floor ( ( (struct Parameter *) parameter)->length / 14.0f);
     const __u8 sideLobeLimit =                 3;
     const __u8 optimizeLimit = sideLobeLimit + 3;
 
@@ -180,7 +178,7 @@ int main (int argc, char * argv [])
             parameters [j].beginCode = beginCode;
             parameters [j].endCode   = endCode;
             pthread_create (&threads [j], NULL, Validate, &parameters [j]);
-            //pthread_setschedprio (threads [j], sched_get_priority_max (sched_getscheduler (threads [j]) ) );
+            pthread_setschedprio (threads [j], sched_get_priority_max (sched_getscheduler (threads [j]) ) );
 
             // Preparation of initial and final codes for next validator.
             beginCode = endCode;
