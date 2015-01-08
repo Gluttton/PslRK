@@ -64,6 +64,7 @@ static void * Validate (void * parameter)
         "       addb       $1,         %%r11b       \n\t"   //          To optimization issue used 'level + 1' instead of 'level'.
         "       movb %[optimizeLimit], %%r14b       \n\t"   //      Load level of sidelobes which indicates the possibility of skipping sequences.
         "       movq %[mask],          %%r12        \n\t"   //      Load mask for extracting significant bits into CPU register.
+
         "CHECK_CODE:                                \n\t"   //  Body of loop through sequence (like the "do-while" loop).
         "       movb       $1,         %%cl         \n\t"   //      Set the offset value.
         "       movq       %%r12,      %%r13        \n\t"   //      Set mask into mutable variable.
@@ -72,13 +73,7 @@ static void * Validate (void * parameter)
         "       shrq       %%cl,       %%rdi        \n\t"   //          Shift.
         "       xorq       %%r9,       %%rdi        \n\t"   //          Counting level of sidelobes.
         "       andq       %%r13,      %%rdi        \n\t"   //              Remove extra bits.
-        #ifdef __POPCNT__
         "       popcntq    %%rdi,      %%rax        \n\t"   //              al =         n         (number of the different bits).
-        #else
-        "       pushq      %%rcx                    \n\t"   //              .
-        "       callq      __popcountdi2            \n\t"   //              .
-        "       popq       %%rcx                    \n\t"   //              .
-        #endif
         "       shlb       $1,         %%al         \n\t"   //              al =     2 * n.
         "       subb       %%r8b,      %%al         \n\t"   //              al =     2 * n - l     (l - length of the sequence).
         "       addb       %%cl,       %%al         \n\t"   //              al = o + 2 * n - l     (o - current offset).
@@ -107,6 +102,7 @@ static void * Validate (void * parameter)
         "       cmpq       %%r10,       %%r9        \n\t"   //      Check if the sequence inside the range.
         "       jbe        CHECK_CODE               \n\t"   //          If it is, then go to the begining of the loops body.
         "       jmp        QUIT                     \n\t"   //          If it is not, then go to the end of procedure.
+
         "SAVE_CODE:                                 \n\t"   //  Saving sequence with accepted level of sidelobes.
         "       pushq      %%r8                     \n\t"   //      Store registers.
         "       pushq      %%r9                     \n\t"   //      .
@@ -124,6 +120,7 @@ static void * Validate (void * parameter)
         "       popq       %%r9                     \n\t"   //      .
         "       popq       %%r8                     \n\t"   //      .
         "       jmp        NEXT_CODE                \n\t"   //      Continue test sequences.
+
         "QUIT:                                      \n\t"   //  Exit of procedure.
         "       nop                                 \n\t"   //  .
         :
