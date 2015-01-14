@@ -38,7 +38,7 @@ void SaveCode (const __u8 length, const __u64 code)
 
 static void * Validate (void * parameter)
 {
-    const __u8 sideLobeLimit =                 3;
+    const __u8 sideLobeLimit =                 4;
     const __u8 optimizeLimit = sideLobeLimit + 3;
 
     const __u64 mask = (1ULL << ( ( (struct Parameter *) parameter)->length - 1) ) - 1ULL;
@@ -147,8 +147,8 @@ int main (int argc, char * argv [])
     }
 
     // Range of lengthes of codes which analyzed.
-    const __u8 beginLength    = 51;
-    const __u8 endLength      = 51;
+    const __u8 beginLength    = 50;
+    const __u8 endLength      = 50;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
     // Parameters which will be passed to validators.
