@@ -147,8 +147,8 @@ int main (int argc, char * argv [])
     }
 
     // Range of lengthes of codes which analyzed.
-    const __u8 beginLength    = 50;
-    const __u8 endLength      = 50;
+    const __u8 beginLength    = 49;
+    const __u8 endLength      = 49;
     // Threads in which validators will be execute.
     pthread_t        threads    [THREADS];
     // Parameters which will be passed to validators.
