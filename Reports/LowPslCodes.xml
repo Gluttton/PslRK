@@ -396,22 +396,6 @@
 		<sequence>+-++--+++-++++--+++-+-------+++-+--+-+---+-++-+-</sequence>
 		<reference article="PSL Research Kit" author="PslRK" link="https://github.com/Gluttton/PslRK" />
 	</code>
-	<code id="1a17a6167bbae" length="49" psl="4">
-		<sequence>++-+----+-++++-+--++----+-++--++++-+++-+++-+-+++-</sequence>
-		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
-	</code>
-	<code id="1ed5413861b90" length="49" psl="4">
-		<sequence>++++-++-+-+-+-+-----+--+++----++----++-+++--+----</sequence>
-		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
-	</code>
-	<code id="3c701dcddab6d" length="50" psl="4">
-		<sequence>++++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+</sequence>
-		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
-	</code>
-	<code id="3da79c543d990" length="50" psl="4">
-		<sequence>++++-++-+--++++--+++---+-+-+----++++-++--++--+----</sequence>
-		<reference article="A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation" author="Maryam Amin_Nasrabadi, Mohammad_Hassan Bastani" link="http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf" />
-	</code>
 	<code id="71c077376adb4" length="51" psl="3">
 		<sequence>+++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+--</sequence>
 		<reference article="Binary Sequences with Minimum Peak Sidelobe Level up to Length 68" author="Leukhin A.N., Potehin E.N." link="http://arxiv.org/pdf/1212.4930.pdf" />
