@@ -17,7 +17,7 @@ Set of solutions of the problem of finding binary sequences with low PSL level
         - version 6b7fa8fa499df80824719e8a9b91ab7f062015b8 was used to proving sequences with length from 2 up to 13;
         - version 94bdafaabff628a155202d223ae583bd09f1604b was used to finding and proving sequences with length from 28 up to 47;
         - version 94bdafaabff628a155202d223ae583bd09f1604b with manually defined PSL limit 3 was used to finding and proving sequences with length 48;
-        - version 1a8ce91075600206622a40c10419653bee9ee62b was used to finding and proving sequences with length 49.
-        - version 6aaa9b65fb8e3312e0947b1828501b396940ee11 was used to finding and proving sequences with length 50.
-        - version 0ba60c98b2ee8ba25dd777486399a5fc0f4083d3 was used to finding and proving sequences with length 51.
+        - version 1a8ce91075600206622a40c10419653bee9ee62b was used to finding and proving sequences with length 49 and took about 3.25 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
+        - version 6aaa9b65fb8e3312e0947b1828501b396940ee11 was used to finding and proving sequences with length 50 and took about 5.55 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
+        - version 0ba60c98b2ee8ba25dd777486399a5fc0f4083d3 was used to finding and proving sequences with length 51 and took about 8.15 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
  - [04](04) - yet another solution implemented on C++.
