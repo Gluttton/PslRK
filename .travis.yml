@@ -10,6 +10,7 @@ addons:
             - boost-latest
         packages:
             - g++-4.8
+            - gcov-4.8
             - cmake
 before_install:
     - sudo add-apt-repository ppa:ubuntu-sdk-team/ppa -y
@@ -44,4 +45,13 @@ before_script:
 script:
     - cd ${BUILD_DIR}
     - make
-    - cd ${BUILD_DIR}/Core/test && ./CodeManagerCoreTest 
+    - cd ${BUILD_DIR}/Core/test && ./CodeManagerCoreTest
+after_success:
+    - cd ${BUILD_DIR}
+    - mkdir coverage
+    - cp -v ../Core/src/*.cpp coverage
+    - mv Core/test/CMakeFiles/CodeManagerCoreTest.dir/__/src/*.gcda coverage
+    - mv Core/test/CMakeFiles/CodeManagerCoreTest.dir/__/src/*.gcno coverage
+    - cd coverage
+    - find . -type f -name '*.gcda' -exec gcov-4.8 {} +
+    - bash <(curl -s https://codecov.io/bash)
