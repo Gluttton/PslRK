@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Gluttton/PslRK.svg?branch=master)](https://travis-ci.org/Gluttton/PslRK)  
+
 Peak Sidelobe (PSL) Level of Binary Sequences Research Kit
 ==========================================================
 PslRK - set of references and programs related with Peak Sidelobe Level of binary sequences:
