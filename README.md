@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Gluttton/PslRK.svg?branch=master)](https://travis-ci.org/Gluttton/PslRK)
-[![codecov.io](http://codecov.io/github/Gluttton/PslRK/coverage.svg?branch=master)](http://codecov.io/github/Gluttton/PslRK?branch=master)
+[![codecov](https://codecov.io/gh/Gluttton/PslRK/branch/master/graph/badge.svg)](https://codecov.io/gh/Gluttton/PslRK)
 
 Peak Sidelobe (PSL) Level of Binary Sequences Research Kit
 ==========================================================
