@@ -1,0 +1,111 @@
+stages:
+    - solution_01_build
+    - solution_01_test
+    - solution_02_build
+    - solution_02_build_view_dat
+    - solution_02_build_view_stat
+    - solution_03_build
+    - solution_04_build
+    - solution_04_test
+    - code_manager_full
+
+
+solution_01_build_job:
+    stage: solution_01_build
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/01
+        - cd ${BUILD_DIR}
+    script:
+        - make
+
+
+solution_01_test_job:
+    stage: solution_01_test
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/01
+        - cd ${BUILD_DIR}
+    script:
+        - make testing
+        - ./lpslcd.test
+        - gcovr -r .
+
+
+solution_02_build_job:
+    stage: solution_02_build
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/02
+        - cd ${BUILD_DIR}
+    script:
+        - make
+
+
+solution_02_build_view_dat_job:
+    stage: solution_02_build_view_dat
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/02
+        - cd ${BUILD_DIR}
+    script:
+        - gcc view.dat.c -Wall -Wextra -o view.dat
+
+
+solution_02_build_view_stat_job:
+    stage: solution_02_build_view_stat
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/02
+        - cd ${BUILD_DIR}
+    script:
+        - gcc view.stat.c -Wall -Wextra -o view.stat
+
+
+solution_03_build_job:
+    stage: solution_03_build
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/03/build
+        - mkdir -p ${BUILD_DIR}
+        - cd ${BUILD_DIR}
+        - cmake -DCMAKE_BUILD_TYPE=Debug ${BUILD_DIR}/..
+    script:
+        - make
+
+
+solution_04_build_job:
+    stage: solution_04_build
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/04
+        - cd ${BUILD_DIR}
+    script:
+        - make
+
+
+solution_04_test_job:
+    stage: solution_04_test
+    image: gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/04
+        - cd ${BUILD_DIR}
+    script:
+        - make testing
+        - ./lpslcd.test
+        - gcovr -r .
+
+
+code_manager_full_job:
+    stage: code_manager_full
+    image: gluttton/pslrk:qt
+    before_script:
+        - BUILD_DIR=`pwd`/Tools/CodeManager/build
+        - mkdir -p ${BUILD_DIR}
+        - cd ${BUILD_DIR}
+        - cmake -DCMAKE_BUILD_TYPE=Debug ${BUILD_DIR}/..
+    script:
+        - make
+        - ./Core/test/CodeManagerCoreTest
+        - gcovr -r ..
+
