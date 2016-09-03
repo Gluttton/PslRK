@@ -30,17 +30,17 @@ void CalculatorTest::TearDown ()
 
 
 
-TEST_F (CalculatorTest, CalculateAcfInvalidViewThrow)
+TEST_F (CalculatorTest, AcfInvalidViewThrow)
 {
     // Arange.
     const std::string code {"+0+++"};
     // Act, Assert.
-    EXPECT_THROW (Calculator::CalculateAcf (code), ExceptionInvalidStringView);
+    EXPECT_THROW (Calculator::Acf (code), ExceptionInvalidStringView);
 }
 
 
 
-TEST_F (CalculatorTest, CalculateAcfEmptyViewSuccess)
+TEST_F (CalculatorTest, AcfEmptyViewSuccess)
 {
     // Arange.
     const std::string code {""};
@@ -48,7 +48,7 @@ TEST_F (CalculatorTest, CalculateAcfEmptyViewSuccess)
     std::vector <int> testAcf {};
     // Act.
     EXPECT_NO_THROW (
-        testAcf = Calculator::CalculateAcf (code)
+        testAcf = Calculator::Acf (code)
     );
     // Assert.
     EXPECT_EQ (etalonAcf, testAcf);
@@ -66,13 +66,13 @@ TEST_F (CalculatorTest, CalculateAcfEmptyViewSuccess)
 //     |  +-+|++      1
 //     |   +-|+++     0
 //     |    +|-+++    1
-TEST_F (CalculatorTest, CalculateAcf_10111_Success)
+TEST_F (CalculatorTest, Acf_10111_Success)
 {
     // Arange.
     const std::string code {"+-+++"};
     const std::vector <int> etalonAcf {1, 0, 1, 0, 5, 0, 1, 0, 1};
     // Act.
-    const std::vector <int> testAcf = Calculator::CalculateAcf (code);
+    const std::vector <int> testAcf = Calculator::Acf (code);
     // Assert.
     EXPECT_EQ (etalonAcf, testAcf);
 }
@@ -95,13 +95,13 @@ TEST_F (CalculatorTest, CalculateAcf_10111_Success)
 //        |     ---|++-+-
 //        |      --|-++-+-
 //        |       -|--++-+-
-TEST_F (CalculatorTest, CalculateAcf_00011010_Success)
+TEST_F (CalculatorTest, Acf_00011010_Success)
 {
     // Arange.
     const std::string code {"---++-+-"};
     const std::vector <int> etalonAcf {1, 0, 1, -2, -1, 0, -1, 8, -1, 0, -1, -2, 1, 0, 1};
     // Act.
-    const std::vector <int> testAcf {Calculator::CalculateAcf (code)};
+    const std::vector <int> testAcf {Calculator::Acf (code)};
     // Assert.
     EXPECT_EQ (etalonAcf, testAcf);
 }
@@ -118,14 +118,14 @@ TEST_F (CalculatorTest, CalculateAcf_00011010_Success)
 //     |  +-+|++      1
 //     |   +-|+++     0
 //     |    +|-+++    1
-TEST_F (CalculatorTest, CalculateCcf_10111_and_10111_Success)
+TEST_F (CalculatorTest, Ccf_10111_and_10111_Success)
 {
     // Arange.
     const std::string codeOne {"+-+++"};
     const std::string codeTwo {"+-+++"};
     const std::vector <int> etalonCcf {1, 0, 1, 0, 5, 0, 1, 0, 1};
     // Act.
-    const std::vector <int> testCcf = Calculator::CalculateCcf (codeOne, codeTwo);
+    const std::vector <int> testCcf = Calculator::Ccf (codeOne, codeTwo);
     // Assert.
     EXPECT_EQ (etalonCcf, testCcf);
 }
@@ -142,14 +142,14 @@ TEST_F (CalculatorTest, CalculateCcf_10111_and_10111_Success)
 //     |  ++-|++      1
 //     |   ++|-++     2
 //     |    +|+-++    1
-TEST_F (CalculatorTest, CalculateCcf_10111_and_11011_Success)
+TEST_F (CalculatorTest, Ccf_10111_and_11011_Success)
 {
     // Arange.
     const std::string codeOne {"+-+++"};
     const std::string codeTwo {"++-++"};
     const std::vector <int> etalonCcf {1, 0, -1, 4, 1, 0, 1, 2, 1};
     // Act.
-    const std::vector <int> testCcf = Calculator::CalculateCcf (codeOne, codeTwo);
+    const std::vector <int> testCcf = Calculator::Ccf (codeOne, codeTwo);
     // Assert.
     EXPECT_EQ (etalonCcf, testCcf);
 }
@@ -169,14 +169,14 @@ TEST_F (CalculatorTest, CalculateCcf_10111_and_11011_Success)
 //         |  ++-|++-+-    1
 //         |   ++|-++-+-   2
 //         |    +|+-++-+-  1
-TEST_F (CalculatorTest, CalculateCcf_10111_and_11011010_Success)
+TEST_F (CalculatorTest, Ccf_10111_and_11011010_Success)
 {
     // Arange.
     const std::string codeOne {"+-+++"};
     const std::string codeTwo {"++-++-+-"};
     const std::vector <int> etalonCcf {-1, 2, -3, 2, -1, -1, 3, 1, 0, 1, 2, 1};
     // Act.
-    const std::vector <int> testCcf {Calculator::CalculateCcf (codeOne, codeTwo)};
+    const std::vector <int> testCcf {Calculator::Ccf (codeOne, codeTwo)};
     // Assert.
     EXPECT_EQ (etalonCcf, testCcf);
 }
@@ -195,31 +195,31 @@ TEST_F (CalculatorTest, CalculateCcf_10111_and_11011010_Success)
 //         |    +++|-+     1
 //         |     ++|+-+    0
 //         |      +|++-+  -1
-TEST_F (CalculatorTest, CalculateCcf_1110110_and_11101_Success)
+TEST_F (CalculatorTest, Ccf_1110110_and_11101_Success)
 {
     // Arange.
     const std::string codeOne {"+++-++-"};
     const std::string codeTwo {"+++-+"};
     const std::vector <int> etalonCcf {1, 0, 1, 0, 5, 1, -1, 2, 1, 0, -1};
     // Act.
-    const std::vector <int> testCcf {Calculator::CalculateCcf (codeOne, codeTwo)};
+    const std::vector <int> testCcf {Calculator::Ccf (codeOne, codeTwo)};
     // Assert.
     EXPECT_EQ (etalonCcf, testCcf);
 }
 
 
 
-TEST_F (CalculatorTest, CalculatePslInvalidViewThrow)
+TEST_F (CalculatorTest, PslInvalidViewThrow)
 {
     // Arange.
     const std::string code {"+0+++"};
     // Act, Assert.
-    EXPECT_THROW (Calculator::CalculatePsl (code), ExceptionInvalidStringView);
+    EXPECT_THROW (Calculator::Psl (code), ExceptionInvalidStringView);
 }
 
 
 
-TEST_F (CalculatorTest, CalculatePslEmptyViewSuccess)
+TEST_F (CalculatorTest, PslEmptyViewSuccess)
 {
     // Arange.
     const std::string code {""};
@@ -227,7 +227,7 @@ TEST_F (CalculatorTest, CalculatePslEmptyViewSuccess)
     int testPsl;
     // Act.
     EXPECT_NO_THROW (
-        testPsl = Calculator::CalculatePsl (code);
+        testPsl = Calculator::Psl (code);
     );
     // Assert.
     EXPECT_EQ (etalonPsl, testPsl);
@@ -235,40 +235,40 @@ TEST_F (CalculatorTest, CalculatePslEmptyViewSuccess)
 
 
 
-TEST_F (CalculatorTest, CalculatePsl_10111_Success)
+TEST_F (CalculatorTest, Psl_10111_Success)
 {
     // Arange.
     const std::string code {"+-+++"};
     constexpr int etalonPsl {1};
     // Act.
-    const int testPsl {Calculator::CalculatePsl (code)};
+    const int testPsl {Calculator::Psl (code)};
     // Assert.
     EXPECT_EQ (etalonPsl, testPsl);
 }
 
 
 
-TEST_F (CalculatorTest, CalculatePsl_00011010_Success)
+TEST_F (CalculatorTest, Psl_00011010_Success)
 {
     // Arange.
     const std::string code {"---++-+-"};
     constexpr int etalonPsl {2};
     // Act.
-    const int testPsl {Calculator::CalculatePsl (code)};
+    const int testPsl {Calculator::Psl (code)};
     // Assert.
     EXPECT_EQ (etalonPsl, testPsl);
 }
 
 
 
-TEST_F (CalculatorTest, CalclulateE_1010110011111_Success)
+TEST_F (CalculatorTest, E_1010110011111_Success)
 {
     // Arange.
     const std::string code {"+-+-++--+++++"};
     constexpr unsigned int etalonE  {2u * 6u};
 
     // Act.
-    const unsigned int testE {Calculator::CalculateE (code)};
+    const unsigned int testE {Calculator::E (code)};
 
     // Assert.
     EXPECT_EQ (etalonE, testE);
@@ -276,7 +276,7 @@ TEST_F (CalculatorTest, CalclulateE_1010110011111_Success)
 
 
 
-TEST_F (CalculatorTest, CalclulateIsl_1010110011111_Success)
+TEST_F (CalculatorTest, Isl_1010110011111_Success)
 {
     // Arange.
     const std::string code {"+-+-++--+++++"};
@@ -284,7 +284,7 @@ TEST_F (CalculatorTest, CalclulateIsl_1010110011111_Success)
     constexpr float epsilonIsl {0.001f};
 
     // Act.
-    const float testIsl {Calculator::CalculateIsl (code)};
+    const float testIsl {Calculator::Isl (code)};
 
     // Assert.
     EXPECT_NEAR (etalonIsl, testIsl, epsilonIsl);
@@ -292,7 +292,7 @@ TEST_F (CalculatorTest, CalclulateIsl_1010110011111_Success)
 
 
 
-TEST_F (CalculatorTest, CalclulateMf_10110111000_Success)
+TEST_F (CalculatorTest, Mf_10110111000_Success)
 {
     // Arange.
     const std::string code {"+-++-+++---"};
@@ -300,7 +300,7 @@ TEST_F (CalculatorTest, CalclulateMf_10110111000_Success)
     constexpr float epsilonMf {0.001f};
 
     // Act.
-    const float testMf {Calculator::CalculateMf (code)};
+    const float testMf {Calculator::Mf (code)};
 
     // Assert.
     EXPECT_NEAR (etalonMf, testMf, epsilonMf);
@@ -308,7 +308,7 @@ TEST_F (CalculatorTest, CalclulateMf_10110111000_Success)
 
 
 
-TEST_F (CalculatorTest, CalclulateMf_1010110011111_Success)
+TEST_F (CalculatorTest, Mf_1010110011111_Success)
 {
     // Arange.
     const std::string code {"+-+-++--+++++"};
@@ -316,7 +316,7 @@ TEST_F (CalculatorTest, CalclulateMf_1010110011111_Success)
     constexpr float epsilonMf {0.001f};
 
     // Act.
-    const float testMf {Calculator::CalculateMf (code)};
+    const float testMf {Calculator::Mf (code)};
 
     // Assert.
     EXPECT_NEAR (etalonMf, testMf, epsilonMf);
@@ -324,7 +324,7 @@ TEST_F (CalculatorTest, CalclulateMf_1010110011111_Success)
 
 
 
-TEST_F (CalculatorTest, CalclulateDb_1_to_5_Success)
+TEST_F (CalculatorTest, Db_1_to_5_Success)
 {
     // Arange.
     constexpr int ml  {5};
@@ -333,7 +333,7 @@ TEST_F (CalculatorTest, CalclulateDb_1_to_5_Success)
     constexpr long double epsilonDb {0.001f};
 
     // Act.
-    const long double testDb {Calculator::CalculateDb (ml, psl)};
+    const long double testDb {Calculator::Db (ml, psl)};
 
     // Assert.
     EXPECT_NEAR (etalonDb, testDb, epsilonDb);
@@ -341,7 +341,7 @@ TEST_F (CalculatorTest, CalclulateDb_1_to_5_Success)
 
 
 
-TEST_F (CalculatorTest, CalclulateDb_1_to_13_Success)
+TEST_F (CalculatorTest, Db_1_to_13_Success)
 {
     // Arange.
     constexpr int ml  {13};
@@ -350,7 +350,7 @@ TEST_F (CalculatorTest, CalclulateDb_1_to_13_Success)
     constexpr long double epsilonDb {0.001f};
 
     // Act.
-    const long double testDb {Calculator::CalculateDb (ml, psl)};
+    const long double testDb {Calculator::Db (ml, psl)};
 
     // Assert.
     EXPECT_NEAR (etalonDb, testDb, epsilonDb);

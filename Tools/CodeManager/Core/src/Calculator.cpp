@@ -11,7 +11,7 @@ namespace Pslrk
 namespace Core
 {
 
-std::vector <int> Calculator::CalculateAcf (const std::string & stringView)
+std::vector <int> Calculator::Acf (const std::string & stringView)
 {
     if (Validator::ValidateStringView (stringView) != viewIsValid) {
         throw ExceptionInvalidStringView ();
@@ -43,7 +43,7 @@ std::vector <int> Calculator::CalculateAcf (const std::string & stringView)
 
 
 
-std::vector <int> Calculator::CalculateCcf (const std::string & stringViewOne, const std::string & stringViewTwo)
+std::vector <int> Calculator::Ccf (const std::string & stringViewOne, const std::string & stringViewTwo)
 {
     if (Validator::ValidateStringView (stringViewOne) != viewIsValid) {
         throw ExceptionInvalidStringView ();
@@ -89,7 +89,7 @@ std::vector <int> Calculator::CalculateCcf (const std::string & stringViewOne, c
 
 
 
-int Calculator::CalculatePsl (const std::string & stringView)
+int Calculator::Psl (const std::string & stringView)
 {
     if (stringView.empty () ) {
         return 0;
@@ -100,14 +100,14 @@ int Calculator::CalculatePsl (const std::string & stringView)
     }
 
     const size_t range {stringView.length () - 1};
-    std::vector <int> acf {CalculateAcf (stringView)};
+    std::vector <int> acf {Acf (stringView)};
     std::transform (acf.begin (), acf.begin () + range, acf.begin (), abs);
     return * std::max_element (acf.begin (), acf.begin () + range);
 }
 
 
 
-unsigned int Calculator::CalculateE (const std::string & stringView)
+unsigned int Calculator::E (const std::string & stringView)
 {
     // Calculate energy of binary sequence.
     //
@@ -125,7 +125,7 @@ unsigned int Calculator::CalculateE (const std::string & stringView)
     unsigned int e {0u};
 
     if (stringView.size () ) {
-        const auto acf = CalculateAcf (stringView);
+        const auto acf = Acf (stringView);
         for (size_t i = 0; i < stringView.size () - 1; ++i) {
             e += pow (acf [i], 2);
         }
@@ -137,7 +137,7 @@ unsigned int Calculator::CalculateE (const std::string & stringView)
 
 
 
-float Calculator::CalculateIsl (const std::string & stringView)
+float Calculator::Isl (const std::string & stringView)
 {
     // Calculate integrated sidelobe level of binary sequence.
     //
@@ -150,7 +150,7 @@ float Calculator::CalculateIsl (const std::string & stringView)
     // E - energy of sequence.
     // N - length of sequence.
 
-    const auto e = CalculateE (stringView);
+    const auto e = E (stringView);
 
     const float isl = 10 * log10 (e / pow (stringView.size (), 2) );
 
@@ -159,7 +159,7 @@ float Calculator::CalculateIsl (const std::string & stringView)
 
 
 
-float Calculator::CalculateMf (const std::string & stringView)
+float Calculator::Mf (const std::string & stringView)
 {
     // Calculate merit factor of binary sequence.
     //
@@ -172,7 +172,7 @@ float Calculator::CalculateMf (const std::string & stringView)
     // E - energy of sequence.
     // N - length of sequence.
 
-    const auto e = CalculateE (stringView);
+    const auto e = E (stringView);
 
     const float mf = pow (stringView.size (), 2) / e;
 
@@ -181,7 +181,7 @@ float Calculator::CalculateMf (const std::string & stringView)
 
 
 
-float Calculator::CalculateDb (const int ml, const int psl)
+float Calculator::Db (const int ml, const int psl)
 {
     return 20.0f * log10f (static_cast <float> (psl) / static_cast <float> (ml) );
 }

@@ -73,7 +73,7 @@ int main (int argc, char * argv [])
 
     auto actionShowPsl = [&]() {
         for (const auto & code : codes) {
-            std::cout << Calculator::CalculatePsl (code) << std::endl;
+            std::cout << Calculator::Psl (code) << std::endl;
         }
     };
 
@@ -181,7 +181,7 @@ int main (int argc, char * argv [])
 
             const std::string codeId {Representer::DetectCodeId (stringView)};
             const int codeLength = stringView.length ();
-            const int psl {Calculator::CalculatePsl (stringView)};
+            const int psl {Calculator::Psl (stringView)};
 
             std::cout << "Sequence: " << stringView << std::endl;
             std::cout << "ID:       " << codeId     << std::endl;

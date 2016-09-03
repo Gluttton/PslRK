@@ -203,27 +203,27 @@ void ActivityWidget::onStringViewEdited (const QString & view)
 void ActivityWidget::onViewChanged (const std::string & view)
 {
     editCodeId->setText (QString::fromStdString (Pslrk::Core::Representer::DetectCodeId (view) ) );
-    editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::CalculatePsl (view) ) );
+    editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::Psl (view) ) );
     if (isLengthAutoDetect) {
         editLength->setText (QString ("%1").arg (view.size () ) );
     }
     editDb->setText     (QString::number (
-        Pslrk::Core::Calculator::CalculateDb (
+        Pslrk::Core::Calculator::Db (
             editLength->text ().toInt (),
-            Pslrk::Core::Calculator::CalculatePsl (view)
+            Pslrk::Core::Calculator::Psl (view)
         ),
         'f',
         3       // Only three digits after period must be displayed.
     ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::CalculateE   (view) ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E   (view) ) );
     editMf->setText     (QString::number (
-        Pslrk::Core::Calculator::CalculateMf (view),
+        Pslrk::Core::Calculator::Mf (view),
         'f',
         3       // Only three digits after period must be displayed.
     ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::CalculateE   (view) ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E   (view) ) );
     editIsl->setText    (QString::number (
-        Pslrk::Core::Calculator::CalculateIsl (view),
+        Pslrk::Core::Calculator::Isl (view),
         'f',
         3       // Only three digits after period must be displayed.
     ) );
@@ -232,7 +232,7 @@ void ActivityWidget::onViewChanged (const std::string & view)
     const double range = view.size ();
 
     QVector <double> y;
-    for (auto i : Pslrk::Core::Calculator::CalculateAcf (view) ) {
+    for (auto i : Pslrk::Core::Calculator::Acf (view) ) {
         y.push_back (i);
     }
     QVector <double> x;

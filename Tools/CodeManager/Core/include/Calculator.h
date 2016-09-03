@@ -14,13 +14,13 @@ namespace Core
 class Calculator
 {
     public:
-        static std::vector <int> CalculateAcf (const std::string &);
-        static std::vector <int> CalculateCcf (const std::string &, const std::string &);
-        static int               CalculatePsl (const std::string &);
-        static unsigned int      CalculateE   (const std::string &);
-        static float             CalculateIsl (const std::string &);
-        static float             CalculateMf  (const std::string &);
-        static float             CalculateDb  (const int, const int);
+        static std::vector <int> Acf (const std::string &);
+        static std::vector <int> Ccf (const std::string &, const std::string &);
+        static int               Psl (const std::string &);
+        static unsigned int      E   (const std::string &);
+        static float             Isl (const std::string &);
+        static float             Mf  (const std::string &);
+        static float             Db  (const int, const int);
 };
 
 }// namespace Core

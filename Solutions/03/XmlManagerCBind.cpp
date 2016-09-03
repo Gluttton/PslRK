@@ -34,7 +34,7 @@ void XmlManagerSaveCode (char * xmlFileName, const __u8 length, const __u64 code
         xmlManager.InsertCode (
                 id
               , Representer::HexViewToStringView (id).length ()
-              , Calculator::CalculatePsl (stringView)
+              , Calculator::Psl (stringView)
               ,{Representer::HexViewToStringView (id)}
               ,{ {article, author, link} }
         );
