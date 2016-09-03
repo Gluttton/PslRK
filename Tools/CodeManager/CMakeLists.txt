@@ -11,6 +11,8 @@ set (CodeManager_VERSION_MINOR 1)
 
 enable_testing ()
 
+add_custom_target (tests)
+add_dependencies  (tests CodeManagerCoreTest)
 
 add_subdirectory (Core)
 add_subdirectory (Ui)

@@ -29,7 +29,7 @@ include_directories (
 
 add_executable (
     CodeManagerCoreTest
-    #EXCLUDE_FROM_ALL
+    EXCLUDE_FROM_ALL
     ${CodeManagerCoreTest_SOURCES}
 )
 

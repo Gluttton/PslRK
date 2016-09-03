@@ -7,7 +7,8 @@ stages:
     - solution_03_build
     - solution_04_build
     - solution_04_test
-    - code_manager_full
+    - code_manager_build
+    - code_manager_test
 
 
 solution_01_build_job:
@@ -96,8 +97,8 @@ solution_04_test_job:
         - gcovr -r .
 
 
-code_manager_full_job:
-    stage: code_manager_full
+code_manager_build_job:
+    stage: code_manager_build
     image: gluttton/pslrk:qt
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
@@ -106,6 +107,18 @@ code_manager_full_job:
         - cmake -DCMAKE_BUILD_TYPE=Debug ${BUILD_DIR}/..
     script:
         - make
+
+
+code_manager_test_job:
+    stage: code_manager_test
+    image: gluttton/pslrk:qt
+    before_script:
+        - BUILD_DIR=`pwd`/Tools/CodeManager/build
+        - mkdir -p ${BUILD_DIR}
+        - cd ${BUILD_DIR}
+        - cmake -DCMAKE_BUILD_TYPE=Debug ${BUILD_DIR}/..
+    script:
+        - make tests
         - ./Core/test/CodeManagerCoreTest
         - gcovr -r ..
 
