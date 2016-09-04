@@ -30,7 +30,7 @@ solution_01_test_job:
     script:
         - make testing
         - ./lpslcd.test
-        - gcovr -r .
+        - gcovr --exclude 'test' -r .
 
 
 solution_02_build_job:
@@ -94,7 +94,7 @@ solution_04_test_job:
     script:
         - make testing
         - ./lpslcd.test
-        - gcovr -r .
+        - gcovr --exclude 'test' -r .
 
 
 code_manager_build_job:
@@ -120,5 +120,5 @@ code_manager_test_job:
     script:
         - make tests
         - ./Core/test/CodeManagerCoreTest
-        - gcovr -r ..
+        - gcovr --exclude '.*test' -r ..
 
