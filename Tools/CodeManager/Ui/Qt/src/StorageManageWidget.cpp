@@ -145,7 +145,13 @@ void StorageManageWidget::onDataSourceBrowsing ()
 
 void StorageManageWidget::onDataSourceOpening ()
 {
-    xmlManager = new Pslrk::Core::XmlManager (editDataSource->text ().toStdString () );
+    try {
+        xmlManager = new Pslrk::Core::XmlManager (editDataSource->text ().toStdString () );
+    }
+    catch (Pslrk::Core::ExceptionXmlErrorLoadFile & e) {
+        xmlManager = nullptr;
+        return;
+    }
 
     const pugi::xml_node codes = xmlManager->Select ("/").node ();
     for (const auto & code : codes.child ("codes").children ("code") ) {
