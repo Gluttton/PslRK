@@ -22,6 +22,7 @@ The CodeManager already has CLI (deprecated) and GUI (Qt) user interface which a
 - calculate Peak Sidelobe Level (PSL) of sequence;
 - get view of sequence which is required for adding to the [Collection](https://github.com/Gluttton/PslRK/tree/master/Reports);
 - calculate [Autocorrelation Function (ACF)](http://en.wikipedia.org/wiki/Autocorrelation);
+- calculate [Cross-correlation Function (ACF)](http://en.wikipedia.org/wiki/Cross-correlation) with user defined sequence;
 - manipulate whith the Collection of sequences.
 
 

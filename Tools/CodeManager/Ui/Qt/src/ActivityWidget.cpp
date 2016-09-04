@@ -20,8 +20,10 @@ ActivityWidget::ActivityWidget (QWidget * parent)
             , editLength        (nullptr)
             , editHexView       (nullptr)
             , editStringView    (nullptr)
+            , editFilter        (nullptr)
             , editPsl           (nullptr)
             , checkLengthAuto   (nullptr)
+            , checkFilterMatched(nullptr)
             , plot              (nullptr)
             , isLengthAutoDetect(true)
 {
@@ -38,6 +40,7 @@ void ActivityWidget::createWidgets ()
     editLength     = new QLineEdit (this);
     editHexView    = new QLineEdit (this);
     editStringView = new QLineEdit (this);
+    editFilter     = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
     editDb         = new QLineEdit (this);
     editE          = new QLineEdit (this);
@@ -50,14 +53,19 @@ void ActivityWidget::createWidgets ()
     editHexView->setValidator    (new ValidatorHexViewAdapter);
     editStringView->setValidator (new ValidatorStringViewAdapter);
     editStringView->setReadOnly  (!isLengthAutoDetect);
+    editFilter->setValidator     (new ValidatorStringViewAdapter);
+    editFilter->setDisabled      (true);
     editPsl->setReadOnly         (true);
     editDb->setReadOnly          (true);
     editE->setReadOnly           (true);
     editMf->setReadOnly          (true);
     editIsl->setReadOnly         (true);
 
-    checkLengthAuto = new QCheckBox (this);
+    checkLengthAuto    = new QCheckBox (this);
+    checkFilterMatched = new QCheckBox (this);
+
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
+    checkFilterMatched->setCheckState (Qt::Checked);
 
     plot = new QCustomPlot (this);
 }
@@ -89,6 +97,14 @@ void ActivityWidget::createLayouts ()
     layoutStringView->addWidget (labelStringView);
     layoutStringView->addWidget (editStringView);
 
+    QHBoxLayout * layoutFilter = new QHBoxLayout ();
+    QLabel * labelFilter = new QLabel (tr ("Filter") );
+    layoutFilter->addWidget (labelFilter);
+    layoutFilter->addWidget (editFilter);
+    QLabel * labelFilterMatched = new QLabel (tr ("Use matched filter") );
+    layoutFilter->addWidget (labelFilterMatched);
+    layoutFilter->addWidget (checkFilterMatched);
+
     QHBoxLayout * layoutFeatures = new QHBoxLayout ();
     QLabel * labelPsl = new QLabel (tr ("PSL") );
     layoutFeatures->addWidget (labelPsl);
@@ -111,11 +127,13 @@ void ActivityWidget::createLayouts ()
     width = std::max (labelLength->fontMetrics     ().width (labelLength->text     () ), width);
     width = std::max (labelHexView->fontMetrics    ().width (labelHexView->text    () ), width);
     width = std::max (labelStringView->fontMetrics ().width (labelStringView->text () ), width);
+    width = std::max (labelFilter->fontMetrics     ().width (labelFilter->text     () ), width);
     width = std::max (labelPsl->fontMetrics        ().width (labelPsl->text        () ), width);
     labelCodeId->setFixedWidth     (width);
     labelLength->setFixedWidth     (width);
     labelHexView->setFixedWidth    (width);
     labelStringView->setFixedWidth (width);
+    labelFilter->setFixedWidth     (width);
     labelPsl->setFixedWidth        (width);
 
     QWidget * widgetCode = new QWidget ();
@@ -124,6 +142,7 @@ void ActivityWidget::createLayouts ()
     layoutCode->addLayout (layoutLength);
     layoutCode->addLayout (layoutHexView);
     layoutCode->addLayout (layoutStringView);
+    layoutCode->addLayout (layoutFilter);
     layoutCode->addLayout (layoutFeatures);
     layoutCode->addStretch ();
     widgetCode->setLayout (layoutCode);
@@ -152,6 +171,13 @@ void ActivityWidget::createConnections ()
     connect (editHexView,     SIGNAL (textEdited   (const QString &) ), this, SLOT (onHexViewEdited    (const QString &) ) );
     connect (editStringView,  SIGNAL (textEdited   (const QString &) ), this, SLOT (onStringViewEdited (const QString &) ) );
     connect (checkLengthAuto, SIGNAL (stateChanged (int) ),             this, SLOT (onLengthAutoDetectChanged (const int) ) );
+    connect (editFilter, & QLineEdit::textEdited, [this](){
+        onStringViewEdited (editStringView->text () );
+    });
+    connect (checkFilterMatched, & QCheckBox::stateChanged, [this](const int state){
+        editFilter->setDisabled (state);
+        onStringViewEdited (editStringView->text () );
+    });
 }
 
 
@@ -229,10 +255,18 @@ void ActivityWidget::onViewChanged (const std::string & view)
     ) );
 
 
-    const double range = view.size ();
-
+    double range {0.0};
     QVector <double> y;
-    for (auto i : Pslrk::Core::Calculator::Acf (view) ) {
+    std::vector <int> convolution;
+    if (checkFilterMatched->isChecked () ) {
+        convolution = Pslrk::Core::Calculator::Acf (view);
+        range       = view.size ();
+    }
+    else {
+        convolution = Pslrk::Core::Calculator::Ccf (view, editFilter->text ().toStdString () );
+        range       = (view.size () + editFilter->text ().size () ) / 2.0;
+    }
+    for (auto i : convolution) {
         y.push_back (i);
     }
     QVector <double> x;
