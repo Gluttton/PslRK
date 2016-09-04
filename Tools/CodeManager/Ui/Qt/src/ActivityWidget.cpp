@@ -241,13 +241,13 @@ void ActivityWidget::onViewChanged (const std::string & view)
         'f',
         3       // Only three digits after period must be displayed.
     ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E   (view) ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
     editMf->setText     (QString::number (
         Pslrk::Core::Calculator::Mf (view),
         'f',
         3       // Only three digits after period must be displayed.
     ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E   (view) ) );
+    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
     editIsl->setText    (QString::number (
         Pslrk::Core::Calculator::Isl (view),
         'f',
@@ -256,7 +256,6 @@ void ActivityWidget::onViewChanged (const std::string & view)
 
 
     double range {0.0};
-    QVector <double> y;
     std::vector <int> convolution;
     if (checkFilterMatched->isChecked () ) {
         convolution = Pslrk::Core::Calculator::Acf (view);
@@ -266,24 +265,14 @@ void ActivityWidget::onViewChanged (const std::string & view)
         convolution = Pslrk::Core::Calculator::Ccf (view, editFilter->text ().toStdString () );
         range       = (view.size () + editFilter->text ().size () ) / 2.0 - 1.0;
     }
-    for (auto i : convolution) {
-        y.push_back (i);
-    }
+    QVector <double> y = QVector <double>::fromStdVector (std::vector <double> (convolution.begin (), convolution.end () ) );
     QVector <double> x;
     for (int i = 0; i < y.size (); ++i) {
         x.push_back (i - range);
     }
 
-    double min {0.0};
-    for (auto i : y) {
-        min = std::min (min, i);
-    }
-    min -= 1.0;
-    double max {0.0};
-    for (auto i : y) {
-        max = std::max (max, i);
-    }
-    max += 1.0;
+    const double min = * std::min_element (y.constBegin (), y.constEnd () ) - 1.0;
+    const double max = * std::max_element (y.constBegin (), y.constEnd () ) + 1.0;
 
     plot->addGraph ();
     plot->graph (0)->setData (x, y);
