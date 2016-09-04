@@ -291,6 +291,9 @@ void StorageManageWidget::onModelCodesSelectionChanged (QItemSelection selectedI
     if (selectedItem.indexes ().size () ) {
         QModelIndex index = modelCodes->item (selectedItem.indexes ().first ().row (), columnNumberId)->index ();
 
+        buttonItemAdd->setDisabled      (false);
+        buttonItemRemove->setDisabled   (false);
+
         modelSequences->removeRows  (0, modelSequences->rowCount  () );
         modelReferences->removeRows (0, modelReferences->rowCount () );
 
@@ -352,8 +355,10 @@ void StorageManageWidget::onModelReferencesItemChanged (QStandardItem *)
 void StorageManageWidget::onFocusChanged (QWidget *, QWidget * widgetFocused)
 {
     if (widgetFocused == tableCodes || widgetFocused == tableSequences || widgetFocused == tableReferences) {
-        buttonItemAdd->setDisabled    (false);
-        buttonItemRemove->setDisabled (false);
+        if (xmlManager && tableCodes->selectionModel ()->hasSelection () ) {
+            buttonItemAdd->setDisabled    (false);
+            buttonItemRemove->setDisabled (false);
+        }
         tableFocused = widgetFocused;
     }
     else if (widgetFocused == buttonItemAdd || widgetFocused == buttonItemRemove) {
