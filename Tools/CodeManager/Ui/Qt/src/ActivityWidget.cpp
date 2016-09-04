@@ -68,6 +68,7 @@ void ActivityWidget::createWidgets ()
     checkFilterMatched->setCheckState (Qt::Checked);
 
     plot = new QCustomPlot (this);
+    plot->addGraph ();
 }
 
 
@@ -274,7 +275,6 @@ void ActivityWidget::onViewChanged (const std::string & view)
     const double min = * std::min_element (y.constBegin (), y.constEnd () ) - 1.0;
     const double max = * std::max_element (y.constBegin (), y.constEnd () ) + 1.0;
 
-    plot->addGraph ();
     plot->graph (0)->setData (x, y);
     plot->graph (0)->setPen (QPen (Qt::blue) );
     plot->xAxis->setRange (-range, range);
