@@ -260,28 +260,30 @@ void ActivityWidget::onViewChanged (const std::string & view)
     std::vector <int> convolution;
     if (checkFilterMatched->isChecked () ) {
         convolution = Pslrk::Core::Calculator::Acf (view);
-        range       = view.size ();
+        range       = view.size () - 1.0;
     }
     else {
         convolution = Pslrk::Core::Calculator::Ccf (view, editFilter->text ().toStdString () );
-        range       = (view.size () + editFilter->text ().size () ) / 2.0;
+        range       = (view.size () + editFilter->text ().size () ) / 2.0 - 1.0;
     }
     for (auto i : convolution) {
         y.push_back (i);
     }
     QVector <double> x;
     for (int i = 0; i < y.size (); ++i) {
-        x.push_back (i - range + 1);
+        x.push_back (i - range);
     }
 
     double min {0.0};
     for (auto i : y) {
         min = std::min (min, i);
     }
+    min -= 1.0;
     double max {0.0};
     for (auto i : y) {
         max = std::max (max, i);
     }
+    max += 1.0;
 
     plot->addGraph ();
     plot->graph (0)->setData (x, y);
