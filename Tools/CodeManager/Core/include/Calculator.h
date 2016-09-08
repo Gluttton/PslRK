@@ -16,10 +16,16 @@ class Calculator
     public:
         static std::vector <int> Acf (const std::string &);
         static std::vector <int> Ccf (const std::string &, const std::string &);
+        static int               Ml  (const std::string &);
+        static int               Ml  (const std::string &, const std::string &);
         static int               Psl (const std::string &);
+        static int               Psl (const std::string &, const std::string &);
         static unsigned int      E   (const std::string &);
+        static unsigned int      E   (const std::string &, const std::string &);
         static float             Isl (const std::string &);
+        static float             Isl (const std::string &, const std::string &);
         static float             Mf  (const std::string &);
+        static float             Mf  (const std::string &, const std::string &);
         static float             Db  (const int, const int);
 };
 

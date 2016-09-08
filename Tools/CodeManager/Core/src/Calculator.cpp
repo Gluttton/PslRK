@@ -2,7 +2,7 @@
 #include "Validator.h"
 #include "Exception.h"
 #include <algorithm>
-#include <iostream>
+#include <cmath>
 
 
 
@@ -89,6 +89,36 @@ std::vector <int> Calculator::Ccf (const std::string & stringViewOne, const std:
 
 
 
+int Calculator::Ml (const std::string & stringView)
+{
+    if (Validator::ValidateStringView (stringView) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
+    return stringView.length ();
+}
+
+
+
+int Calculator::Ml (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    if (stringViewOne.empty ()
+     || stringViewTwo.empty () ) {
+        return 0;
+    }
+
+    if (Validator::ValidateStringView (stringViewTwo) != viewIsValid
+     || Validator::ValidateStringView (stringViewTwo) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
+    std::vector <int> ccf {Ccf (stringViewOne, stringViewTwo)};
+    std::transform (ccf.begin (), ccf.end (), ccf.begin (), abs);
+    return * std::max_element (ccf.begin (), ccf.end () );
+}
+
+
+
 int Calculator::Psl (const std::string & stringView)
 {
     if (stringView.empty () ) {
@@ -107,28 +137,45 @@ int Calculator::Psl (const std::string & stringView)
 
 
 
+int Calculator::Psl (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    if (stringViewOne.empty ()
+     || stringViewTwo.empty () ) {
+        return 0;
+    }
+
+    if (Validator::ValidateStringView (stringViewTwo) != viewIsValid
+     || Validator::ValidateStringView (stringViewTwo) != viewIsValid) {
+        throw ExceptionInvalidStringView ();
+    }
+
+    std::vector <int> ccf {Ccf (stringViewOne, stringViewTwo)};
+    std::transform (ccf.begin (), ccf.end (), ccf.begin (), abs);
+    std::nth_element (ccf.begin (), ccf.begin () + 1, ccf.end (), std::greater <int> () );
+    return * (ccf.begin () + 1);
+}
+
+
+
+// Calculate energy of binary sequence.
+//
+//        N - 1  / N - k            \ 2
+//        ____   | ____             |
+// E = 2  \      | \     a + a      |
+//        /___   | /___   i   i + k |
+//        n = 1  \ i = 1            /
+//
+// N - energy of sequence.
+// n - 0 < n < N;
+// k - 0 < k < N;
+// N - length of sequence.
 unsigned int Calculator::E (const std::string & stringView)
 {
-    // Calculate energy of binary sequence.
-    //
-    //        N - 1  / N - k            \ 2
-    //        ____   | ____             |
-    // E = 2  \      | \     a + a      |
-    //        /___   | /___   i   i + k |
-    //        n = 1  \ i = 1            /
-    //
-    // N - energy of sequence.
-    // n - 0 < n < N;
-    // k - 0 < k < N;
-    // N - length of sequence.
-
     unsigned int e {0u};
 
     if (stringView.size () ) {
         const auto acf = Acf (stringView);
-        for (size_t i = 0; i < stringView.size () - 1; ++i) {
-            e += pow (acf [i], 2);
-        }
+        e = std::accumulate (acf.begin (), acf.begin () + stringView.size () - 1, e, [](const int a, const int x){return a + std::pow (x, 2);});
         e *= 2u;
     }
 
@@ -137,44 +184,73 @@ unsigned int Calculator::E (const std::string & stringView)
 
 
 
+unsigned int Calculator::E (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    unsigned int e {0u};
+
+    if (stringViewOne.length () && stringViewTwo.length () ) {
+        const auto ccf = Ccf (stringViewOne, stringViewTwo);
+        e = std::accumulate (ccf.begin (), ccf.end (), e, [](const int a, const int x){return a + std::pow (x, 2);});
+        e -= std::pow (Ml (stringViewOne, stringViewTwo), 2);
+    }
+
+    return e;
+}
+
+
+
+// Calculate integrated sidelobe level of binary sequence.
+//
+//              /  E  |
+// I = 10 log   | ----|
+//          10  |   2 |
+//              \  N  /
+//
+// I - integrated sidelobe level of sequence.
+// E - energy of sequence.
+// N - length of sequence.
 float Calculator::Isl (const std::string & stringView)
 {
-    // Calculate integrated sidelobe level of binary sequence.
-    //
-    //              /  E  |
-    // I = 10 log   | ----|
-    //          10  |   2 |
-    //              \  N  /
-    //
-    // I - integrated sidelobe level of sequence.
-    // E - energy of sequence.
-    // N - length of sequence.
+    return 10 * std::log10 (E (stringView) / std::pow (stringView.size (), 2) );
+}
 
-    const auto e = E (stringView);
 
-    const float isl = 10 * log10 (e / pow (stringView.size (), 2) );
+
+float Calculator::Isl (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    const auto e = E (stringViewOne, stringViewTwo);
+    const auto n = (stringViewOne.length () + stringViewTwo.length () ) / 2;
+
+    const float isl = 10 * std::log10 (e / std::pow (n, 2) );
 
     return isl;
 }
 
 
 
+// Calculate merit factor of binary sequence.
+//
+//       2
+//      N
+// M = ----
+//      E
+//
+// M - merit factor of sequence.
+// E - energy of sequence.
+// N - length of sequence.
 float Calculator::Mf (const std::string & stringView)
 {
-    // Calculate merit factor of binary sequence.
-    //
-    //       2
-    //      N
-    // M = ----
-    //      E
-    //
-    // M - merit factor of sequence.
-    // E - energy of sequence.
-    // N - length of sequence.
+    return std::pow (stringView.size (), 2) / E (stringView);
+}
 
-    const auto e = E (stringView);
 
-    const float mf = pow (stringView.size (), 2) / e;
+
+float Calculator::Mf (const std::string & stringViewOne, const std::string & stringViewTwo)
+{
+    const auto e = E (stringViewOne, stringViewTwo);
+    const auto n = (stringViewOne.length () + stringViewTwo.length () ) / 2;
+
+    const float mf = std::pow (n, 2) / e;
 
     return mf;
 }
