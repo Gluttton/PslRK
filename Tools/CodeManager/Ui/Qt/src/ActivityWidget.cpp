@@ -75,6 +75,7 @@ void ActivityWidget::createWidgets ()
 
     plot = new QCustomPlot (this);
     plot->addGraph ();
+    plot->graph (0)->setScatterStyle (QCPScatterStyle::ssDisc);
 }
 
 
