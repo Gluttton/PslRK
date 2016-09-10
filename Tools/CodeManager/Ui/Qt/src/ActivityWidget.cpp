@@ -25,6 +25,7 @@ ActivityWidget::ActivityWidget (QWidget * parent)
             , editPsl           (nullptr)
             , checkLengthAuto   (nullptr)
             , checkFilterMatched(nullptr)
+            , checkShowAbs      (nullptr)
             , plot              (nullptr)
             , isLengthAutoDetect(true)
 {
@@ -66,9 +67,11 @@ void ActivityWidget::createWidgets ()
 
     checkLengthAuto    = new QCheckBox (this);
     checkFilterMatched = new QCheckBox (this);
+    checkShowAbs       = new QCheckBox (this);
 
     checkLengthAuto->setCheckState (isLengthAutoDetect ? Qt::Checked : Qt::Unchecked);
     checkFilterMatched->setCheckState (Qt::Checked);
+    checkShowAbs->setCheckState (Qt::Unchecked);
 
     plot = new QCustomPlot (this);
     plot->addGraph ();
@@ -128,6 +131,9 @@ void ActivityWidget::createLayouts ()
     QLabel * labelIsl = new QLabel (tr ("ISL") );
     layoutFeatures->addWidget (labelIsl);
     layoutFeatures->addWidget (editIsl);
+    QLabel * labelShowAbs = new QLabel (tr ("Show module") );
+    layoutFeatures->addWidget (labelShowAbs);
+    layoutFeatures->addWidget (checkShowAbs);
 
     int width {0};
     width = std::max (labelCodeId->fontMetrics     ().width (labelCodeId->text     () ), width);
@@ -183,6 +189,9 @@ void ActivityWidget::createConnections ()
     });
     connect (checkFilterMatched, & QCheckBox::stateChanged, [this](const int state){
         editFilter->setDisabled (state);
+        onStringViewEdited (editStringView->text () );
+    });
+    connect (checkShowAbs, & QCheckBox::stateChanged, [this](const int){
         onStringViewEdited (editStringView->text () );
     });
 }
@@ -300,6 +309,9 @@ void ActivityWidget::onViewChanged (const std::string & view)
         range       = (view.size () + editFilter->text ().size () ) / 2.0 - 1.0;
     }
 
+    if (checkShowAbs->isChecked () ) {
+        std::transform (convolution.begin (), convolution.end (), convolution.begin (), abs);
+    }
     QVector <double> y = QVector <double>::fromStdVector (std::vector <double> (convolution.begin (), convolution.end () ) );
     QVector <double> x;
     for (int i = 0; i < y.size (); ++i) {

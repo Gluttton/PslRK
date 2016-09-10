@@ -41,6 +41,7 @@ class ActivityWidget : public QWidget
         QLineEdit                             * editIsl;
         QCheckBox                             * checkLengthAuto;
         QCheckBox                             * checkFilterMatched;
+        QCheckBox                             * checkShowAbs;
 
         QCustomPlot                           * plot;
 
