@@ -33,6 +33,7 @@ class ActivityWidget : public QWidget
         QLineEdit                             * editHexView;
         QLineEdit                             * editStringView;
         QLineEdit                             * editFilter;
+        QLineEdit                             * editMl;
         QLineEdit                             * editPsl;
         QLineEdit                             * editDb;
         QLineEdit                             * editE;

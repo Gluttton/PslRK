@@ -21,6 +21,7 @@ ActivityWidget::ActivityWidget (QWidget * parent)
             , editHexView       (nullptr)
             , editStringView    (nullptr)
             , editFilter        (nullptr)
+            , editMl            (nullptr)
             , editPsl           (nullptr)
             , checkLengthAuto   (nullptr)
             , checkFilterMatched(nullptr)
@@ -41,6 +42,7 @@ void ActivityWidget::createWidgets ()
     editHexView    = new QLineEdit (this);
     editStringView = new QLineEdit (this);
     editFilter     = new QLineEdit (this);
+    editMl         = new QLineEdit (this);
     editPsl        = new QLineEdit (this);
     editDb         = new QLineEdit (this);
     editE          = new QLineEdit (this);
@@ -55,6 +57,7 @@ void ActivityWidget::createWidgets ()
     editStringView->setReadOnly  (!isLengthAutoDetect);
     editFilter->setValidator     (new ValidatorStringViewAdapter);
     editFilter->setDisabled      (true);
+    editMl->setReadOnly          (true);
     editPsl->setReadOnly         (true);
     editDb->setReadOnly          (true);
     editE->setReadOnly           (true);
@@ -107,6 +110,9 @@ void ActivityWidget::createLayouts ()
     layoutFilter->addWidget (checkFilterMatched);
 
     QHBoxLayout * layoutFeatures = new QHBoxLayout ();
+    QLabel * labelMl = new QLabel (tr ("ML") );
+    layoutFeatures->addWidget (labelMl);
+    layoutFeatures->addWidget (editMl);
     QLabel * labelPsl = new QLabel (tr ("PSL") );
     layoutFeatures->addWidget (labelPsl);
     layoutFeatures->addWidget (editPsl);
@@ -129,13 +135,13 @@ void ActivityWidget::createLayouts ()
     width = std::max (labelHexView->fontMetrics    ().width (labelHexView->text    () ), width);
     width = std::max (labelStringView->fontMetrics ().width (labelStringView->text () ), width);
     width = std::max (labelFilter->fontMetrics     ().width (labelFilter->text     () ), width);
-    width = std::max (labelPsl->fontMetrics        ().width (labelPsl->text        () ), width);
+    width = std::max (labelMl->fontMetrics         ().width (labelMl->text         () ), width);
     labelCodeId->setFixedWidth     (width);
     labelLength->setFixedWidth     (width);
     labelHexView->setFixedWidth    (width);
     labelStringView->setFixedWidth (width);
     labelFilter->setFixedWidth     (width);
-    labelPsl->setFixedWidth        (width);
+    labelMl->setFixedWidth        (width);
 
     QWidget * widgetCode = new QWidget ();
     QVBoxLayout * layoutCode  = new QVBoxLayout ();
@@ -230,42 +236,70 @@ void ActivityWidget::onStringViewEdited (const QString & view)
 void ActivityWidget::onViewChanged (const std::string & view)
 {
     editCodeId->setText (QString::fromStdString (Pslrk::Core::Representer::DetectCodeId (view) ) );
-    editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::Psl (view) ) );
+
     if (isLengthAutoDetect) {
         editLength->setText (QString ("%1").arg (view.size () ) );
     }
-    editDb->setText     (QString::number (
-        Pslrk::Core::Calculator::Db (
-            editLength->text ().toInt (),
-            Pslrk::Core::Calculator::Psl (view)
-        ),
-        'f',
-        3       // Only three digits after period must be displayed.
-    ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
-    editMf->setText     (QString::number (
-        Pslrk::Core::Calculator::Mf (view),
-        'f',
-        3       // Only three digits after period must be displayed.
-    ) );
-    editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
-    editIsl->setText    (QString::number (
-        Pslrk::Core::Calculator::Isl (view),
-        'f',
-        3       // Only three digits after period must be displayed.
-    ) );
-
 
     double range {0.0};
     std::vector <int> convolution;
+
     if (checkFilterMatched->isChecked () ) {
+        editMl->setText     (QString ("%1").arg (Pslrk::Core::Calculator::Ml  (view) ) );
+        editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::Psl (view) ) );
+        editDb->setText     (QString::number (
+            Pslrk::Core::Calculator::Db (
+                Pslrk::Core::Calculator::Ml  (view),
+                Pslrk::Core::Calculator::Psl (view)
+            ),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+        editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
+        editMf->setText     (QString::number (
+            Pslrk::Core::Calculator::Mf (view),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+        editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view) ) );
+        editIsl->setText    (QString::number (
+            Pslrk::Core::Calculator::Isl (view),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+
         convolution = Pslrk::Core::Calculator::Acf (view);
         range       = view.size () - 1.0;
     }
     else {
+        const auto viewFilter = editFilter->text ().toStdString ();
+        editMl->setText     (QString ("%1").arg (Pslrk::Core::Calculator::Ml  (view, viewFilter) ) );
+        editPsl->setText    (QString ("%1").arg (Pslrk::Core::Calculator::Psl (view, viewFilter) ) );
+        editDb->setText     (QString::number (
+            Pslrk::Core::Calculator::Db (
+                Pslrk::Core::Calculator::Ml  (view, viewFilter),
+                Pslrk::Core::Calculator::Psl (view, viewFilter)
+            ),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+        editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view, viewFilter) ) );
+        editMf->setText     (QString::number (
+            Pslrk::Core::Calculator::Mf (view, viewFilter),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+        editE->setText      (QString ("%1").arg (Pslrk::Core::Calculator::E (view, viewFilter) ) );
+        editIsl->setText    (QString::number (
+            Pslrk::Core::Calculator::Isl (view, viewFilter),
+            'f',
+            3       // Only three digits after period must be displayed.
+        ) );
+
         convolution = Pslrk::Core::Calculator::Ccf (view, editFilter->text ().toStdString () );
         range       = (view.size () + editFilter->text ().size () ) / 2.0 - 1.0;
     }
+
     QVector <double> y = QVector <double>::fromStdVector (std::vector <double> (convolution.begin (), convolution.end () ) );
     QVector <double> x;
     for (int i = 0; i < y.size (); ++i) {
