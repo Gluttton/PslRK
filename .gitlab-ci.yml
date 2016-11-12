@@ -13,7 +13,7 @@ stages:
 
 solution_01_build_job:
     stage: solution_01_build
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/01
         - cd ${BUILD_DIR}
@@ -23,7 +23,7 @@ solution_01_build_job:
 
 solution_01_test_job:
     stage: solution_01_test
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/01
         - cd ${BUILD_DIR}
@@ -35,7 +35,7 @@ solution_01_test_job:
 
 solution_02_build_job:
     stage: solution_02_build
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -45,7 +45,7 @@ solution_02_build_job:
 
 solution_02_build_view_dat_job:
     stage: solution_02_build_view_dat
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -55,7 +55,7 @@ solution_02_build_view_dat_job:
 
 solution_02_build_view_stat_job:
     stage: solution_02_build_view_stat
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -65,7 +65,7 @@ solution_02_build_view_stat_job:
 
 solution_03_build_job:
     stage: solution_03_build
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/03/build
         - mkdir -p ${BUILD_DIR}
@@ -77,7 +77,7 @@ solution_03_build_job:
 
 solution_04_build_job:
     stage: solution_04_build
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/04
         - cd ${BUILD_DIR}
@@ -87,7 +87,7 @@ solution_04_build_job:
 
 solution_04_test_job:
     stage: solution_04_test
-    image: gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:base
     before_script:
         - BUILD_DIR=`pwd`/Solutions/04
         - cd ${BUILD_DIR}
@@ -99,7 +99,7 @@ solution_04_test_job:
 
 code_manager_build_job:
     stage: code_manager_build
-    image: gluttton/pslrk:qt
+    image: registry.gitlab.com/gluttton/pslrk:qt
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
@@ -111,7 +111,7 @@ code_manager_build_job:
 
 code_manager_test_job:
     stage: code_manager_test
-    image: gluttton/pslrk:qt
+    image: registry.gitlab.com/gluttton/pslrk:qt
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
