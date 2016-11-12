@@ -2,6 +2,7 @@
 #include <linux/types.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 
 
@@ -12,6 +13,8 @@ int main (int argc, char * argv [])
     int fileStat = open (argv [1], O_RDONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
     while (read (fileStat, &rdtsc,  sizeof (rdtsc) ) > 0) {
         printf ("%llu:\t%llu\n", ++i, rdtsc);
-    } 
+    }
     close (fileStat);
+
+    return EXIT_SUCCESS;
 }
