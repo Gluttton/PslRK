@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QCheckBox>
-#include "External/QCustomPlot/qcustomplot.h"
+#include <qcustomplot.h>
 
 
 
