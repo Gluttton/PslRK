@@ -2,8 +2,12 @@
 #define LPSLCD_GENERATOR_H
 
 #include <array>
+#include <vector>
 #include <linux/types.h>
-#include "environment.h"
+
+
+
+using Code = std::array <__u8, 32>;
 
 
 
@@ -15,9 +19,15 @@ class Generator
 
         virtual bool GetNextCode        (Code &, __s32 &);
 
-        Environment environment;
-
         static Code CalculateMaxCode    (const __s32);
+
+        std::vector <std::vector <__s8> >
+                                        sums;
+
+        Code code                       {};
+        Code maxCode                    {};
+        __s32 length                    {0};
+        __s32 modifiedBits              {0};
 };
 
 #endif//LPSLCD_GENERATOR_H

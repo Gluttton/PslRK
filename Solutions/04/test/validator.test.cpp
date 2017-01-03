@@ -25,8 +25,8 @@ TEST_F (ValidatorTest, Validate_00_Success)
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -45,14 +45,14 @@ TEST_F (ValidatorTest, Validate_10_Success)
 {
     // Arange.
     GeneratorMock generator {2};
-    generator.environment.code [0] = 0x02;
+    generator.code [0] = 0x02;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -71,14 +71,14 @@ TEST_F (ValidatorTest, Validate_001_Success)
 {
     // Arange.
     GeneratorMock generator {3};
-    generator.environment.code [0] = 0x01;
+    generator.code [0] = 0x01;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -97,14 +97,14 @@ TEST_F (ValidatorTest, Validate_0001_Success)
 {
     // Arange.
     GeneratorMock generator {4};
-    generator.environment.code [0] = 0x01;
+    generator.code [0] = 0x01;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -123,14 +123,14 @@ TEST_F (ValidatorTest, Validate_0100_Success)
 {
     // Arange.
     GeneratorMock generator {4};
-    generator.environment.code [0] = 0x04;
+    generator.code [0] = 0x04;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -149,14 +149,14 @@ TEST_F (ValidatorTest, Validate_00010_Success)
 {
     // Arange.
     GeneratorMock generator {5};
-    generator.environment.code [0] = 0x02;
+    generator.code [0] = 0x02;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -175,14 +175,14 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
 {
     // Arange.
     GeneratorMock generator {7};
-    generator.environment.code [0] = 0x0D;
+    generator.code [0] = 0x0D;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -201,14 +201,14 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
 {
     // Arange.
     GeneratorMock generator {11};
-    generator.environment.code [0] = 0xED;
+    generator.code [0] = 0xED;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -227,14 +227,14 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
 {
     // Arange.
     GeneratorMock generator {13};
-    generator.environment.code [0] = 0xCA;
+    generator.code [0] = 0xCA;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -253,14 +253,14 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
 {
     // Arange.
     GeneratorMock generator {5};
-    generator.environment.code [0] = 0x16;
+    generator.code [0] = 0x16;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -279,14 +279,14 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 {
     // Arange.
     GeneratorMock generator {13};
-    generator.environment.code [0] = 0x1F;
+    generator.code [0] = 0x1F;
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
             .WillOnce (
                 DoAll (
-                    testing::SetArgReferee <0> (generator.environment.code),
-                    testing::SetArgReferee <1> (generator.environment.modifiedBits)
+                    testing::SetArgReferee <0> (generator.code),
+                    testing::SetArgReferee <1> (generator.modifiedBits)
                 )
             );
     validator.SetNextCode ();
@@ -323,7 +323,7 @@ TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
     // Act.
     while (!validator.SetNextCode () ) {
         if (validator.Validate () ) {
-            test [generator.environment.code [0] & 0x0F] = 1;
+            test [generator.code [0] & 0x0F] = 1;
         }
     }
 

@@ -7,8 +7,18 @@
 
 
 Generator::Generator (const __s32 length)
-            : environment {length}
+            : length        {length}
+            , modifiedBits  {length - 1}
 {
+    memset (code.data (), 0x00, sizeof (code) );
+    maxCode = Generator::CalculateMaxCode (length);
+
+    sums.resize (length);
+    for (int i = 1; i < length; ++i) {
+        for (int j = 0; j < length - i + 1; ++j) {
+            sums [i].push_back (length - i - j);
+        }
+    }
 }
 
 
@@ -35,7 +45,7 @@ Code Generator::CalculateMaxCode (const __s32 length)
 
 bool Generator::GetNextCode (Code & returnedCode, __s32 & modifiedBits)
 {
-    if (memcmp (returnedCode.data (), environment.maxCode.data (), environment.length / std::numeric_limits <Code::value_type>::digits + 1) ) {
+    if (memcmp (returnedCode.data (), maxCode.data (), length / std::numeric_limits <Code::value_type>::digits + 1) ) {
         __u8 i = 0;
         do {
             ++returnedCode [i];

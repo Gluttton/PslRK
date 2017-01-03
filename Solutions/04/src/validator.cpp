@@ -13,7 +13,7 @@ Validator::Validator (Generator & bindGenerator)
 
 bool Validator::SetNextCode ()
 {
-    return generator.GetNextCode (generator.environment.code, generator.environment.modifiedBits);
+    return generator.GetNextCode (generator.code, generator.modifiedBits);
 }
 
 
@@ -22,10 +22,10 @@ bool Validator::Validate ()
 {
     static constexpr __s32 x = std::numeric_limits <Code::value_type>::digits;
 
-    const auto & length = generator.environment.length;
-    const auto & ltz    = generator.environment.modifiedBits;
-    const auto & code   = generator.environment.code;
-          auto & sums   = generator.environment.sums;
+    const auto & length = generator.length;
+    const auto & ltz    = generator.modifiedBits;
+    const auto & code   = generator.code;
+          auto & sums   = generator.sums;
     const auto & limit  = sideLobeLimit;
 
     bool isOk = true;

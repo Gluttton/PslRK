@@ -17,7 +17,6 @@ EXE_LDADD           =
 EXE_SRC             = src/main.cpp \
                       src/generator.cpp \
                       src/validator.cpp \
-                      src/environment.cpp \
                       src/logger.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
 EXE                 = lpslcd
@@ -36,7 +35,6 @@ TEST_LDPATH         =
 TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
 TEST_SRC            = src/generator.cpp \
                       src/validator.cpp \
-                      src/environment.cpp \
                       src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp

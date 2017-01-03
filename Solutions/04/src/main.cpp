@@ -22,7 +22,7 @@ int main ()
 
     while (!validator.SetNextCode () ) {
         if (validator.Validate () ) {
-            logger.LogCode (generator.environment.length, generator.environment.code);
+            logger.LogCode (generator.length, generator.code);
         }
     }
 
