@@ -19,7 +19,7 @@ class Validator
         bool Validate                   ();
 
         Generator & generator;
-        __s32 sideLobeLimit             {2};
+        __s32 sideLobeLimit             {1};
 };
 
 #endif//LPSLCD_VALIDATOR_H

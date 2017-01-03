@@ -16,7 +16,7 @@ int main ()
     }
     Logger    logger      {currentDirectoryName};
 
-    Generator generator   {28};
+    Generator generator   {13};
     Validator validator   {generator};
 
 
