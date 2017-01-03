@@ -1,30 +1,23 @@
 #ifndef LPSLCD_GENERATOR_H
 #define LPSLCD_GENERATOR_H
 
-#include "code.h"
-#include "logger.h"
-#include <cstring>
-#include <math.h>
+#include <array>
+#include <linux/types.h>
+#include "environment.h"
 
 
 
 class Generator
 {
     public:
-        Generator                       (Logger * const, const __s32, const __s32);
+        Generator                       (const __s32);
         virtual ~Generator              () = default;
 
-        int CalculateMaxCode            (const __s32, Code &);
+        virtual bool GetNextCode        (Code &, __s32 &);
 
-        virtual int GetNextCode         (__s32 &, Code &, __s32 &);
+        Environment environment;
 
-        const __s32 beginLength         {0};
-        const __s32 endLength           {0};
-        __s32 length                    {0};
-        Code maxCode                    {};
-
-    private:
-        Logger * const logger           {nullptr};
+        static Code CalculateMaxCode    (const __s32);
 };
 
 #endif//LPSLCD_GENERATOR_H

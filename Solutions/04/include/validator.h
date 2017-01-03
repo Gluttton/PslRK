@@ -1,23 +1,25 @@
 #ifndef LPSLCD_VALIDATOR_H
 #define LPSLCD_VALIDATOR_H
 
-#include "generator.h"
+#include <linux/types.h>
+
+
+
+class Generator;
 
 
 
 class Validator
 {
     public:
-        explicit Validator              (Generator * const);
+        explicit Validator              (Generator &);
         virtual ~Validator              () = default;
 
-        int SetNextCode                 ();
-        int Validate                    ();
+        bool SetNextCode                ();
+        bool Validate                   ();
 
-        Generator * const generator     {nullptr};
-        Code code                       {};
-        __s32 length                    {0};
-        __s32 sideLobeLimit             {0};
+        Generator & generator;
+        __s32 sideLobeLimit             {2};
 };
 
 #endif//LPSLCD_VALIDATOR_H

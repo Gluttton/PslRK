@@ -12,8 +12,14 @@ Logger::Logger (const std::string & directoryName)
 
 
 
-void Logger::LogStatistic (const std::string & message)
+void Logger::LogStatistic (const __s32 length, const __u64 rdtsc, const __u64 codes, const __u64 codesAll)
 {
+    std::string message;
+    message  = std::to_string (length);
+    message += "\trdtsc " + std::to_string (rdtsc);
+    message += "\tcodes " + std::to_string (codes) + " / " + std::to_string (codesAll);
+    message += "\n";
+
     statFile.open (statFileName, std::fstream::out | std::fstream::app);
     statFile << message;
     statFile.close ();
@@ -37,7 +43,7 @@ void Logger::LogCode (const __u8 length, const Code & code)
     codeString  = std::to_string (length);
     codeString += ":\t";
     for (__u8 i = 0; i < length; ++i) {
-        if ( (code.u64 [i / 64] >> (i % 64) ) & 0x01) {
+        if ( (code [i / 8] >> (i % 8) ) & 0x01) {
             codeString += "+";
         }
         else {

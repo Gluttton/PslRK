@@ -1,54 +1,48 @@
 #include "validator.h"
+#include "generator.h"
+#include <limits>
 
 
 
-Validator::Validator (Generator * const bindGenerator)
+Validator::Validator (Generator & bindGenerator)
             : generator {bindGenerator}
 {
-    memset (&code, 0x00u, sizeof (code) );
 }
 
 
 
-int Validator::SetNextCode ()
+bool Validator::SetNextCode ()
 {
-    return generator->GetNextCode (length, code, sideLobeLimit);
+    return generator.GetNextCode (generator.environment.code, generator.environment.modifiedBits);
 }
 
 
 
-int Validator::Validate ()
+bool Validator::Validate ()
 {
-    // | N - k            |
-    // | ____             |
-    // | \     a + a      | < 2
-    // | /___   i   i + k |
-    // | i = 1            |
-    //
-    // k - 0 < k < N;
-    // N - length of sequence.
+    static constexpr __s32 x = std::numeric_limits <Code::value_type>::digits;
 
-    for (__s32 shift = 1; shift < length; ++shift) {
-        // Utility variables.
-        const __s32 x {(length - shift) >> 6};  // Shift means dividing by 64.
-        const __s32 y {          shift  >> 6};  // Shift means dividing by 64.
-        // Redundant raised bits which included in sum.
-        const __s32 extra {__builtin_popcountll (code.u64 [x] >> ( (length - shift) & 63) )};
+    const auto & length = generator.environment.length;
+    const auto & ltz    = generator.environment.modifiedBits;
+    const auto & code   = generator.environment.code;
+          auto & sums   = generator.environment.sums;
+    const auto & limit  = sideLobeLimit;
 
-        __s32 sideLobeSum {0};
-        for (__s32 i = 0; i <= x; ++i) {
-            sideLobeSum += __builtin_popcountll (
-                                  (code.u64 [i     + y] >> (      shift & 63)
-                                |  code.u64 [i + 1 + y] << (64 - (shift & 63) ) )
-                                ^  code.u64 [i]
-                );
+    bool isOk = true;
+    for (int shift = 1; shift < length - limit; ++shift) {
+        for (int j = std::min (length - 1 - shift, ltz); j >= 0; --j) {
+            const auto k = j + shift;
+            const __s8 a = ( (code [j / x] >> (j % x) ) & 1)
+                        == ( (code [k / x] >> (k % x) ) & 1)
+                         ? +1
+                         : -1;
+            sums [shift][j] = sums [shift][j + 1] + a;
         }
-
-        // Shift means multiply by two.
-        if (abs (length - shift - ( (sideLobeSum - extra) << 1) ) > sideLobeLimit) {
-            return 1;
+        if (std::abs (sums [shift][0]) > limit) {
+            isOk = false;
         }
     }
 
-    return 0;
+
+    return isOk;
 }

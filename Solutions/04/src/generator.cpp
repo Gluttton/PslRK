@@ -1,67 +1,54 @@
 #include "generator.h"
+#include <x86intrin.h>
+#include <cstring>
+#include <cmath>
+#include <limits>
 
 
 
-Generator::Generator (Logger * const commonLogger, const __s32 begin, const __s32 end)
-            : beginLength {begin < 2 ? 2 : begin}
-            , endLength   {end   > 64 * Code::u64ChunkCount ? 64 * Code::u64ChunkCount : end}
-            , length      {begin < 2 ? 2 : begin}
-            , logger      {commonLogger}
+Generator::Generator (const __s32 length)
+            : environment {length}
 {
-    CalculateMaxCode (beginLength, maxCode);
 }
 
 
 
-int Generator::CalculateMaxCode (const __s32 requestedLength, Code & returnedMaxCode) {
-    // Utility variables.
-    const __s32 x {1 + (requestedLength >> 3)};     // Shift means dividing by 8.
-
-    memset (&returnedMaxCode.u8 [x],      0x00u, Code::u8ChunkCount - 1 - x);
-    memset (&returnedMaxCode.u8 [0],      0xFFu,                                   x);
-    memset (&returnedMaxCode.u8 [x - 1], (0x01u << (requestedLength & 7) )   - 1,  1);
-
-    return 0;
-}
-
-
-
-int Generator::GetNextCode (__s32 & returnedLength, Code & returnedCode, __s32 & returnedSideLobeLimit)
+Code Generator::CalculateMaxCode (const __s32 length)
 {
-    static __u64 rdtsc {__rdtsc ()};
-    static __u64 codes {0ull};
-    __u8 i {0x00u};
+    Code code;
+    const auto a = std::numeric_limits <Code::value_type>::digits;
 
-    if (memcmp (returnedCode.u8, maxCode.u8, Code::u8ChunkCount) ) {
-        do {
-            ++returnedCode.u64 [i];
-        } while (!returnedCode.u64 [i++] && i < Code::u64ChunkCount);
-    }
-    else {
-        if (logger) {
-            std::string statisticString;
-            statisticString  = std::to_string (length);
-            statisticString += "\trdtsc " + std::to_string (__rdtsc () - rdtsc);
-            statisticString += "\tcodes " + std::to_string (codes) + " / " + std::to_string (1ull << length);
-            statisticString += "\n";
-            logger->LogStatistic (statisticString);
-        }
-
-        if (length < endLength) {
-            ++length;
-            returnedSideLobeLimit = length < 14 ? 1 : floor (length / 14.0f);
-            CalculateMaxCode (length, maxCode);
-            memset (returnedCode.u64, 0x00, i + 1);
-            rdtsc = __rdtsc ();
-            codes = 0;
+    for (__s32 i = 0; i < static_cast <__s32> (code.size () * a); ++i) {
+        Code::value_type b = 1 << (i % a);
+        if (i < length) {
+            code [i / a] |= b;
         }
         else {
-            return 1;
+            code [i / a] &=~b;
         }
     }
 
-    returnedLength = length;
+    return code;
+}
 
-    ++codes;
-    return 0;
+
+
+bool Generator::GetNextCode (Code & returnedCode, __s32 & modifiedBits)
+{
+    if (memcmp (returnedCode.data (), environment.maxCode.data (), environment.length / std::numeric_limits <Code::value_type>::digits + 1) ) {
+        __u8 i = 0;
+        do {
+            ++returnedCode [i];
+        } while (!returnedCode [i++] && i < returnedCode.size () );
+
+        __s32 b = 0;
+        //if (returnedCode [i - 1]) {
+            b = __builtin_ctz (returnedCode [i - 1]);
+        //}
+        modifiedBits = (i - 1) * std::numeric_limits <Code::value_type>::digits + b;
+
+        return false;
+    }
+
+    return true;
 }

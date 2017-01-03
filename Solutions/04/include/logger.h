@@ -1,10 +1,10 @@
 #ifndef LPSLCD_LOGGER_H
 #define LPSLCD_LOGGER_H
 
-#include "code.h"
 #include <linux/types.h>
 #include <fstream>
 #include <string>
+#include "generator.h"
 
 
 
@@ -14,9 +14,9 @@ class Logger
         explicit Logger (const std::string &);
         virtual ~Logger () = default;
 
-        void LogMessage   (const std::string &);
-        void LogCode      (const __u8, const Code &);
-        void LogStatistic (const std::string &);
+        virtual void LogMessage   (const std::string &);
+        virtual void LogCode      (const __u8, const Code &);
+        virtual void LogStatistic (const __s32, const __u64, const __u64, const __u64);
     private:
         const std::string currentDirectoryName;
         const std::string logFileName;
