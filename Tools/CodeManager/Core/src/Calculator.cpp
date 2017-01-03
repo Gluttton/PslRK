@@ -2,6 +2,7 @@
 #include "Validator.h"
 #include "Exception.h"
 #include <algorithm>
+#include <numeric>
 #include <cmath>
 
 
