@@ -311,7 +311,7 @@ void ActivityWidget::onViewChanged (const std::string & view)
     }
 
     if (checkShowAbs->isChecked () ) {
-        std::transform (convolution.begin (), convolution.end (), convolution.begin (), abs);
+        std::transform (convolution.begin (), convolution.end (), convolution.begin (), fabs);
     }
     QVector <double> y = QVector <double>::fromStdVector (std::vector <double> (convolution.begin (), convolution.end () ) );
     QVector <double> x;
