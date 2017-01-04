@@ -21,7 +21,7 @@ class Generator
 
         static Code CalculateMaxCode    (const __s32);
 
-        std::vector <std::vector <__s8> >
+        std::vector <std::pair <std::vector <__s8>, __u8> >
                                         sums;
 
         Code code                       {};

@@ -30,16 +30,21 @@ bool Validator::Validate ()
 
     bool isOk = true;
     for (int shift = 1; shift < length - limit; ++shift) {
-        for (int j = std::min (length - 1 - shift, ltz); j >= 0; --j) {
+        for (int j = std::min (length - 1 - shift, std::max <int> (ltz, sums [shift].second) ); j >= 0; --j) {
             const auto k = j + shift;
             const __s8 a = ( (code [j / x] >> (j % x) ) & 1)
                         == ( (code [k / x] >> (k % x) ) & 1)
                          ? +1
                          : -1;
-            sums [shift][j] = sums [shift][j + 1] + a;
+            sums [shift].first [j] = sums [shift].first [j + 1] + a;
         }
-        if (std::abs (sums [shift][0]) > limit) {
+        sums [shift].second = ltz;
+        if (std::abs (sums [shift].first [0]) > limit) {
             isOk = false;
+            for (;shift < length - limit; ++shift) {
+                sums [shift].second = std::max <int> (sums [shift].second, ltz);
+            }
+            break;
         }
     }
 

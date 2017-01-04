@@ -16,8 +16,9 @@ Generator::Generator (const __s32 length)
     sums.resize (length);
     for (int i = 1; i < length; ++i) {
         for (int j = 0; j < length - i + 1; ++j) {
-            sums [i].push_back (length - i - j);
+            sums [i].first.push_back (length - i - j);
         }
+        sums [i].second = 0;
     }
 }
 
