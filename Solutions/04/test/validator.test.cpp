@@ -315,10 +315,10 @@ TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
     // Arange.
     Generator generator     {4};
     Validator validator     {generator};
-    __u32 etalon [] {0,   1,   1,   0,   1,   0,   0,   1,   1,   0,   0,   1,   0,   1,   1,   0};
+    __u32 etalon [] {0,   1,   1,   0,   1,   0,   0,   1/*,   1,   0,   0,   1,   0,   1,   1,   0*/};
     //               0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
     //                 0001 0010      0100           0111 1000           1011      1101 1110
-    __u32 test   [] {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
+    __u32 test   [] {0,   0,   0,   0,   0,   0,   0,   0/*,   0,   0,   0,   0,   0,   0,   0,   0*/};
 
     // Act.
     while (!validator.SetNextCode () ) {

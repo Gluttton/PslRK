@@ -5,7 +5,13 @@ Set of solutions of the problem of finding binary sequences with low PSL level
     - portability:  C++11;
     - build:        make;
     - contribution: none.
- - [02](02) - minimalistic solution implemented on pure C;
+ - [02](02) - minimalistic solution implemented on pure C:
+    - optimization:
+        - skipped inverse-time sequences;
+        - using lookup table for calculate number of bits.
+    - portability:  C11;
+    - build:        make;
+    - contribution: none.
  - [03](03) - minimalistic solution implemented on C with inline assembly;
     - optimization:
         - multithreading;
@@ -20,4 +26,11 @@ Set of solutions of the problem of finding binary sequences with low PSL level
         - version 1a8ce91075600206622a40c10419653bee9ee62b was used to finding and proving sequences with length 49 and took about 3.25 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
         - version 6aaa9b65fb8e3312e0947b1828501b396940ee11 was used to finding and proving sequences with length 50 and took about 5.55 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
         - version 0ba60c98b2ee8ba25dd777486399a5fc0f4083d3 was used to finding and proving sequences with length 51 and took about 8.15 days on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
- - [04](04) - yet another solution implemented on C++, the main idea is try to use optimization based on reusing of partial sum of convolution.
+ - [04](04) - yet another solution implemented on C++, the main idea is try to use optimization based on reusing of partial sum of convolution:
+    - optimization:
+        - skipped inverse-time sequences;
+        - reusing of partial sum of convolution.
+    - portability:  C++11;
+    - build:        make;
+    - contribution: none.
+

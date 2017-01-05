@@ -31,7 +31,7 @@ Code Generator::CalculateMaxCode (const __s32 length)
 
     for (__s32 i = 0; i < static_cast <__s32> (code.size () * a); ++i) {
         Code::value_type b = 1 << (i % a);
-        if (i < length) {
+        if (i < (length - 1) ) {
             code [i / a] |= b;
         }
         else {

@@ -140,35 +140,17 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 
 
 
-// Generator calculates max value for sequence of length one.
-TEST_F (GeneratorTest, CalculateMaxCodeForLength_1_Success)
+// Generator calculates max value for sequence of length two.
+TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
 {
     // Arange.
-    GeneratorProxy generator{1};
+    GeneratorProxy generator{2};
 
     // Act, Assert.
-    code = generator.CalculateMaxCode (1);
+    code = generator.CalculateMaxCode (2);
 
     // Assert.
     EXPECT_EQ (0x01, code [0]);
-    for (size_t i = 1; i < code.size (); ++i) {
-        EXPECT_EQ (0x00, code [i]);
-    }
-}
-
-
-
-// Generator calculates max value for sequence of length eight.
-TEST_F (GeneratorTest, CalculateMaxCodeForLength_8_Success)
-{
-    // Arange.
-    GeneratorProxy generator{8};
-
-    // Act, Assert.
-    code = generator.CalculateMaxCode (8);
-
-    // Assert.
-    EXPECT_EQ (0xff, code [0]);
     for (size_t i = 1; i < code.size (); ++i) {
         EXPECT_EQ (0x00, code [i]);
     }
@@ -184,6 +166,24 @@ TEST_F (GeneratorTest, CalculateMaxCodeForLength_9_Success)
 
     // Act, Assert.
     code = generator.CalculateMaxCode (9);
+
+    // Assert.
+    EXPECT_EQ (0xff, code [0]);
+    for (size_t i = 1; i < code.size (); ++i) {
+        EXPECT_EQ (0x00, code [i]);
+    }
+}
+
+
+
+// Generator calculates max value for sequence of length ten.
+TEST_F (GeneratorTest, CalculateMaxCodeForLength_10_Success)
+{
+    // Arange.
+    GeneratorProxy generator{10};
+
+    // Act, Assert.
+    code = generator.CalculateMaxCode (10);
 
     // Assert.
     EXPECT_EQ (0xff, code [0]);
