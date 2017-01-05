@@ -38,10 +38,10 @@ bool Validator::Validate ()
                          : -1;
             sums [shift].first [j] = sums [shift].first [j + 1] + a;
         }
-        sums [shift].second = ltz;
+        sums [shift].second = 0;
         if (std::abs (sums [shift].first [0]) > limit) {
             isOk = false;
-            for (;shift < length - limit; ++shift) {
+            for (++shift; shift < length - limit; ++shift) {
                 sums [shift].second = std::max <int> (sums [shift].second, ltz);
             }
             break;
