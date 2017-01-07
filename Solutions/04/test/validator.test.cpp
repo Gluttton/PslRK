@@ -45,7 +45,7 @@ TEST_F (ValidatorTest, Validate_10_Success)
 {
     // Arange.
     GeneratorMock generator {2};
-    generator.code [0] = 0x02;
+    generator.code = Code ("000000000010");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -71,7 +71,7 @@ TEST_F (ValidatorTest, Validate_001_Success)
 {
     // Arange.
     GeneratorMock generator {3};
-    generator.code [0] = 0x01;
+    generator.code = Code ("000000000001");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -97,7 +97,7 @@ TEST_F (ValidatorTest, Validate_0001_Success)
 {
     // Arange.
     GeneratorMock generator {4};
-    generator.code [0] = 0x01;
+    generator.code = Code ("000000000001");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -123,7 +123,7 @@ TEST_F (ValidatorTest, Validate_0100_Success)
 {
     // Arange.
     GeneratorMock generator {4};
-    generator.code [0] = 0x04;
+    generator.code = Code ("000000000100");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -149,7 +149,7 @@ TEST_F (ValidatorTest, Validate_00010_Success)
 {
     // Arange.
     GeneratorMock generator {5};
-    generator.code [0] = 0x02;
+    generator.code = Code ("000000000010");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -175,7 +175,7 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
 {
     // Arange.
     GeneratorMock generator {7};
-    generator.code [0] = 0x0D;
+    generator.code = Code ("000000001101");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -201,7 +201,7 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
 {
     // Arange.
     GeneratorMock generator {11};
-    generator.code [0] = 0xED;
+    generator.code = Code ("000011101101");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -227,7 +227,7 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
 {
     // Arange.
     GeneratorMock generator {13};
-    generator.code [0] = 0xCA;
+    generator.code = Code ("000011001010");
 
     Validator validator {generator};
     EXPECT_CALL (generator, GetNextCode (_, _) )
@@ -323,7 +323,7 @@ TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
     // Act.
     while (!validator.SetNextCode () ) {
         if (validator.Validate () ) {
-            test [generator.code [0] & 0x0F] = 1;
+            test [generator.code.to_ulong () & 0x0F] = 1;
         }
     }
 

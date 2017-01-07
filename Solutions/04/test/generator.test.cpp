@@ -1,4 +1,4 @@
-#include "generator.test.h"
+#include "generator.h"
 #include <gtest/gtest.h>
 
 
@@ -52,7 +52,7 @@ TEST_F (GeneratorTest, FirstCallGetNextCodeSuccess)
     // Assert.
     EXPECT_EQ (false, result);
     EXPECT_EQ (0,     modifiedBits);
-    EXPECT_EQ (0x01,  code [0]);
+    EXPECT_EQ (Code ("0000000000001"), code);
 }
 
 
@@ -73,12 +73,12 @@ TEST_F (GeneratorTest, SecondCallGetNextCodeSuccess)
     // Assert.
     EXPECT_EQ (false, result);
     EXPECT_EQ (1,     modifiedBits);
-    EXPECT_EQ (0x02,  code [0]);
+    EXPECT_EQ (Code ("0000000000010"), code);
 }
 
 
 
-// Generator calls more then 255 times, whereby significant bit gone out of last byte.
+// Generator calls more then 255 times.
 TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
 {
     // Arange.
@@ -94,30 +94,7 @@ TEST_F (GeneratorTest, CallWithOverflowLastByteGetNextCodeSuccess)
     // Assert.
     EXPECT_EQ (false, result);
     EXPECT_EQ (8,     modifiedBits);
-    EXPECT_EQ (0x00,  code [0]);
-    EXPECT_EQ (0x01,  code [1]);
-}
-
-
-
-// Generator calls more then 255 times, whereby significant bit gone out of last byte.
-TEST_F (GeneratorTest, CallAfterOverflowLastByteGetNextCodeSuccess)
-{
-    // Arange.
-    Generator generator     {13};
-    bool result             {false};
-    __s32 modifiedBits      {0};
-
-    // Act.
-    for (auto i = 0; i < 257; ++i) {
-        result = generator.GetNextCode (code, modifiedBits);
-    }
-
-    // Assert.
-    EXPECT_EQ (false, result);
-    EXPECT_EQ (0,     modifiedBits);
-    EXPECT_EQ (0x01,  code [0]);
-    EXPECT_EQ (0x01,  code [1]);
+    EXPECT_EQ (Code ("0000100000000"), code);
 }
 
 
@@ -134,62 +111,7 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
     for (auto i = 1; i < (1 << 4); ++i) {
         result = generator.GetNextCode (code, modifiedBits);
         EXPECT_EQ (false, result);
-        EXPECT_EQ (i,   code [0]);
-    }
-}
-
-
-
-// Generator calculates max value for sequence of length two.
-TEST_F (GeneratorTest, CalculateMaxCodeForLength_2_Success)
-{
-    // Arange.
-    GeneratorProxy generator{2};
-
-    // Act, Assert.
-    code = generator.CalculateMaxCode (2);
-
-    // Assert.
-    EXPECT_EQ (0x01, code [0]);
-    for (size_t i = 1; i < code.size (); ++i) {
-        EXPECT_EQ (0x00, code [i]);
-    }
-}
-
-
-
-// Generator calculates max value for sequence of length nine.
-TEST_F (GeneratorTest, CalculateMaxCodeForLength_9_Success)
-{
-    // Arange.
-    GeneratorProxy generator{9};
-
-    // Act, Assert.
-    code = generator.CalculateMaxCode (9);
-
-    // Assert.
-    EXPECT_EQ (0xff, code [0]);
-    for (size_t i = 1; i < code.size (); ++i) {
-        EXPECT_EQ (0x00, code [i]);
-    }
-}
-
-
-
-// Generator calculates max value for sequence of length ten.
-TEST_F (GeneratorTest, CalculateMaxCodeForLength_10_Success)
-{
-    // Arange.
-    GeneratorProxy generator{10};
-
-    // Act, Assert.
-    code = generator.CalculateMaxCode (10);
-
-    // Assert.
-    EXPECT_EQ (0xff, code [0]);
-    EXPECT_EQ (0x01, code [1]);
-    for (size_t i = 2; i < code.size (); ++i) {
-        EXPECT_EQ (0x00, code [i]);
+        EXPECT_EQ (i,   code.to_ulong () );
     }
 }
 

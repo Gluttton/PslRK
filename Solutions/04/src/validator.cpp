@@ -20,8 +20,6 @@ bool Validator::SetNextCode ()
 
 bool Validator::Validate ()
 {
-    static constexpr __s32 x = std::numeric_limits <Code::value_type>::digits;
-
     const auto & length = generator.length;
     const auto & ltz    = generator.modifiedBits;
     const auto & code   = generator.code;
@@ -32,11 +30,7 @@ bool Validator::Validate ()
         int j = std::min (length - 1 - shift, std::max <int> (ltz, sums [shift].second) );
         for (; j >= 0; --j) {
             const auto k = j + shift;
-            sums [shift].first [j] = sums [shift].first [j + 1]
-                        + ( ( (code [j / x] >> (j % x) ) & 1)
-                        ==  ( (code [k / x] >> (k % x) ) & 1)
-                         ? +1
-                         : -1);
+            sums [shift].first [j] = sums [shift].first [j + 1] + (code [j] == code [k] ? +1 : -1);
             if (std::abs (sums [shift].first [j]) > limit + j) {
                 sums [shift].second = j;
                 for (++shift; shift < length - limit; ++shift) {

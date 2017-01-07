@@ -43,12 +43,7 @@ void Logger::LogCode (const __u8 length, const Code & code)
     codeString  = std::to_string (length);
     codeString += ":\t";
     for (__u8 i = 0; i < length; ++i) {
-        if ( (code [i / 8] >> (i % 8) ) & 0x01) {
-            codeString += "+";
-        }
-        else {
-            codeString += "-";
-        }
+        codeString += code [i] ? "+" : "-";
     }
     codeString += "\n";
 

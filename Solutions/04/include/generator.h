@@ -3,11 +3,12 @@
 
 #include <array>
 #include <vector>
+#include <bitset>
 #include <linux/types.h>
 
 
 
-using Code = std::array <__u8, 32>;
+using Code = std::bitset <13>;
 
 
 
@@ -19,13 +20,10 @@ class Generator
 
         virtual bool GetNextCode        (Code &, __s32 &);
 
-        static Code CalculateMaxCode    (const __s32);
-
         std::vector <std::pair <std::vector <__s8>, __u8> >
                                         sums;
 
         Code code                       {};
-        Code maxCode                    {};
         __s32 length                    {0};
         __s32 modifiedBits              {0};
 };
