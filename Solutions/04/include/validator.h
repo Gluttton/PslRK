@@ -1,12 +1,11 @@
 #ifndef LPSLCD_VALIDATOR_H
 #define LPSLCD_VALIDATOR_H
 
-#include <linux/types.h>
 #include "generator.h"
 
 
 
-template <int L, int SLL>
+template <int_t L, int_t SLL>
 class Validator
 {
     public:
@@ -31,19 +30,20 @@ class Validator
 
         bool Validate ()
         {
-            const auto & ltz    = generator.modifiedBits;
+            const auto & m      = generator.modifiedBits;
             const auto & code   = generator.code;
                   auto & cache  = generator.cache;
 
-            for (int shift = 1; shift < L - SLL; ++shift) {
-                int j = std::min (L - 1 - shift, std::max <int> (ltz, cache [shift].second) );
+            static constexpr int_t l = L - SLL;
+
+            for (int_t shift = 1; shift < l; ++shift) {
+                int_t j = std::min (L - 1 - shift, std::max (m, cache [shift].second) );
                 for (; j >= 0; --j) {
-                    const auto k = j + shift;
-                    cache [shift].first [j] = cache [shift].first [j + 1] + (code [j] == code [k] ? +1 : -1);
+                    cache [shift].first [j] = cache [shift].first [j + 1] + (code [j] == code [j + shift] ? +1 : -1);
                     if (std::abs (cache [shift].first [j]) > SLL + j) {
                         cache [shift].second = j;
-                        for (++shift; shift < L - SLL; ++shift) {
-                            cache [shift].second = std::max <int> (cache [shift].second, ltz);
+                        for (++shift; shift < l; ++shift) {
+                            cache [shift].second = std::max (m, cache [shift].second);
                         }
                         skippedBits = j;
                         return false;

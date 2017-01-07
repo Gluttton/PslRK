@@ -3,21 +3,21 @@
 
 #include <array>
 #include <bitset>
-#include <linux/types.h>
 
 
 
-template <int L>
+using int_t = int_fast32_t;
+
+
+
+template <int_t L>
 class Generator
 {
     public:
-        using Code = std::bitset <L>;
+        std::array <std::pair <std::array <int_t, L>, int_t>, L> cache;
 
-        std::array <std::pair <std::array <__s8, L>, __u8>, L>
-                                        cache;
-
-        Code code                       {};
-        __s32 modifiedBits              {0};
+        std::bitset <L> code    {};
+        int_t modifiedBits      {0};
 
 
 
@@ -34,11 +34,7 @@ class Generator
 
 
 
-        virtual ~Generator () = default;
-
-
-
-        virtual bool NextCode (const int skippedBits)
+        bool NextCode (const int skippedBits)
         {
             if ( (code >> (L - 1) ).none () ) {
                 modifiedBits = 0;

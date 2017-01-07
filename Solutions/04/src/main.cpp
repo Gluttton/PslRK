@@ -16,8 +16,8 @@ int main ()
     }
     Logger logger {currentDirectoryName};
 
-    constexpr int L     {28};
-    constexpr int SLL   {2};
+    constexpr int_t L   {28};
+    constexpr int_t SLL {2};
     Generator <L>       generator   {};
     Validator <L, SLL>  validator   {generator};
 

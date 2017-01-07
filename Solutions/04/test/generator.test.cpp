@@ -21,7 +21,7 @@ TEST_F (GeneratorTest, FirstCallNextCodeSuccess)
     // Assert.
     EXPECT_EQ (false, result);
     EXPECT_EQ (0,     generator.modifiedBits);
-    EXPECT_EQ (Generator <13>::Code ("0000000000001"), generator.code);
+    EXPECT_EQ (std::bitset <13> ("0000000000001"), generator.code);
 }
 
 
@@ -41,7 +41,7 @@ TEST_F (GeneratorTest, SecondCallNextCodeSuccess)
     // Assert.
     EXPECT_EQ (false, result);
     EXPECT_EQ (1,     generator.modifiedBits);
-    EXPECT_EQ (Generator <13>::Code ("0000000000010"), generator.code);
+    EXPECT_EQ (std::bitset <13> ("0000000000010"), generator.code);
 }
 
 
