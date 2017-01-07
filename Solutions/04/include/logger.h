@@ -15,7 +15,7 @@ class Logger
         virtual ~Logger () = default;
 
         virtual void LogMessage   (const std::string &);
-        virtual void LogCode      (const __u8, const Code &);
+        virtual void LogCode      (const __u8, const std::string &);
         virtual void LogStatistic (const __s32, const __u64, const __u64, const __u64);
     private:
         const std::string currentDirectoryName;

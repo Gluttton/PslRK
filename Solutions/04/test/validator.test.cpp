@@ -1,11 +1,5 @@
 #include "validator.h"
-#include "generator.mock.h"
 #include <gtest/gtest.h>
-
-
-
-using testing::_;
-using testing::AtLeast;
 
 
 
@@ -19,17 +13,10 @@ class ValidatorTest : public ::testing::Test
 TEST_F (ValidatorTest, Validate_00_Success)
 {
     // Arange.
-    GeneratorMock generator {2};
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {2};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("00");
 
     // Act.
     const auto result = validator.Validate ();
@@ -44,18 +31,10 @@ TEST_F (ValidatorTest, Validate_00_Success)
 TEST_F (ValidatorTest, Validate_10_Success)
 {
     // Arange.
-    GeneratorMock generator {2};
-    generator.code = Code ("000000000010");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {2};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("10");
 
     // Act.
     const auto result = validator.Validate ();
@@ -70,18 +49,10 @@ TEST_F (ValidatorTest, Validate_10_Success)
 TEST_F (ValidatorTest, Validate_001_Success)
 {
     // Arange.
-    GeneratorMock generator {3};
-    generator.code = Code ("000000000001");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {3};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("001");
 
     // Act.
     const auto result = validator.Validate ();
@@ -96,18 +67,10 @@ TEST_F (ValidatorTest, Validate_001_Success)
 TEST_F (ValidatorTest, Validate_0001_Success)
 {
     // Arange.
-    GeneratorMock generator {4};
-    generator.code = Code ("000000000001");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {4};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("0001");
 
     // Act.
     const auto result = validator.Validate ();
@@ -122,18 +85,10 @@ TEST_F (ValidatorTest, Validate_0001_Success)
 TEST_F (ValidatorTest, Validate_0100_Success)
 {
     // Arange.
-    GeneratorMock generator {4};
-    generator.code = Code ("000000000100");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {4};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("0100");
 
     // Act.
     const auto result = validator.Validate ();
@@ -148,18 +103,10 @@ TEST_F (ValidatorTest, Validate_0100_Success)
 TEST_F (ValidatorTest, Validate_00010_Success)
 {
     // Arange.
-    GeneratorMock generator {5};
-    generator.code = Code ("000000000010");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {5};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("00010");
 
     // Act.
     const auto result = validator.Validate ();
@@ -174,18 +121,10 @@ TEST_F (ValidatorTest, Validate_00010_Success)
 TEST_F (ValidatorTest, Validate_0001101_Success)
 {
     // Arange.
-    GeneratorMock generator {7};
-    generator.code = Code ("000000001101");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {7};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("0001101");
 
     // Act.
     const auto result = validator.Validate ();
@@ -200,18 +139,10 @@ TEST_F (ValidatorTest, Validate_0001101_Success)
 TEST_F (ValidatorTest, Validate_00011101101_Success)
 {
     // Arange.
-    GeneratorMock generator {11};
-    generator.code = Code ("000011101101");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {11};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("00011101101");
 
     // Act.
     const auto result = validator.Validate ();
@@ -226,18 +157,10 @@ TEST_F (ValidatorTest, Validate_00011101101_Success)
 TEST_F (ValidatorTest, Validate_0000011001010_Success)
 {
     // Arange.
-    GeneratorMock generator {13};
-    generator.code = Code ("000011001010");
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {13};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("0000011001010");
 
     // Act.
     const auto result = validator.Validate ();
@@ -252,18 +175,10 @@ TEST_F (ValidatorTest, Validate_0000011001010_Success)
 TEST_F (ValidatorTest, Validate_10110_Fail)
 {
     // Arange.
-    GeneratorMock generator {5};
-    generator.code [0] = 0x16;
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {5};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("10110");
 
     // Act.
     const auto result = validator.Validate ();
@@ -278,18 +193,10 @@ TEST_F (ValidatorTest, Validate_10110_Fail)
 TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 {
     // Arange.
-    GeneratorMock generator {13};
-    generator.code [0] = 0x1F;
-
-    Validator validator {generator};
-    EXPECT_CALL (generator, GetNextCode (_, _) )
-            .WillOnce (
-                DoAll (
-                    testing::SetArgReferee <0> (generator.code),
-                    testing::SetArgReferee <1> (generator.modifiedBits)
-                )
-            );
-    validator.SetNextCode ();
+    constexpr int L {13};
+    Generator <L> generator {};
+    Validator <L, 1> validator {generator};
+    generator.code = Generator <L>::Code ("1111100110110");
 
     // Act.
     const auto result = validator.Validate ();
@@ -313,12 +220,13 @@ TEST_F (ValidatorTest, Validate_1111100110110_Fail)
 TEST_F (ValidatorTest, ValidateAllCombinationsOfLenth_4_Success)
 {
     // Arange.
-    Generator generator     {4};
-    Validator validator     {generator};
-    __u32 etalon [] {0,   1,   1,   0,   1,   0,   0,   1/*,   1,   0,   0,   1,   0,   1,   1,   0*/};
+    constexpr int L {4};
+    Generator <L>    generator {};
+    Validator <L, 1> validator {generator};
+    __u32 etalon [] {0,   1,   1,   0,   1,   0,   0,   1,   1/*,   0,   0,   1,   0,   1,   1,   0*/};
     //               0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
     //                 0001 0010      0100           0111 1000           1011      1101 1110
-    __u32 test   [] {0,   0,   0,   0,   0,   0,   0,   0/*,   0,   0,   0,   0,   0,   0,   0,   0*/};
+    __u32 test   [] {0,   0,   0,   0,   0,   0,   0,   0,   0/*,   0,   0,   0,   0,   0,   0,   0*/};
 
     // Act.
     while (!validator.SetNextCode () ) {

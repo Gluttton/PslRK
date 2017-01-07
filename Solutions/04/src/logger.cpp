@@ -36,14 +36,14 @@ void Logger::LogMessage (const std::string & message)
 
 
 
-void Logger::LogCode (const __u8 length, const Code & code)
+void Logger::LogCode (const __u8 length, const std::string & code)
 {
     std::string codeString;
 
     codeString  = std::to_string (length);
     codeString += ":\t";
     for (__u8 i = 0; i < length; ++i) {
-        codeString += code [i] ? "+" : "-";
+        codeString += code [i] == '0' ? "+" : "-";
     }
     codeString += "\n";
 

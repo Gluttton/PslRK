@@ -2,30 +2,56 @@
 #define LPSLCD_GENERATOR_H
 
 #include <array>
-#include <vector>
 #include <bitset>
 #include <linux/types.h>
 
 
 
-using Code = std::bitset <13>;
-
-
-
+template <int L>
 class Generator
 {
     public:
-        Generator                       (const __s32);
-        virtual ~Generator              () = default;
+        using Code = std::bitset <L>;
 
-        virtual bool GetNextCode        (Code &, __s32 &);
-
-        std::vector <std::pair <std::vector <__s8>, __u8> >
-                                        sums;
+        std::array <std::pair <std::array <__s8, L>, __u8>, L>
+                                        cache;
 
         Code code                       {};
-        __s32 length                    {0};
         __s32 modifiedBits              {0};
+
+
+
+        Generator ()
+                : modifiedBits  {L - 1}
+        {
+            for (int i = 1; i < L; ++i) {
+                for (int j = 0; j < L - i + 1; ++j) {
+                    cache [i].first [j] = L - i - j;
+                }
+                cache [i].second = 0;
+            }
+        }
+
+
+
+        virtual ~Generator () = default;
+
+
+
+        virtual bool NextCode (__s32 & modifiedBits)
+        {
+            if ( (code >> (L - 1) ).none () ) {
+                modifiedBits = 0;
+                for (; modifiedBits < L; ++modifiedBits) {
+                    if (code.flip (modifiedBits).test (modifiedBits) ) {
+                        break;
+                    }
+                }
+                return false;
+            }
+
+            return true;
+        }
 };
 
 #endif//LPSLCD_GENERATOR_H

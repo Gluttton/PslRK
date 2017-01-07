@@ -15,8 +15,6 @@ EXE_CXXFLAGS        = -c \
 EXE_LDPATH          =
 EXE_LDADD           =
 EXE_SRC             = src/main.cpp \
-                      src/generator.cpp \
-                      src/validator.cpp \
                       src/logger.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
 EXE                 = lpslcd
@@ -32,10 +30,8 @@ TEST_CXXFLAGS       = -c \
                       -pg -fprofile-arcs -ftest-coverage \
                       -fverbose-asm -Wa,-ahlms=$(<:.cpp=.lst)
 TEST_LDPATH         =
-TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lgmock -lpthread
-TEST_SRC            = src/generator.cpp \
-                      src/validator.cpp \
-                      src/logger.cpp \
+TEST_LDADD          = -pg -lgcov -lgtest -lgtest_main -lpthread
+TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
 TEST_OBJ            = $(TEST_SRC:.cpp=.o)
