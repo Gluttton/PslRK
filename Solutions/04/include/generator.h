@@ -38,10 +38,13 @@ class Generator
 
 
 
-        virtual bool NextCode (__s32 & modifiedBits)
+        virtual bool NextCode (const int skippedBits)
         {
             if ( (code >> (L - 1) ).none () ) {
                 modifiedBits = 0;
+                for (; modifiedBits < skippedBits; ++modifiedBits) {
+                    code.reset (modifiedBits);
+                }
                 for (; modifiedBits < L; ++modifiedBits) {
                     if (code.flip (modifiedBits).test (modifiedBits) ) {
                         break;

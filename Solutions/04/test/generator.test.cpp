@@ -14,15 +14,13 @@ TEST_F (GeneratorTest, FirstCallNextCodeSuccess)
 {
     // Arange.
     Generator <13> generator{};
-    bool result             {false};
-    __s32 modifiedBits      {0};
 
     // Act.
-    result = generator.NextCode (modifiedBits);
+    bool result = generator.NextCode (0);
 
     // Assert.
     EXPECT_EQ (false, result);
-    EXPECT_EQ (0,     modifiedBits);
+    EXPECT_EQ (0,     generator.modifiedBits);
     EXPECT_EQ (Generator <13>::Code ("0000000000001"), generator.code);
 }
 
@@ -32,18 +30,17 @@ TEST_F (GeneratorTest, FirstCallNextCodeSuccess)
 TEST_F (GeneratorTest, SecondCallNextCodeSuccess)
 {
     // Arange.
-    Generator <13> generator{};
-    bool result             {false};
-    __s32 modifiedBits      {0};
+    Generator <13> generator {};
+    bool result {false};
 
     // Act.
     for (auto i = 0; i < 2; ++i) {
-        result = generator.NextCode (modifiedBits);
+        result = generator.NextCode (0);
     }
 
     // Assert.
     EXPECT_EQ (false, result);
-    EXPECT_EQ (1,     modifiedBits);
+    EXPECT_EQ (1,     generator.modifiedBits);
     EXPECT_EQ (Generator <13>::Code ("0000000000010"), generator.code);
 }
 
@@ -54,12 +51,11 @@ TEST_F (GeneratorTest, CalculateAllCombinationForLength_4_Success)
 {
     // Arange.
     Generator <4> generator {};
-    bool result             {false};
-    __s32 modifiedBits      {0};
+    bool result {false};
 
     // Act, Assert.
     for (auto i = 1; i < (1 << 3); ++i) {
-        result = generator.NextCode (modifiedBits);
+        result = generator.NextCode (0);
         EXPECT_EQ (false, result);
         EXPECT_EQ (i,     generator.code.to_ulong () );
     }

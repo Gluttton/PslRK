@@ -11,11 +11,12 @@ class Validator
 {
     public:
         Generator <L> & generator;
-
+        int skippedBits;
 
 
         Validator (Generator <L> & bindGenerator)
                 : generator {bindGenerator}
+                , skippedBits {0}
         {
         }
 
@@ -23,7 +24,7 @@ class Validator
 
         bool SetNextCode ()
         {
-            return generator.NextCode (generator.modifiedBits);
+            return generator.NextCode (skippedBits);
         }
 
 
@@ -44,6 +45,7 @@ class Validator
                         for (++shift; shift < L - SLL; ++shift) {
                             cache [shift].second = std::max <int> (cache [shift].second, ltz);
                         }
+                        skippedBits = j;
                         return false;
                     }
                 }
