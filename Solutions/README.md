@@ -35,4 +35,9 @@ Set of solutions of the problem of finding binary sequences with low PSL level
     - portability:  C++11;
     - build:        make;
     - contribution: none.
+ - [07](07) - minimalistic solution implemented on C++ with `std::bitset` as storage of sequences:
+    - optimization: none;
+    - portability:  C++11;
+    - build:        make;
+    - contribution: none.
 

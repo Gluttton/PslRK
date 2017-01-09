@@ -7,6 +7,7 @@ stages:
     - solution_03_build
     - solution_04_build
     - solution_04_test
+    - solution_07_build
     - code_manager_build
     - code_manager_test
 
@@ -95,6 +96,16 @@ solution_04_test_job:
         - make testing
         - ./lpslcd.test
         - gcovr --exclude 'test' -r .
+
+
+solution_07_build_job:
+    stage: solution_07_build
+    image: registry.gitlab.com/gluttton/pslrk:base
+    before_script:
+        - BUILD_DIR=`pwd`/Solutions/07
+        - cd ${BUILD_DIR}
+    script:
+        - make
 
 
 code_manager_build_job:
