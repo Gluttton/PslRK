@@ -1,7 +1,7 @@
 Low PSL code detector
 =====================
 Detector of codes with low peak sidelobe (PSL) level.
-The detector is writen on C++ and its main feature is using `std::bitset` as storage of binary sequence.
+The detector is written on C++ and its main feature is using `std::bitset` as storage of binary sequence.
 
 
 

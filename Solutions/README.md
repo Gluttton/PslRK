@@ -40,4 +40,12 @@ Set of solutions of the problem of finding binary sequences with low PSL level
     - portability:  C++11;
     - build:        make;
     - contribution: none.
+ - [08](08) - another implemented on C++ with `std::bitset` as storage of sequences and with random sequence generator:
+    - optimization:
+        - multithreading;
+        - skipped inverse-time sequences.
+    - portability:  C++11;
+    - build:        make;
+    - contribution: none.
+        - version c94f282d1a1e4d10c62d23dce8a17d5cfd6187f6 was used to finding and proving one sequence with length 52 and took about 20 seconds on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
 
