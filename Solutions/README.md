@@ -48,5 +48,5 @@ Set of solutions of the problem of finding binary sequences with low PSL level
     - build:        make;
     - contribution: none.
         - version c94f282d1a1e4d10c62d23dce8a17d5cfd6187f6 was used to finding and proving one sequence with length 52 and took about 20 seconds on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz;
-        - version 75cb16c62e3ee2452868d51f81a6ded22f19b858 was used to finding and proving one sequence with length 53 and took about 2 minutes on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
+        - version 57356a4204033c7ef2e42a6d8875914a5b82f3d2 was used to finding and proving one sequence with length 53 and took about 2 minutes on Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz.
 
