@@ -5,11 +5,11 @@
 
 int main ()
 {
-    static constexpr int        L    {52}; // Length.
+    static constexpr int        L    {53}; // Length.
     static constexpr int        SLL  {4};  // Sidelobe limit.
     static constexpr int        N    {8};  // Number of threads.
     static constexpr long int   from {1};
-    static constexpr long int   to   {static_cast <long int> (1) << (L - 2)};
+    static constexpr long int   to   {static_cast <long int> (1) << (L - 1)};
 
     bool stop {false};
     const auto task = [& stop](){
