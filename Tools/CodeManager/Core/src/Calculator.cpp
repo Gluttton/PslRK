@@ -162,7 +162,7 @@ int Calculator::Psl (const std::string & stringViewOne, const std::string & stri
 //
 //        N - 1  / N - k            \ 2
 //        ____   | ____             |
-// E = 2  \      | \     a + a      |
+// E = 2  \      | \     a * a      |
 //        /___   | /___   i   i + k |
 //        n = 1  \ i = 1            /
 //
