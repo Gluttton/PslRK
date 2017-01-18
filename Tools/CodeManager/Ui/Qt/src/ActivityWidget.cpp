@@ -76,6 +76,14 @@ void ActivityWidget::createWidgets ()
     plot = new QCustomPlot (this);
     plot->addGraph ();
     plot->graph (0)->setScatterStyle (QCPScatterStyle::ssDisc);
+    plot->xAxis->setVisible (true);
+    plot->yAxis->setVisible (true);
+    plot->xAxis->grid ()->setSubGridVisible (false);
+    plot->yAxis->grid ()->setSubGridVisible (false);
+    plot->yAxis->setAutoTickStep (false);
+    plot->xAxis->setAutoTickStep (false);
+    plot->xAxis->setTickStep (1.0);
+    plot->yAxis->setTickStep (1.0);
 }
 
 
@@ -326,8 +334,8 @@ void ActivityWidget::onViewChanged (const std::string & view)
     plot->graph (0)->setPen (QPen (Qt::blue) );
     plot->xAxis->setRange (-range, range);
     plot->yAxis->setRange (   min, max);
-    plot->xAxis->setVisible (true);
-    plot->yAxis->setVisible (true);
+    plot->xAxis->setTickStep (range < 10 ? 1 : std::ceil (range / 10) );
+    plot->yAxis->setTickStep (max + min < 20 ? 1 : std::ceil ( (max + min) / 20) );
     plot->replot ();
 }
 
