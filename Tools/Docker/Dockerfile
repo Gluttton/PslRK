@@ -8,6 +8,7 @@ RUN         sed 's/main/main contrib non-free/g' /etc/apt/sources.list \
                 libboost-filesystem-dev \
                 libboost-system-dev \
                 libpugixml-dev \
+                libqcustomplot-dev \
          && mkdir /usr/src/gmock/build \
          && cd /usr/src/gmock/build \
          && cmake .. && make \
