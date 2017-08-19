@@ -18,7 +18,6 @@ DIRECTORY           = $(shell pwd)
 C                   = gcc
 INCLUDES            =
 CFLAGS              = -c \
-                      -MD \
                       -std=c99 -march=native -m64 \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
@@ -49,6 +48,9 @@ DOC_DATA            = $(shell find . -type d -name 'html')
 
 
 #===--- Rules                          ---===#
+.PHONY: all clean coverage profile doxygen
+
+
 all: $(EXE)
 
 

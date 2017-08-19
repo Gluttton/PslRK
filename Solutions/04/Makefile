@@ -7,7 +7,7 @@ OPTIMIZATION       ?= O0
 
 #===--- Executable specified variables ---===#
 EXE_CXXFLAGS        = -c \
-                      -MD \
+                      -MMD \
                       -std=c++14 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) \
@@ -17,13 +17,14 @@ EXE_LDADD           =
 EXE_SRC             = src/main.cpp \
                       src/logger.cpp
 EXE_OBJ             = $(EXE_SRC:.cpp=.o)
+EXE_DEP             = $(wildcard $(EXE_SRC:.cpp=.d))
 EXE                 = lpslcd
 
 
 
 #===--- Testing specified variables    ---===#
 TEST_CXXFLAGS       = -c \
-                      -MD \
+                      -MMD \
                       -std=c++14 -march=native -mtune=native \
                       -Wall -Wextra \
                       -$(OPTIMIZATION) -ggdb3 \
@@ -35,6 +36,7 @@ TEST_SRC            = src/logger.cpp \
                       test/generator.test.cpp \
                       test/validator.test.cpp
 TEST_OBJ            = $(TEST_SRC:.cpp=.o)
+TEST_DEP            = $(wildcard $(TEST_SRC:.cpp=.d))
 TEST                = lpslcd.test
 
 
@@ -42,8 +44,10 @@ TEST                = lpslcd.test
 #===--- Merged variables               ---===#
 ifeq ($(filter testing, $(MAKECMDGOALS)),)
 CXXFLAGS            = $(EXE_CXXFLAGS)
+DEP                 = $(EXE_DEP)
 else
 CXXFLAGS            = $(TEST_CXXFLAGS)
+DEP                 = $(TEST_DEP)
 endif
 
 OBJ                 = $(EXE_OBJ) $(TEST_OBJ)
@@ -56,6 +60,9 @@ LOG_DATA            = $(shell find . -type f -name 'lpslcd.dat' -o -name 'lpslcd
 
 
 #===--- Rules                          ---===#
+.PHONY: all testing clean coverage profile
+
+
 all: $(EXE)
 
 
@@ -86,3 +93,6 @@ coverage:
 
 profile:
 	gprof $(TEST) gmon.out -b -Q
+
+
+include $(DEP)
