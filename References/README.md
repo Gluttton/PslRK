@@ -29,4 +29,5 @@ Links on the Internet resources must be added directly in this file in paragraph
 - [OEIS A091704 - Number of Barker codes of length n up to reversals and negations](https://oeis.org/A091704);
 - [OEIS A276690 - Binary Barker codes written in base 10](https://oeis.org/A276690);
 - [OEIS A011758 - Barker sequence of length 13](https://oeis.org/A011758);
-- [OEIS A011759 - Barker sequence of length 13](https://oeis.org/A011759).
+- [OEIS A011759 - Barker sequence of length 13](https://oeis.org/A011759);
+- [OEIS A281476 - Maximum length of binary (sign) sequences with corresponding peak sidelobe level](https://oeis.org/A281476).
