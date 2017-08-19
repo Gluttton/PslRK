@@ -2,6 +2,7 @@
 #define LPSLCD_VALIDATOR_H
 
 #include "generator.h"
+#include <cmath>
 
 
 
@@ -20,7 +21,7 @@ class Validator
             // N - length of sequence.
             // L - limit of sidelobe level.
 
-            const ssize_t  sideLobeLimit = code.size () < 14 ? 1 : floor (code.size () / 14.0f);
+            const ssize_t  sideLobeLimit = code.size () < 14 ? 1 : std::floor (code.size () / 14.0f);
 
             for (size_t shift = 1; shift < code.size (); ++shift) {
                 ssize_t sideLobe = 0;
