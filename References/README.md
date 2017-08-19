@@ -20,12 +20,10 @@ Links on the Internet resources must be added directly in this file in paragraph
 - [Do the Barker Codes End](http://www.math.wpi.edu/MPI2008/TSC/TSC-MPI.pdf);
 - [Finding Low Autocorrelation Binary Sequences with Memetic Algorithms](http://www.lcc.uma.es/~ccottap/papers/labsASC.pdf);
 - [The Peak Sidelobe Level of Families of Binary Sequences](http://www.idmercer.com/jedwab-yoshida06.pdf);
-- [Binary Sequences with Small Peak Sidelobe Level](http://www-e.uni-magdeburg.de/kai-usch/pub/lowpsl.pdf);
-- [Radartutorial.eu](http://www.radartutorial.eu/08.transmitters/tx17.en.html);
+- [Radartutorial.eu](http://www.radartutorial.eu/08.transmitters/Intrapulse%20Modulation.en.html);
 - [Polyphase Pulse Compression Codes with Optimal Peak and Integrated Sidelobes](http://www.norbertwiener.umd.edu/crowds/documents/polyphase_pulse_comprssion_codes_with_optimal_sidelobes.pdf);
 - [Generation of Pulse Compression Codes Using NSGA-II](http://dspace.nitrkl.ac.in/dspace/bitstream/2080/1112/1/aks2fin.pdf);
 - [Barker Code (wolfram.com)](http://mathworld.wolfram.com/BarkerCode.html);
-- [signalslab.marstu.net](http://signalslab.marstu.net);
 - [OEIS A091704 - Number of Barker codes of length n up to reversals and negations](https://oeis.org/A091704);
 - [OEIS A276690 - Binary Barker codes written in base 10](https://oeis.org/A276690);
 - [OEIS A011758 - Barker sequence of length 13](https://oeis.org/A011758);
