@@ -8,9 +8,9 @@ class BPSK (object):
         self.sample_rate     = 5e3
         self.code            = "+++---+++-------+++-+++--++-+++-++-+-+-++-++-++-+--"
         self.bit_width       = 5e-3
-        self.time_of_view    = self.bit_width * len (self.code) * 2.
+        self.time_of_view    = self.bit_width * len (self.code) * 4.
         self.shift           = self.time_of_view / 2.
-        self.shifts          = [self.time_of_view / 6., self.time_of_view / 3., self.time_of_view / 2.]
+        self.shifts          = [self.time_of_view / 4., self.time_of_view / 3., self.time_of_view / 2.]
         self.magnitudes      = [1, 0.75, 1.5]
         self.time            = np.linspace (0, self.time_of_view, self.time_of_view * self.sample_rate)
         self.carrier         = 1e2
@@ -21,7 +21,7 @@ class BPSK (object):
 
         self.ax = ax
 
-        self.ax.set_xlim (0, self.time_of_view)
+        self.ax.set_xlim (0, self.time_of_view - self.bit_width * len (self.code) )
         self.ax.set_ylim (0, len (self.code) * 2)
         self.ax.grid (False)
 
@@ -42,7 +42,7 @@ class BPSK (object):
         signal_q = -signal * np.sin (2 * np.pi * self.carrier * self.time);
 
         noncompressed = np.sqrt (signal_i ** 2 + signal_q ** 2);
-        
+
         sample_per_bit  = int (self.bit_width * self.sample_rate)
         for i in range (self.time.size):
             sum_i = 0.
@@ -55,7 +55,7 @@ class BPSK (object):
             signal_i [i] = sum_i
             signal_q [i] = sum_q
 
-        compressed = np.sqrt (signal_i ** 2 + signal_q ** 2);        
+        compressed = np.sqrt (signal_i ** 2 + signal_q ** 2);
 
         self.noncompressed.set_data (self.time, noncompressed)
         self.compressed.set_data    (self.time, compressed)
@@ -64,6 +64,6 @@ class BPSK (object):
 
 fig, ax = plt.subplots ()
 bpsk = BPSK (ax)
-anim = FuncAnimation (fig, bpsk, interval = 25, blit = False)
-#anim.save ('/home/gluttton/compressed.gif', writer = 'imagemagick', fps = 25)
+anim = FuncAnimation (fig, bpsk, interval = 15, blit = False)
+anim.save ('/home/gluttton/compressed.gif', writer = 'imagemagick', fps = 15)
 plt.show ()
