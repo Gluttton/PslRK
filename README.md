@@ -1,4 +1,4 @@
-[![build status](https://gitlab.com/Gluttton/PslRK/badges/master/build.svg)](https://gitlab.com/Gluttton/PslRK/commits/master)
+[![build status](https://gitlab.com/Gluttton/PslRK/badges/master/pipeline.svg)](https://gitlab.com/Gluttton/PslRK/commits/master)
 [![coverage status](https://gitlab.com/Gluttton/PslRK/badges/master/coverage.svg)](https://gitlab.com/Gluttton/PslRK/commits/master)
 
 
