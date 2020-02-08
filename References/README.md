@@ -13,7 +13,8 @@ Links on the Internet resources must be added directly in this file in paragraph
 - [Binary Sequences with Minimum Peak Sidelobe Level up to Length 68](Binary Sequences with Minimum Peak Sidelobe Level up to Length 68.pdf) ([link](http://arxiv.org/pdf/1212.4930.pdf));
 - [A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation](A Survey on the Design of Binary Pulse Compression Codes with Low Autocorrelation.pdf) ([link](http://cdn.intechopen.com/pdfs/9713/InTech-A_survey_on_the_design_of_binary_pulse_compression_codes_with_low_autocorrelation.pdf));
 - [Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105](Best-Known Autocorrelation Peak Sidelobe Levels for Binary Codes of Length 71 to 105.pdf) ([link](http://norbertwiener.umd.edu/crowds/documents/best_known_binary.pdf));
-- [Mark A. Richards, Fundamentals of Radar Signal Processing, Second Edition, Chapter 4](Mark A. Richards, Fundamentals of Radar Signal Processing, Second Edition, Chapter 4.pdf) ([link](http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf))
+- [Mark A. Richards, Fundamentals of Radar Signal Processing, Second Edition, Chapter 4](Mark A. Richards, Fundamentals of Radar Signal Processing, Second Edition, Chapter 4.pdf) ([link](http://users.ece.gatech.edu/~mrichard/Ch4_FRSP2e.pdf));
+- [J.E.Gallardo, Finding Low Autocorrelation Binary Sequences with Memetic Algorithms](J.E.Gallardo, Finding Low Autocorrelation Binary Sequences with Memetic Algorithms.pdf).
 
 ##### Links:
 - [Professors Jonathan Jedwab page](http://people.math.sfu.ca/~jed/);
