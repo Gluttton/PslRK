@@ -6,10 +6,10 @@ Set of Python scripts for modeling BPSK signal.
 
 System requirements
 ===================
-To launch scripts are required Python 3 with following packages:
-- scipy;
-- numpy;
-- matplotlib.
+To launch scripts are required Python 3 with following packages:  
+- scipy;  
+- numpy;  
+- matplotlib.  
 To launch notebook the Jupyter is also required.
 
 
