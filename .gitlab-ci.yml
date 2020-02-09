@@ -121,24 +121,24 @@ solution_08_build_job:
 
 code_manager_build_job:
     stage: code_manager_build
-    image: registry.gitlab.com/gluttton/pslrk:qt5.6.2
+    image: registry.gitlab.com/gluttton/pslrk:qt5.12.7
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
         - cd ${BUILD_DIR}
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.6.2 ${BUILD_DIR}/..
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.12.7 ${BUILD_DIR}/..
     script:
         - make
 
 
 code_manager_test_job:
     stage: code_manager_test
-    image: registry.gitlab.com/gluttton/pslrk:qt5.6.2
+    image: registry.gitlab.com/gluttton/pslrk:qt5.12.7
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
         - cd ${BUILD_DIR}
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.6.2 ${BUILD_DIR}/..
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.12.7 ${BUILD_DIR}/..
     script:
         - make tests
         - ./Core/test/CodeManagerCoreTest
