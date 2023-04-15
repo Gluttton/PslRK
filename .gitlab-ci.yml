@@ -15,7 +15,7 @@ stages:
 
 solution_01_build_job:
     stage: solution_01_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/01
         - cd ${BUILD_DIR}
@@ -25,7 +25,7 @@ solution_01_build_job:
 
 solution_01_test_job:
     stage: solution_01_test
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/01
         - cd ${BUILD_DIR}
@@ -37,7 +37,7 @@ solution_01_test_job:
 
 solution_02_build_job:
     stage: solution_02_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -47,7 +47,7 @@ solution_02_build_job:
 
 solution_02_build_view_dat_job:
     stage: solution_02_build_view_dat
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -57,7 +57,7 @@ solution_02_build_view_dat_job:
 
 solution_02_build_view_stat_job:
     stage: solution_02_build_view_stat
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/02
         - cd ${BUILD_DIR}
@@ -67,7 +67,7 @@ solution_02_build_view_stat_job:
 
 solution_03_build_job:
     stage: solution_03_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/03/build
         - mkdir -p ${BUILD_DIR}
@@ -79,7 +79,7 @@ solution_03_build_job:
 
 solution_04_build_job:
     stage: solution_04_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/04
         - cd ${BUILD_DIR}
@@ -89,7 +89,7 @@ solution_04_build_job:
 
 solution_04_test_job:
     stage: solution_04_test
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/04
         - cd ${BUILD_DIR}
@@ -101,7 +101,7 @@ solution_04_test_job:
 
 solution_07_build_job:
     stage: solution_07_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/07
         - cd ${BUILD_DIR}
@@ -111,7 +111,7 @@ solution_07_build_job:
 
 solution_08_build_job:
     stage: solution_08_build
-    image: registry.gitlab.com/gluttton/pslrk:base
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Solutions/08
         - cd ${BUILD_DIR}
@@ -121,24 +121,24 @@ solution_08_build_job:
 
 code_manager_build_job:
     stage: code_manager_build
-    image: registry.gitlab.com/gluttton/pslrk:qt5.12.8
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
         - cd ${BUILD_DIR}
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.12.8 ${BUILD_DIR}/..
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.15.2 ${BUILD_DIR}/..
     script:
         - make
 
 
 code_manager_test_job:
     stage: code_manager_test
-    image: registry.gitlab.com/gluttton/pslrk:qt5.12.8
+    image: registry.gitlab.com/gluttton/pslrk:qt5.15.2
     before_script:
         - BUILD_DIR=`pwd`/Tools/CodeManager/build
         - mkdir -p ${BUILD_DIR}
         - cd ${BUILD_DIR}
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.12.8 ${BUILD_DIR}/..
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/qt/5.15.2 ${BUILD_DIR}/..
     script:
         - make tests
         - ./Core/test/CodeManagerCoreTest
