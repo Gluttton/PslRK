@@ -32,7 +32,8 @@ solution_01_test_job:
     script:
         - make testing
         - ./lpslcd.test
-        - gcovr --exclude 'test' -r .
+        - make coverage
+    coverage: /^\s*lines.*:\s*\d+.\d+\%/
 
 
 solution_02_build_job:
@@ -96,7 +97,8 @@ solution_04_test_job:
     script:
         - make testing
         - ./lpslcd.test
-        - gcovr --exclude 'test' -r .
+        - make coverage
+    coverage: /^\s*lines.*:\s*\d+.\d+\%/
 
 
 solution_07_build_job:
@@ -142,5 +144,6 @@ code_manager_test_job:
     script:
         - make tests
         - ./Core/test/CodeManagerCoreTest
-        - gcovr --exclude '.*test' -r ..
+        - make coverage
+    coverage: /^\s*lines.*:\s*\d+.\d+\%/
 
