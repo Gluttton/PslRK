@@ -80,10 +80,12 @@ void ActivityWidget::createWidgets ()
     plot->yAxis->setVisible (true);
     plot->xAxis->grid ()->setSubGridVisible (false);
     plot->yAxis->grid ()->setSubGridVisible (false);
-    plot->yAxis->setAutoTickStep (false);
-    plot->xAxis->setAutoTickStep (false);
-    plot->xAxis->setTickStep (1.0);
-    plot->yAxis->setTickStep (1.0);
+    QSharedPointer <QCPAxisTickerFixed> xTicker (new QCPAxisTickerFixed);
+    QSharedPointer <QCPAxisTickerFixed> yTicker (new QCPAxisTickerFixed);
+    plot->xAxis->setTicker (xTicker);
+    plot->yAxis->setTicker (yTicker);
+    xTicker->setTickStep (1.0);
+    yTicker->setTickStep (1.0);
 }
 
 
@@ -334,8 +336,10 @@ void ActivityWidget::onViewChanged (const std::string & view)
     plot->graph (0)->setPen (QPen (Qt::blue) );
     plot->xAxis->setRange (-range, range);
     plot->yAxis->setRange (   min, max);
-    plot->xAxis->setTickStep (range < 10 ? 1 : std::ceil (range / 10) );
-    plot->yAxis->setTickStep (max + min < 20 ? 1 : std::ceil ( (max + min) / 20) );
+    auto xTicker = plot->xAxis->ticker ().staticCast <QCPAxisTickerFixed> ();
+    auto yTicker = plot->yAxis->ticker ().staticCast <QCPAxisTickerFixed> ();
+    xTicker->setTickStep (range < 10 ? 1 : std::ceil (range / 10) );
+    yTicker->setTickStep (max + min < 20 ? 1 : std::ceil ( (max + min) / 20) );
     plot->replot ();
 }
 
